@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testeo Sistema", "Testeo Sistema\Testeo Sistema.csproj", "{B5FEF06E-B136-485D-93A7-B6FFAA0222E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica Sysacad", "Logica Sysacad\Logica Sysacad.csproj", "{0276B57C-D298-47C2-824A-D4B28A3F7A04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B5FEF06E-B136-485D-93A7-B6FFAA0222E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5FEF06E-B136-485D-93A7-B6FFAA0222E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5FEF06E-B136-485D-93A7-B6FFAA0222E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0276B57C-D298-47C2-824A-D4B28A3F7A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0276B57C-D298-47C2-824A-D4B28A3F7A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0276B57C-D298-47C2-824A-D4B28A3F7A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0276B57C-D298-47C2-824A-D4B28A3F7A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
