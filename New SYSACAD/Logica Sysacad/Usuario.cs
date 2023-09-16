@@ -2,7 +2,7 @@
 
 namespace Logica_Sysacad
 {
-    public class Usuario
+    public abstract class Usuario
     {
         #region CAMPOS
         protected static ushort ultimoLegajo;
@@ -44,8 +44,6 @@ namespace Logica_Sysacad
             this.telefono = telefono;
             this.direccion = direccion;
         }
-
-
 
         #endregion
 
