@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-            Console.WriteLine("Testeo Commit Github!!!!");
+            Console.WriteLine(2+52);
         }
     }
 }
