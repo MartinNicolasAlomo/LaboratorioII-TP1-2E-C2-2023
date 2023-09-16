@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Logica_Sysacad
 {
-    public class Profesor //: Usuario
+    public class Curso
     {
         #region CAMPOS
-        //private string carrera;
-        //private strin
+
+
 
 
 
@@ -42,8 +42,6 @@ namespace Logica_Sysacad
 
 
         #endregion
-
-
 
 
     }
