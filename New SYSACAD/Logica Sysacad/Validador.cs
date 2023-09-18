@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace Logica_Sysacad
 {
-    internal class Validador
+    public class Validador
     {
+
+
+
+
+        public static bool VerificarEsTextoVacio(string datonIngresado)
+        {
+            datonIngresado = datonIngresado.Trim();
+            return string.IsNullOrEmpty(datonIngresado) || string.IsNullOrWhiteSpace(datonIngresado);
+        }
+
 
 
 

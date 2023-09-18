@@ -10,8 +10,8 @@ namespace Logica_Sysacad
         protected string apellidos;
         protected string dni;
        // protected DateTime fechaNacimiento;
-        protected string correoElectronico;
-        protected string contrasenia;         // en el constructor poner como contraseña inicial el DNI
+        protected string email;
+        protected string clave;         // en el constructor poner como contraseña inicial el DNI
         protected string telefono;
         protected string direccion;
 
@@ -24,13 +24,8 @@ namespace Logica_Sysacad
 
 
         #region CONSTRUCTOR
-        //static Usuario()
-        //{
-        //    ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
-        //}
-
-        public Usuario(string nombres, string apellidos, string dni, //DateTime fechaNacimiento,
-                       string correoElectronico, string telefono, string direccion)
+        protected Usuario(string nombres, string apellidos, string dni, //DateTime fechaNacimiento,
+                       string email, string telefono, string direccion)
         {
             //legajo = ultimoLegajo;
             //ultimoLegajo++;
@@ -38,11 +33,13 @@ namespace Logica_Sysacad
             this.apellidos = apellidos;
             this.dni = dni;
             //this.fechaNacimiento = fechaNacimiento;
-            this.correoElectronico = correoElectronico;
-            contrasenia = dni;
+            this.email = email;
+            clave = dni;
             this.telefono = telefono;
             this.direccion = direccion;
         }
+
+
 
         #endregion
 
@@ -83,15 +80,15 @@ namespace Logica_Sysacad
         //    get { return fechaNacimiento; }
         //}
 
-        public string CorreoElectronico
+        public string Email
         {
-            get { return correoElectronico; }
+            get { return email; }
         }
 
-        public string Contrasenia
+        public string Clave
         {
-            get { return contrasenia; }
-            private set { contrasenia = value; }
+            get { return clave; }
+            private set { clave = value; }
         }
 
         public string Telefono
@@ -103,6 +100,7 @@ namespace Logica_Sysacad
         {
             get { return direccion; }
         }
+
 
 
         #endregion
@@ -118,12 +116,17 @@ namespace Logica_Sysacad
                 .AppendLine($"{"Apellido:",ESP_COLM_1} {apellidos,ESP_COLM_2}")
                 .AppendLine($"{"DNI:",ESP_COLM_1} {dni,ESP_COLM_2}")    // Mostrar el DNI con los puntos 40.356.981
              //   .AppendLine($"{"Fecha de Nacimiento:",ESP_COLM_1} {fechaNacimiento.ToString("dd/MM/yyyy"),ESP_COLM_2}")    //Edad, calcular edad - QUE FORMATO MOSTRAR 1 ENE 98??
-                .AppendLine($"{"Correo Electrónico:",ESP_COLM_1} {correoElectronico,ESP_COLM_2}")
-                .AppendLine($"{"Contraseña:",ESP_COLM_1} {contrasenia,ESP_COLM_2}")
+                .AppendLine($"{"Correo Electrónico:",ESP_COLM_1} {email,ESP_COLM_2}")
+                .AppendLine($"{"Contraseña:",ESP_COLM_1} {clave,ESP_COLM_2}")
                 .AppendLine($"{"Telefono:",ESP_COLM_1} {telefono,ESP_COLM_2}")      // Mostrar el telefono con los giuiones 4045-9191
                 .AppendLine($"{"Dirección:",ESP_COLM_1} {direccion,ESP_COLM_2}")
                 ;
             return text.ToString();
+        }
+
+        public bool ComprobarUsuario(string usuarioIngresado, string claveIngresada)
+        {
+            return email == usuarioIngresado && clave == claveIngresada;
         }
 
 

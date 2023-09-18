@@ -29,7 +29,12 @@ namespace Vista_App
             string emailIngresado = tbxEmail.Text;
             string claveIngresada = tbxClave.Text;
 
-            Estudiante nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
+            //DESEA CONFIRMAR   ??????
+            // IF TRUE
+                Estudiante nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
+                // ACTUALIZAR BASEDATOS
+
+
 
             StringBuilder text = new StringBuilder();
             text.AppendLine()
@@ -44,6 +49,15 @@ namespace Vista_App
                 .AppendLine($"{claveIngresada}")
                 ;
             MessageBox.Show(text.ToString());
+
+            
+
+            EnviarEmailConfirmacion(emailIngresado);
+        }
+
+        private static void EnviarEmailConfirmacion(string emailIngresado)
+        {
+            MessageBox.Show($"¡Se envió el email a {emailIngresado} notificando la confirmacion de ingreso!", $"¡Aviso de envío de confirmación!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

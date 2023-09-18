@@ -54,7 +54,7 @@ namespace Logica_Sysacad
         {
             if (estudiante1 is not null && estudiante2 is not null)
             {
-                return estudiante1.legajo == estudiante2.legajo && estudiante1.dni == estudiante2.dni && estudiante1.correoElectronico == estudiante2.correoElectronico;
+                return estudiante1.legajo == estudiante2.legajo && estudiante1.dni == estudiante2.dni && estudiante1.email == estudiante2.email;
             }
             return false;
         }

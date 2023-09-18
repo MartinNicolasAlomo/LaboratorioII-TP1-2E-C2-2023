@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             btnIniciarSesion = new Button();
-            tbxContrasenia = new TextBox();
+            tbxClave = new TextBox();
             tbxUsuario = new TextBox();
             lblUsuario = new Label();
             lblContrasenia = new Label();
@@ -47,11 +47,11 @@
             // 
             // tbxContrasenia
             // 
-            tbxContrasenia.Location = new Point(91, 144);
-            tbxContrasenia.Name = "tbxContrasenia";
-            tbxContrasenia.PasswordChar = '*';
-            tbxContrasenia.Size = new Size(152, 23);
-            tbxContrasenia.TabIndex = 1;
+            tbxClave.Location = new Point(91, 144);
+            tbxClave.Name = "tbxContrasenia";
+            tbxClave.PasswordChar = '*';
+            tbxClave.Size = new Size(152, 23);
+            tbxClave.TabIndex = 1;
             // 
             // tbxUsuario
             // 
@@ -86,7 +86,7 @@
             Controls.Add(lblContrasenia);
             Controls.Add(lblUsuario);
             Controls.Add(tbxUsuario);
-            Controls.Add(tbxContrasenia);
+            Controls.Add(tbxClave);
             Controls.Add(btnIniciarSesion);
             Name = "frmIniciarSesion";
             StartPosition = FormStartPosition.CenterScreen;
@@ -98,7 +98,7 @@
         #endregion
 
         private Button btnIniciarSesion;
-        private TextBox tbxContrasenia;
+        private TextBox tbxClave;
         private TextBox tbxUsuario;
         private Label lblUsuario;
         private Label lblContrasenia;

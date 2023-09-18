@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Logica_Sysacad
 {
-    public class SistemaUTN
+    public static class SistemaUTN
     {
         #region CAMPOS
-        private string nombre;
-        private List<Estudiante> listaEstudiantes;
-        private List<Administrador> listaAdministradores;
-        private List<Profesor> listaProfesor;
-        private List<Curso> listaCurso;
+        private static string nombre;
+
+        //private static List<Estudiante> listaEstudiantes;
+        //private static List<Administrador> listaAdministradores;
+        //private static List<Profesor> listaProfesor;
+        private static List<Usuario> baseDatosUsuarios;
+        private static List<Curso> listaCurso;
 
 
 
@@ -31,15 +33,34 @@ namespace Logica_Sysacad
         //}
 
 
+        static SistemaUTN()
+        {
+            HardcodearUsuarios();
+        }
+
+        private static void HardcodearUsuarios()
+        {
+            baseDatosUsuarios = new List<Usuario>
+            {
+                new Administrador("Julieta", "Pérez", "30321654", "jperez@utn.com", "40401122", "Av. Mitre 2005"),
+                new Administrador("Romina", "Gomez", "30777111", "rgomez@utn.com", "40404477", "Av. Belgrano 448"),
+                new Administrador("Mariano", "Díaz", "35003992", "mdiaz@utn.com", "40401010", "Av. Calchaquí 307"),
+                new Estudiante("Juan", "García", "45333789", "jgarcia@gmail.com", "25308811", "Gral. Deheza 651"),
+                new Estudiante("Martín Nicolás", "Alomo", "40916734", "ma@gmail.com", "42461213", "Corvalan 435")
+        };
+
+
+        }
+
 
         #endregion
 
 
 
         #region PROPIEDADES
-        public List<Estudiante> ListaEstudiantes
+        public static List<Usuario> BaseDatosUsuarios
         {
-            get { return listaEstudiantes; }
+            get { return baseDatosUsuarios; }
         }
 
 
@@ -50,86 +71,109 @@ namespace Logica_Sysacad
 
         #region METODOS
 
-        public static bool operator ==(SistemaUTN sistema, Estudiante estudianteRecibido)
+        //public static bool operator ==(SistemaUTN sistema, Estudiante estudianteRecibido)
+        //{
+        //    if (sistema.listaEstudiantes.Count > 0 && estudianteRecibido is not null)
+        //    {
+        //        // Determinamos si este estudiante ya pertenece al sistema
+        //        foreach (Estudiante estudianteAnalizado in sistema.listaEstudiantes)
+        //        {
+        //            if (estudianteRecibido == estudianteAnalizado)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}
+
+        //public static bool operator !=(SistemaUTN sistema, Estudiante estudiante)
+        //{
+        //    return !(sistema == estudiante);
+        //}
+
+
+
+
+
+        //public static bool operator +(SistemaUTN sistema, Estudiante estudianteRecibido)
+        //{
+        //    // Agrega el estudiante al registro, si este no existe
+        //    // Evaluamos que el registro tenga espacios, y ademas, que el nuevo estudiante no exista en el registro
+        //    if (sistema != estudianteRecibido)
+        //    {
+        //        sistema.listaEstudiantes.Add(estudianteRecibido);
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+
+
+        //public static bool operator -(SistemaUTN sistema, Estudiante estudianteRecibido)
+        //{
+        //    // Elimina el estudiante del registro, si este ya existe
+        //    // Evaluamos que el registro tenga estudiantes, y ademas, que el estudiante ya exista dentro del registro
+        //    if (sistema == estudianteRecibido)
+        //    {
+        //        sistema.listaEstudiantes.Remove(estudianteRecibido);
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+        //public static bool BuscarSiExisteEstudiante(Estudiante estudianteRecibido)
+        //{
+        //    if (this == estudianteRecibido)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+
+        //public static bool AgregarEstudiante(Estudiante estudianteRecibido)
+        //{
+        //    if (this + estudianteRecibido)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+
+        //public static bool EliminarEstudiante(Estudiante estudianteRecibido)
+        //{
+        //    if (this - estudianteRecibido)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+        public static bool VerificarEsUsuarioValido(string usuarioIngresado, string claveIngresada)
         {
-            if (sistema.listaEstudiantes.Count > 0 && estudianteRecibido is not null)
+            foreach (Usuario usuarioEncontrado in baseDatosUsuarios)
             {
-                // Determinamos si este estudiante ya pertenece al sistema
-                foreach (Estudiante estudianteAnalizado in sistema.listaEstudiantes)
+                if (usuarioEncontrado.ComprobarUsuario(usuarioIngresado, claveIngresada))
                 {
-                    if (estudianteRecibido == estudianteAnalizado)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
         }
 
-        public static bool operator !=(SistemaUTN sistema, Estudiante estudiante)
+        public static Usuario? ObtenerUsuario(string usuarioIngresado, string claveIngresada)
         {
-            return !(sistema == estudiante);
-        }
-
-
-
-
-
-        public static bool operator +(SistemaUTN sistema, Estudiante estudianteRecibido)
-        {
-            // Agrega el estudiante al registro, si este no existe
-            // Evaluamos que el registro tenga espacios, y ademas, que el nuevo estudiante no exista en el registro
-            if (sistema != estudianteRecibido)
+            foreach (Usuario usuarioEncontrado in baseDatosUsuarios)
             {
-                sistema.listaEstudiantes.Add(estudianteRecibido);
-                return true;
+                if (usuarioEncontrado.ComprobarUsuario(usuarioIngresado, claveIngresada))
+                {
+                    return usuarioEncontrado;
+                }
             }
-            return false;
+            return null;
         }
-
-
-
-        public static bool operator -(SistemaUTN sistema, Estudiante estudianteRecibido)
-        {
-            // Elimina el estudiante del registro, si este ya existe
-            // Evaluamos que el registro tenga estudiantes, y ademas, que el estudiante ya exista dentro del registro
-            if (sistema == estudianteRecibido)
-            {
-                sistema.listaEstudiantes.Remove(estudianteRecibido);
-                return true;
-            }
-            return false;
-        }
-
-        public bool BuscarSiExisteEstudiante(Estudiante estudianteRecibido)
-        {
-            if (this == estudianteRecibido)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-        public bool AgregarEstudiante(Estudiante estudianteRecibido)
-        {
-            if (this + estudianteRecibido)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-        public bool EliminarEstudiante(Estudiante estudianteRecibido)
-        {
-            if (this - estudianteRecibido)
-            {
-                return true;
-            }
-            return false;
-        }
-
 
         #endregion
 
