@@ -5,8 +5,7 @@ namespace Logica_Sysacad
     public abstract class Usuario
     {
         #region CAMPOS
-        //protected static ushort ultimoLegajo;
-        protected ushort legajo;  // legajo
+        protected ushort legajo;
         protected string nombres;
         protected string apellidos;
         protected string dni;

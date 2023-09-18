@@ -12,6 +12,8 @@ namespace Vista_App
             InitializeComponent();
             usuarioValido = "asd";
             contraseniaValida = "123";
+            tbxUsuario.Text = usuarioValido;
+            tbxContrasenia.Text = contraseniaValida;
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)

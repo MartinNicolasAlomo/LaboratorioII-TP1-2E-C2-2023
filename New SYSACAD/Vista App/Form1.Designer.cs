@@ -49,6 +49,7 @@
             // 
             tbxContrasenia.Location = new Point(91, 144);
             tbxContrasenia.Name = "tbxContrasenia";
+            tbxContrasenia.PasswordChar = '*';
             tbxContrasenia.Size = new Size(152, 23);
             tbxContrasenia.TabIndex = 1;
             // 
