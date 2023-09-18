@@ -24,7 +24,10 @@ namespace Logica_Sysacad
             ultimoLegajo = 1;
         }
 
-        public Profesor(string nombres, string apellidos, string dni, DateTime fechaNacimiento, string correoElectronico, string telefono, string direccion) : base(nombres, apellidos, dni, fechaNacimiento, correoElectronico, telefono, direccion)
+        public Profesor(string nombres, string apellidos, string dni, //DateTime fechaNacimiento, 
+                        string correoElectronico, string telefono, string direccion) 
+                        : base(nombres, apellidos, dni, //fechaNacimiento, 
+                              correoElectronico, telefono, direccion)
         {
             legajo = ultimoLegajo;
             ultimoLegajo++;

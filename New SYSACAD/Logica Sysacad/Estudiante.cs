@@ -25,7 +25,10 @@ namespace Logica_Sysacad
             ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
         }
 
-        public Estudiante(string nombres, string apellidos, string dni, DateTime fechaNacimiento, string correoElectronico, string telefono, string direccion) : base(nombres, apellidos, dni, fechaNacimiento, correoElectronico, telefono, direccion)
+        public Estudiante(string nombres, string apellidos, string dni, //DateTime fechaNacimiento, 
+                           string correoElectronico, string telefono, string direccion) : 
+                            base(nombres, apellidos, dni, //fechaNacimiento, 
+                                correoElectronico, telefono, direccion)
         {
             legajo = ultimoLegajo;
             ultimoLegajo++;

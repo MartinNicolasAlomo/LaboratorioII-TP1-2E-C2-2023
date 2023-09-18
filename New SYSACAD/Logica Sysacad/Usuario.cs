@@ -9,7 +9,7 @@ namespace Logica_Sysacad
         protected string nombres;
         protected string apellidos;
         protected string dni;
-        protected DateTime fechaNacimiento;
+       // protected DateTime fechaNacimiento;
         protected string correoElectronico;
         protected string contrasenia;         // en el constructor poner como contraseña inicial el DNI
         protected string telefono;
@@ -29,7 +29,7 @@ namespace Logica_Sysacad
         //    ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
         //}
 
-        public Usuario(string nombres, string apellidos, string dni, DateTime fechaNacimiento,
+        public Usuario(string nombres, string apellidos, string dni, //DateTime fechaNacimiento,
                        string correoElectronico, string telefono, string direccion)
         {
             //legajo = ultimoLegajo;
@@ -37,7 +37,7 @@ namespace Logica_Sysacad
             this.nombres = nombres;
             this.apellidos = apellidos;
             this.dni = dni;
-            this.fechaNacimiento = fechaNacimiento;
+            //this.fechaNacimiento = fechaNacimiento;
             this.correoElectronico = correoElectronico;
             contrasenia = dni;
             this.telefono = telefono;
@@ -78,10 +78,10 @@ namespace Logica_Sysacad
             get { return dni; }
         }
 
-        public DateTime FechaNacimiento
-        {
-            get { return fechaNacimiento; }
-        }
+        //public DateTime FechaNacimiento
+        //{
+        //    get { return fechaNacimiento; }
+        //}
 
         public string CorreoElectronico
         {
@@ -113,12 +113,11 @@ namespace Logica_Sysacad
         {
             StringBuilder text = new StringBuilder();
             text.AppendLine()
-                .AppendLine($"Informacion Usuario:")
                 .AppendLine($"{"Legajo:",ESP_COLM_1} {legajo.ToString("000000"),ESP_COLM_2}")
                 .AppendLine($"{"Nombre:",ESP_COLM_1} {nombres,ESP_COLM_2}")
                 .AppendLine($"{"Apellido:",ESP_COLM_1} {apellidos,ESP_COLM_2}")
                 .AppendLine($"{"DNI:",ESP_COLM_1} {dni,ESP_COLM_2}")    // Mostrar el DNI con los puntos 40.356.981
-                .AppendLine($"{"Fecha de Nacimiento:",ESP_COLM_1} {fechaNacimiento.ToString("dd/MM/yyyy"),ESP_COLM_2}")    //Edad, calcular edad - QUE FORMATO MOSTRAR 1 ENE 98??
+             //   .AppendLine($"{"Fecha de Nacimiento:",ESP_COLM_1} {fechaNacimiento.ToString("dd/MM/yyyy"),ESP_COLM_2}")    //Edad, calcular edad - QUE FORMATO MOSTRAR 1 ENE 98??
                 .AppendLine($"{"Correo Electrónico:",ESP_COLM_1} {correoElectronico,ESP_COLM_2}")
                 .AppendLine($"{"Contraseña:",ESP_COLM_1} {contrasenia,ESP_COLM_2}")
                 .AppendLine($"{"Telefono:",ESP_COLM_1} {telefono,ESP_COLM_2}")      // Mostrar el telefono con los giuiones 4045-9191
