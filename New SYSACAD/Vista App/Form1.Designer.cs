@@ -37,12 +37,13 @@
             // 
             // btnIniciarSesion
             // 
-            btnIniciarSesion.Location = new Point(91, 217);
+            btnIniciarSesion.Location = new Point(90, 225);
             btnIniciarSesion.Name = "btnIniciarSesion";
             btnIniciarSesion.Size = new Size(150, 40);
-            btnIniciarSesion.TabIndex = 0;
+            btnIniciarSesion.TabIndex = 2;
             btnIniciarSesion.Text = "Iniciar Sesión";
             btnIniciarSesion.UseVisualStyleBackColor = true;
+            btnIniciarSesion.Click += btnIniciarSesion_Click;
             // 
             // tbxContrasenia
             // 
@@ -56,7 +57,7 @@
             tbxUsuario.Location = new Point(91, 68);
             tbxUsuario.Name = "tbxUsuario";
             tbxUsuario.Size = new Size(153, 23);
-            tbxUsuario.TabIndex = 2;
+            tbxUsuario.TabIndex = 0;
             // 
             // lblUsuario
             // 
