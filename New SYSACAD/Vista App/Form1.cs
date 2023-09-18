@@ -6,6 +6,7 @@ namespace Vista_App
     {
         private string usuarioValido;
         private string contraseniaValida;
+        FrmMenuPrincipal menuPrincipal;
 
         public frmIniciarSesion()
         {
@@ -18,18 +19,21 @@ namespace Vista_App
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            //MessageBoxButtons
-            //MessageBoxIcons
             string usuarioIngresado = tbxUsuario.Text;
             string contraseniaIngresada = tbxContrasenia.Text;
 
             if (usuarioIngresado == usuarioValido && contraseniaIngresada == contraseniaValida)
             {
-                MessageBox.Show($"SE LOGRÓ INICIAR SESIÓN");
+                if (menuPrincipal == null)
+                {
+                    menuPrincipal = new FrmMenuPrincipal();
+                    menuPrincipal.Show();
+                    this.Hide();
+                }
             }
             else
             {
-                MessageBox.Show($"ERROR", $"111111", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"El usuario o la contraseña son incorrectos", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
