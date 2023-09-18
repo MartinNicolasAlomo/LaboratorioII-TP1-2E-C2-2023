@@ -5,7 +5,7 @@ namespace Logica_Sysacad
     public abstract class Usuario
     {
         #region CAMPOS
-        protected static ushort ultimoLegajo;
+        //protected static ushort ultimoLegajo;
         protected ushort legajo;  // legajo
         protected string nombres;
         protected string apellidos;
@@ -25,16 +25,16 @@ namespace Logica_Sysacad
 
 
         #region CONSTRUCTOR
-        static Usuario()
-        {
-            ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
-        }
+        //static Usuario()
+        //{
+        //    ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
+        //}
 
         public Usuario(string nombres, string apellidos, string dni, DateTime fechaNacimiento,
                        string correoElectronico, string telefono, string direccion)
         {
-            legajo = ultimoLegajo;
-            ultimoLegajo++;
+            //legajo = ultimoLegajo;
+            //ultimoLegajo++;
             this.nombres = nombres;
             this.apellidos = apellidos;
             this.dni = dni;

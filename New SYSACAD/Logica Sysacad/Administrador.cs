@@ -9,6 +9,7 @@ namespace Logica_Sysacad
     public class Administrador : Usuario
     {
         #region CAMPOS
+        protected static ushort ultimoLegajo;
 
 
         #endregion
@@ -16,10 +17,16 @@ namespace Logica_Sysacad
 
 
         #region CONSTRUCTOR
+        static Administrador()
+        {
+            ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
+        }
+
         public Administrador(string nombres, string apellidos, string dni, DateTime fechaNacimiento, string correoElectronico, string telefono, string direccion)
                             : base(nombres, apellidos, dni, fechaNacimiento, correoElectronico, telefono, direccion)
         {
-
+            legajo = ultimoLegajo;
+            ultimoLegajo++;
         }
 
 
