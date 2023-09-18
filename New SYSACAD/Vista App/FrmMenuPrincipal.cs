@@ -12,9 +12,16 @@ namespace Vista_App
 {
     public partial class FrmMenuPrincipal : Form
     {
-        public FrmMenuPrincipal()
+        private string usuarioLogueado;
+
+        public FrmMenuPrincipal(string usuarioLogueado)
         {
             InitializeComponent();
+            this.usuarioLogueado = usuarioLogueado;
+            this.Text = usuarioLogueado;
         }
+
+
+
     }
 }

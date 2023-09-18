@@ -26,14 +26,14 @@ namespace Vista_App
             {
                 if (menuPrincipal == null)
                 {
-                    menuPrincipal = new FrmMenuPrincipal();
+                    menuPrincipal = new FrmMenuPrincipal(usuarioIngresado);
                     menuPrincipal.Show();
-                    this.Hide();
+                    //this.Hide();
                 }
             }
             else
             {
-                MessageBox.Show($"El usuario o la contraseña son incorrectos", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"El usuario o la contraseña son inválidos", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }

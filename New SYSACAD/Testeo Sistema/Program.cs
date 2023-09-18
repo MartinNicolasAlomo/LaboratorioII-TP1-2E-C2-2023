@@ -15,7 +15,7 @@ namespace Testeo_Sistema
 
             Console.WriteLine(E1.MostrarDatos());
             Console.WriteLine(E2.MostrarDatos());
-            Console.WriteLine(profe.MostrarDatos());
+            //Console.WriteLine(profe.MostrarDatos());
             Console.WriteLine(E3.MostrarDatos());
             Console.WriteLine(ADMIN1.MostrarDatos());
 
