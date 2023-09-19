@@ -7,7 +7,8 @@ namespace Vista_App
     {
         private string usuarioValido;
         private string claveValida;
-        FrmMenuPrincipal menuPrincipal;
+        FrmMenuPrincipal? menuPrincipal;
+        Usuario? usuarioLogueado;
 
         public frmIniciarSesion()
         {
@@ -20,50 +21,38 @@ namespace Vista_App
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            string usuarioIngresado = tbxUsuario.Text;
+            string emailIngresado = tbxUsuario.Text;
             string claveIngresada = tbxClave.Text;
-            if (!VerificarEsUsuarioIncorrecto(usuarioIngresado, claveIngresada))
+            if (ValidarUsuarioIngresado(out usuarioLogueado, emailIngresado, claveIngresada))
             {
-                Usuario? usuarioLogueado = SistemaUTN.ObtenerUsuario(usuarioIngresado, claveIngresada);
-                if (usuarioLogueado != null)
+                if (usuarioLogueado?.GetType() == typeof(Administrador) && menuPrincipal == null)
                 {
-                    if (usuarioLogueado.GetType() == typeof(Administrador) && menuPrincipal == null)
-                    {
-                        menuPrincipal = new FrmMenuPrincipal(usuarioIngresado);
-                        menuPrincipal.Show();
-                        //this.Hide();
-                    }
-                    else if (usuarioLogueado.GetType() == typeof(Profesor))
-                    {
-                        //  Abrir el Form/Panel del PROFE
-                    }
-                    else
-                    {
-                        //  Abrir el Form/Panel del ESTUDIANTE
-                    }
+                    menuPrincipal = new FrmMenuPrincipal(emailIngresado);
+                    menuPrincipal.Show();
+                    //this.Hide();
                 }
-
-
-
-
+                else if (usuarioLogueado?.GetType() == typeof(Estudiante))
+                {
+                    //  Abrir el Form/Panel del PROFE
+                }
             }
-
-
         }
 
-        private bool VerificarEsUsuarioIncorrecto(string usuarioIngresado, string contraseniaIngresada)
+        private bool ValidarUsuarioIngresado(out Usuario? usuarioIngresado, string emailIngresado, string claveIngresada)
         {
-            if (Validador.VerificarEsDatoVacio(usuarioIngresado) || Validador.VerificarEsDatoVacio(contraseniaIngresada))
+            usuarioIngresado = null;
+            if (Validador.VerificarEsDatoVacio(emailIngresado) || Validador.VerificarEsDatoVacio(claveIngresada))
             {
                 MessageBox.Show($"¡Faltan completar datos!", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return true;
+                return false;
             }
-            else if (usuarioIngresado != usuarioValido || contraseniaIngresada != claveValida)
+            usuarioIngresado = SistemaUTN.ObtenerUsuario(emailIngresado, claveIngresada);
+            if (usuarioIngresado is null)
             {
                 MessageBox.Show($"¡El usuario o la contraseña son inválidos!", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

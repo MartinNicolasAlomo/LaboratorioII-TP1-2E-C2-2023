@@ -124,9 +124,9 @@ namespace Logica_Sysacad
             return text.ToString();
         }
 
-        public bool ComprobarUsuario(string usuarioIngresado, string claveIngresada)
+        public bool ComprobarUsuario(string emailIngresado, string claveIngresada)
         {
-            return email == usuarioIngresado && clave == claveIngresada;
+            return email == emailIngresado && clave == claveIngresada;
         }
 
 

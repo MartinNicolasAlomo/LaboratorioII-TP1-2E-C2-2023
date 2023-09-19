@@ -24,15 +24,6 @@ namespace Logica_Sysacad
 
 
         #region CONSTRUCTOR
-        //static SistemaUTN()
-        //{
-        //    listaEstudiantes = new List<Estudiante>();
-        //    listaAdministradores = new List<Administrador>();
-        //    listaProfesor = new List<Profesor>();
-        //    listaCurso = new List<Curso>();
-        //}
-
-
         static SistemaUTN()
         {
             HardcodearUsuarios();
@@ -167,6 +158,7 @@ namespace Logica_Sysacad
             }
             return false;
         }
+
         public static bool VerificarEsUsuarioValido(string usuarioIngresado, string claveIngresada)
         {
             foreach (Usuario usuarioEncontrado in baseDatosUsuarios)

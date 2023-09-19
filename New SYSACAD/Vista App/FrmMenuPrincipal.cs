@@ -12,19 +12,18 @@ namespace Vista_App
 {
     public partial class FrmMenuPrincipal : Form
     {
-        private string usuarioLogueado; //  tipo Usuario    / profe/admin
+        private string usuarioLogueado;                                 //  tipo Usuario    / profe/admin
 
-        public FrmMenuPrincipal(string usuarioLogueado) //  recibe usuario / profe/admin
+        public FrmMenuPrincipal(string usuarioLogueado)                 //  recibe usuario / profe/admin
         {
             InitializeComponent();
             this.usuarioLogueado = usuarioLogueado;
             Text = $"Bienvenido a SYSACAD - Usuario {usuarioLogueado}";
         }
 
+        private void btnRegistrarEstudiante_Click(object sender, EventArgs e)
+        {
 
-
-
-
-
+        }
     }
 }
