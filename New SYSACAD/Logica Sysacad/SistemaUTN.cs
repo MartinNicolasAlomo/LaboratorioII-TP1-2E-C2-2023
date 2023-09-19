@@ -71,6 +71,7 @@ namespace Logica_Sysacad
 
         #region METODOS
 
+
         //public static bool operator ==(SistemaUTN sistema, Estudiante estudianteRecibido)
         //{
         //    if (sistema.listaEstudiantes.Count > 0 && estudianteRecibido is not null)
@@ -151,6 +152,21 @@ namespace Logica_Sysacad
         //    return false;
         //}
 
+        public static bool EncontrarEstudiante(Estudiante estudianteRecibido)
+        {
+            if (baseDatosUsuarios.Count > 0 && estudianteRecibido is not null)
+            {
+                // Determinamos si este estudiante ya pertenece al sistema
+                foreach (Usuario usuarioAnalizado in baseDatosUsuarios)
+                {
+                    if (usuarioAnalizado.GetType() == typeof(Estudiante) && estudianteRecibido == usuarioAnalizado)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public static bool VerificarEsUsuarioValido(string usuarioIngresado, string claveIngresada)
         {
             foreach (Usuario usuarioEncontrado in baseDatosUsuarios)
@@ -174,6 +190,9 @@ namespace Logica_Sysacad
             }
             return null;
         }
+
+
+
 
         #endregion
 

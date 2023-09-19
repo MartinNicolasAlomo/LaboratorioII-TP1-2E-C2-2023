@@ -29,30 +29,49 @@ namespace Vista_App
             string emailIngresado = tbxEmail.Text;
             string claveIngresada = tbxClave.Text;
 
-            //DESEA CONFIRMAR   ??????
-            // IF TRUE
+
+            if (
+                Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
+                Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
+                Validador.ValidarTextoNumerico(dniIngresado, 8) &&
+                Validador.ValidarDireccionIngresada(ref direccionIngresada, 130) &&
+                Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
+                Validador.ValidarEmailIngresado(emailIngresado)
+                //&&                Validador.VerificarEsEmailValido(ref apellidosIngresados)
+                )
+            {
                 Estudiante nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
-                // ACTUALIZAR BASEDATOS
+                MessageBox.Show($"{apellidosIngresados}, {nombresIngresados}");
+                StringBuilder text = new StringBuilder();
+                text.AppendLine()
+                    .AppendLine($"Informacion ingresada del Estudiante:")
+                    .AppendLine($"{nuevoEstudiante.Legajo}")
+                    .AppendLine($"{nombresIngresados}")
+                    .AppendLine($"{apellidosIngresados}")
+                    .AppendLine($"{dniIngresado}")
+                    .AppendLine($"{direccionIngresada}")
+                    .AppendLine($"{telefonoIngresado}")
+                    .AppendLine($"{emailIngresado}")
+                    .AppendLine($"{claveIngresada}")
+                    ;
+                MessageBox.Show(text.ToString());
+                EnviarEmailConfirmacion(emailIngresado);
+            }
+            else
+            {
+                MessageBox.Show($"error datos INVALIDSO");
+
+            }
+
+            // IF EncontrarEstudiante no existe
+            //  INSTANCIAR FORMS "DESEA CONFIRMAR"  ??????   QUE SEA REUTILIZABLE - QUE RECIBA EL TEXTO COMO PARAMETRO Y LO MUESTRE
+            // IF TRUE
+
+            // ACTUALIZAR BASEDATOS
 
 
 
-            StringBuilder text = new StringBuilder();
-            text.AppendLine()
-                .AppendLine($"Informacion ingresada del Estudiante:")
-                .AppendLine($"{nuevoEstudiante.Legajo}")
-                .AppendLine($"{nombresIngresados}")
-                .AppendLine($"{apellidosIngresados}")
-                .AppendLine($"{dniIngresado}")
-                .AppendLine($"{direccionIngresada}")
-                .AppendLine($"{telefonoIngresado}")
-                .AppendLine($"{emailIngresado}")
-                .AppendLine($"{claveIngresada}")
-                ;
-            MessageBox.Show(text.ToString());
 
-            
-
-            EnviarEmailConfirmacion(emailIngresado);
         }
 
         private static void EnviarEmailConfirmacion(string emailIngresado)

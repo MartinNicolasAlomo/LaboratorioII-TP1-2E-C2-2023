@@ -27,14 +27,11 @@ namespace Vista_App
                 Usuario? usuarioLogueado = SistemaUTN.ObtenerUsuario(usuarioIngresado, claveIngresada);
                 if (usuarioLogueado != null)
                 {
-                    if (usuarioLogueado.GetType() == typeof(Administrador))
+                    if (usuarioLogueado.GetType() == typeof(Administrador) && menuPrincipal == null)
                     {
-                        if (menuPrincipal == null)
-                        {
-                            menuPrincipal = new FrmMenuPrincipal(usuarioIngresado);
-                            menuPrincipal.Show();
-                            //this.Hide();
-                        }
+                        menuPrincipal = new FrmMenuPrincipal(usuarioIngresado);
+                        menuPrincipal.Show();
+                        //this.Hide();
                     }
                     else if (usuarioLogueado.GetType() == typeof(Profesor))
                     {
@@ -51,12 +48,12 @@ namespace Vista_App
 
             }
 
-           
+
         }
 
         private bool VerificarEsUsuarioIncorrecto(string usuarioIngresado, string contraseniaIngresada)
         {
-            if (Validador.VerificarEsTextoVacio(usuarioIngresado) || Validador.VerificarEsTextoVacio(contraseniaIngresada))
+            if (Validador.VerificarEsDatoVacio(usuarioIngresado) || Validador.VerificarEsDatoVacio(contraseniaIngresada))
             {
                 MessageBox.Show($"¡Faltan completar datos!", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return true;

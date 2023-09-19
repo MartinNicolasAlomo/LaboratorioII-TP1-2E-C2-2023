@@ -51,6 +51,7 @@
             // 
             tbxNombres.Location = new Point(80, 26);
             tbxNombres.Name = "tbxNombres";
+            tbxNombres.PlaceholderText = "Ingrese los nombres";
             tbxNombres.Size = new Size(240, 23);
             tbxNombres.TabIndex = 0;
             // 
@@ -58,6 +59,7 @@
             // 
             tbxApellidos.Location = new Point(80, 55);
             tbxApellidos.Name = "tbxApellidos";
+            tbxApellidos.PlaceholderText = "Ingrese los apellidos";
             tbxApellidos.Size = new Size(240, 23);
             tbxApellidos.TabIndex = 1;
             // 
@@ -65,6 +67,7 @@
             // 
             tbxDNI.Location = new Point(80, 84);
             tbxDNI.Name = "tbxDNI";
+            tbxDNI.PlaceholderText = "Ingrese el DNI (solo números)";
             tbxDNI.Size = new Size(240, 23);
             tbxDNI.TabIndex = 2;
             // 
@@ -72,6 +75,7 @@
             // 
             tbxDireccion.Location = new Point(80, 113);
             tbxDireccion.Name = "tbxDireccion";
+            tbxDireccion.PlaceholderText = "Ingrese la dirección";
             tbxDireccion.Size = new Size(240, 23);
             tbxDireccion.TabIndex = 3;
             // 
@@ -79,6 +83,7 @@
             // 
             tbxTelefono.Location = new Point(80, 142);
             tbxTelefono.Name = "tbxTelefono";
+            tbxTelefono.PlaceholderText = "Ingrese el teléfono (solo números)";
             tbxTelefono.Size = new Size(240, 23);
             tbxTelefono.TabIndex = 4;
             // 
@@ -86,6 +91,7 @@
             // 
             tbxEmail.Location = new Point(80, 171);
             tbxEmail.Name = "tbxEmail";
+            tbxEmail.PlaceholderText = "Ingrese el Email";
             tbxEmail.Size = new Size(240, 23);
             tbxEmail.TabIndex = 5;
             // 
@@ -93,6 +99,7 @@
             // 
             tbxClave.Location = new Point(80, 200);
             tbxClave.Name = "tbxClave";
+            tbxClave.PlaceholderText = "Ingrese la clave";
             tbxClave.Size = new Size(240, 23);
             tbxClave.TabIndex = 6;
             // 
