@@ -34,28 +34,23 @@ namespace Vista_App
                 Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
                 Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
                 Validador.ValidarTextoNumerico(dniIngresado, 8) &&
-                Validador.ValidarDireccionIngresada(ref direccionIngresada, 130) &&
+                Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
                 Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
-                Validador.ValidarEmailIngresado(emailIngresado)
-                //&&                Validador.VerificarEsEmailValido(ref apellidosIngresados)
-                )
+                Validador.ValidarEmailIngresado(emailIngresado) &&
+                Validador.ValidarClaveIngresada(claveIngresada))
             {
                 Estudiante nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
-                MessageBox.Show($"{apellidosIngresados}, {nombresIngresados}");
-                StringBuilder text = new StringBuilder();
-                text.AppendLine()
-                    .AppendLine($"Informacion ingresada del Estudiante:")
-                    .AppendLine($"{nuevoEstudiante.Legajo}")
-                    .AppendLine($"{nombresIngresados}")
-                    .AppendLine($"{apellidosIngresados}")
-                    .AppendLine($"{dniIngresado}")
-                    .AppendLine($"{direccionIngresada}")
-                    .AppendLine($"{telefonoIngresado}")
-                    .AppendLine($"{emailIngresado}")
-                    .AppendLine($"{claveIngresada}")
-                    ;
-                MessageBox.Show(text.ToString());
-                EnviarEmailConfirmacion(emailIngresado);
+                // IF EncontrarEstudiante no existe
+                //  INSTANCIAR FORMS "DESEA CONFIRMAR"  ??????   QUE SEA REUTILIZABLE - QUE RECIBA EL TEXTO COMO PARAMETRO Y LO MUESTRE
+                if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)
+                    //  bool ConfirmarDesicion(string descripcion, string titulo)       //  botones aceptar o cancelar
+                    )
+                {
+                    // IF TRUE
+                    // ACTUALIZAR BASEDATOS
+                    MostrarDatos(nuevoEstudiante);
+                    EnviarEmailConfirmacion(emailIngresado);
+                }
             }
             else
             {
@@ -63,15 +58,25 @@ namespace Vista_App
 
             }
 
-            // IF EncontrarEstudiante no existe
-            //  INSTANCIAR FORMS "DESEA CONFIRMAR"  ??????   QUE SEA REUTILIZABLE - QUE RECIBA EL TEXTO COMO PARAMETRO Y LO MUESTRE
-            // IF TRUE
-
-            // ACTUALIZAR BASEDATOS
 
 
+        }
 
-
+        private static void MostrarDatos(Estudiante nuevoEstudiante)
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine()
+                .AppendLine($"Informacion ingresada del Estudiante:")
+                .AppendLine($"{nuevoEstudiante.Legajo}")
+                .AppendLine($"{nuevoEstudiante.Nombres}")
+                .AppendLine($"{nuevoEstudiante.Apellidos}")
+                .AppendLine($"{nuevoEstudiante.DNI}")
+                .AppendLine($"{nuevoEstudiante.Direccion}")
+                .AppendLine($"{nuevoEstudiante.Telefono}")
+                .AppendLine($"{nuevoEstudiante.Email}")
+                .AppendLine($"{nuevoEstudiante.Clave}")
+                ;
+            MessageBox.Show(text.ToString());
         }
 
         private static void EnviarEmailConfirmacion(string emailIngresado)

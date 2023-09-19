@@ -152,14 +152,14 @@ namespace Logica_Sysacad
         //    return false;
         //}
 
-        public static bool EncontrarEstudiante(Estudiante estudianteRecibido)
+        public static bool EncontrarEstudianteRegistrado(Estudiante estudianteRecibido)
         {
             if (baseDatosUsuarios.Count > 0 && estudianteRecibido is not null)
             {
                 // Determinamos si este estudiante ya pertenece al sistema
                 foreach (Usuario usuarioAnalizado in baseDatosUsuarios)
                 {
-                    if (usuarioAnalizado.GetType() == typeof(Estudiante) && estudianteRecibido == usuarioAnalizado)
+                    if (usuarioAnalizado.GetType() == typeof(Estudiante) && usuarioAnalizado.DNI == estudianteRecibido.DNI && usuarioAnalizado.Email == estudianteRecibido.Email)
                     {
                         return true;
                     }

@@ -183,7 +183,7 @@ namespace Logica_Sysacad
         {
             for (int i = 0; i < nombre.Length && nombre[i] != '\0'; i++)
             {
-                if (!VerificarEsCaracterNombre(nombre[i]))
+                if (!VerificarEsCaracterAlfanumerico(nombre[i]))
                 {
                     return false;
                 }
@@ -350,7 +350,21 @@ namespace Logica_Sysacad
             return false;
         }
 
-
+        public static bool ValidarClaveIngresada(string datoIngresado)
+        {
+            return !VerificarEsDatoVacio(datoIngresado) && VerificarEsClaveValida(ref datoIngresado);
+        }
+        public static bool VerificarEsClaveValida(ref string clave)
+        {
+            for (int i = 0; i < clave.Length && clave[i] != '\0'; i++)
+            {
+                if (!VerificarEsCaracterEmail(clave[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
 
 
