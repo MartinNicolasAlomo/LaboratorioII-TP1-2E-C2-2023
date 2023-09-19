@@ -23,13 +23,20 @@ namespace Vista_App
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            string nombresIngresados = tbxNombres.Text;
-            string apellidosIngresados = tbxApellidos.Text;
-            string dniIngresado = tbxDNI.Text;
-            string direccionIngresada = tbxDireccion.Text;
-            string telefonoIngresado = tbxTelefono.Text;
-            string emailIngresado = tbxEmail.Text;
-            string claveIngresada = tbxClave.Text;
+            //string nombresIngresados = tbxNombres.Text;
+            //string apellidosIngresados = tbxApellidos.Text;
+            //string dniIngresado = tbxDNI.Text;
+            //string direccionIngresada = tbxDireccion.Text;
+            //string telefonoIngresado = tbxTelefono.Text;
+            //string emailIngresado = tbxEmail.Text;
+            //string claveIngresada = tbxClave.Text;
+            string nombresIngresados = "martín nicolas";
+            string apellidosIngresados = "alomo";
+            string dniIngresado = "40916777";
+            string direccionIngresada = "corvalan 435";
+            string telefonoIngresado = "40901613";
+            string emailIngresado = "lll@gmail.com";
+            string claveIngresada = "asd";
 
 
             if (
