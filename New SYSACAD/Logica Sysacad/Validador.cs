@@ -230,6 +230,10 @@ namespace Logica_Sysacad
                     letraInicial = char.ToUpper(nombreProvisorio[i]);
                     nombreProvisorio = string.Concat(letraInicial, seccionInicial);
                     i++;
+                    if (largo == 1)
+                    {
+                        break;
+                    }
                 }
                 if (nombreProvisorio[i].Equals(' ') || nombreProvisorio[i].Equals('-'))
                 {
@@ -293,9 +297,6 @@ namespace Logica_Sysacad
 
 
         #endregion
-
-
-
 
 
         #region VALIDAR EMAILS
@@ -605,23 +606,27 @@ namespace Logica_Sysacad
         //    return false;
         //}
 
-        //public static bool IngresarAnio(out ushort anioIngresado, string mensajeAnio, ushort anioMinimo, ushort anioMaximo, byte reintentos = 3)
-        //{
-        //    if (IngresarNumero(out anioIngresado, mensajeAnio, "No es un año válido.", anioMinimo, anioMaximo, reintentos) && anioIngresado != 0)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public static bool ValidaFechaIngresada(out DateTime fecha, string anioIngresado, string mesIngresado, string diaIgresado)
+        {
+            if (ValidarNumeroIngresado(out decimal anioFinal, anioIngresado, 2006, 1905) &&
+                ValidarNumeroIngresado(out decimal mesFinal, mesIngresado, 1, 12) &&
+                ValidarNumeroIngresado(out decimal diaFinal, diaIgresado, 1, 31))
+            {
+                fecha = new DateTime((int)anioFinal, (int)mesFinal, (int)diaFinal);
+                return true;
+            }
+            fecha = DateTime.MinValue;
+            return false;
+        }
 
-        //public static bool VerificarEsAnioBisiesto(ushort anioIngresado)
-        //{
-        //    if (anioIngresado != 0 && (anioIngresado % 400 == 0 || (anioIngresado % 4 == 0 && anioIngresado % 100 != 0)))
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public static bool VerificarEsAnioBisiesto(ushort anioIngresado)
+        {
+            if (anioIngresado != 0 && (anioIngresado % 400 == 0 || (anioIngresado % 4 == 0 && anioIngresado % 100 != 0)))
+            {
+                return true;
+            }
+            return false;
+        }
 
         //public static TimeSpan CalcularDiferenciaDias(DateTime fechaIngresada)
         //{

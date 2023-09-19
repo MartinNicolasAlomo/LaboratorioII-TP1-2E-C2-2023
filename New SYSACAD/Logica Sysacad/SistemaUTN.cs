@@ -159,7 +159,7 @@ namespace Logica_Sysacad
                 // Determinamos si este estudiante ya pertenece al sistema
                 foreach (Usuario usuarioAnalizado in baseDatosUsuarios)
                 {
-                    if (usuarioAnalizado.GetType() == typeof(Estudiante) && usuarioAnalizado.DNI == estudianteRecibido.DNI && usuarioAnalizado.Email == estudianteRecibido.Email)
+                    if (usuarioAnalizado.GetType() == typeof(Estudiante) && (usuarioAnalizado.DNI == estudianteRecibido.DNI || usuarioAnalizado.Email == estudianteRecibido.Email))
                     {
                         return true;
                     }

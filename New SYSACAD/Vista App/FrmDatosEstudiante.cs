@@ -14,6 +14,8 @@ namespace Vista_App
 {
     public partial class FrmDatosEstudiante : Form
     {
+        Estudiante nuevoEstudiante;
+
         public FrmDatosEstudiante()
         {
             InitializeComponent();
@@ -39,7 +41,7 @@ namespace Vista_App
                 Validador.ValidarEmailIngresado(emailIngresado) &&
                 Validador.ValidarClaveIngresada(claveIngresada))
             {
-                Estudiante nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
+                nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
                 // IF EncontrarEstudiante no existe
                 //  INSTANCIAR FORMS "DESEA CONFIRMAR"  ??????   QUE SEA REUTILIZABLE - QUE RECIBA EL TEXTO COMO PARAMETRO Y LO MUESTRE
                 if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)
@@ -50,6 +52,10 @@ namespace Vista_App
                     // ACTUALIZAR BASEDATOS
                     MostrarDatos(nuevoEstudiante);
                     EnviarEmailConfirmacion(emailIngresado);
+                }
+                else
+                {
+                    MessageBox.Show($"YA EXISTE EL ALUMNO REGISTRADO EN EL SISTEMA");
                 }
             }
             else
