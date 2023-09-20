@@ -22,16 +22,31 @@ namespace Logica_Sysacad
         #region CONSTRUCTOR
         static Estudiante()
         {
-            ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
+            ultimoLegajo = 3;//      1;           //  EL ULTIMO LEGAJO ESTA EN LA BASE DE DATOS
         }
 
         public Estudiante(string nombres, string apellidos, string dni, //DateTime fechaNacimiento, 
-                           string correoElectronico, string telefono, string direccion) : 
+                           string correoElectronico, string telefono, string direccion) :
                             base(nombres, apellidos, dni, //fechaNacimiento, 
                                 correoElectronico, telefono, direccion)
         {
-            legajo = ultimoLegajo;
+            legajo = 0;
+        }
+
+        private void AsignarNumeroLegajo()
+        {
+            legajo = ultimoLegajo;          
             ultimoLegajo++;
+        }
+
+        public bool RegistrarEstudianteIngresado()
+        {
+            if (!SistemaUTN.EncontrarEstudianteRegistrado(this))
+            {
+                AsignarNumeroLegajo();
+                return true;
+            }
+            return false;
         }
 
 

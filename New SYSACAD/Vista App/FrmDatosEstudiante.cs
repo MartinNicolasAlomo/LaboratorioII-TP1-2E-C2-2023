@@ -30,6 +30,7 @@ namespace Vista_App
             //string telefonoIngresado = tbxTelefono.Text;
             //string emailIngresado = tbxEmail.Text;
             //string claveIngresada = tbxClave.Text;
+
             string nombresIngresados = "martín nicolas";
             string apellidosIngresados = "alomo";
             string dniIngresado = "40916777";
@@ -37,7 +38,6 @@ namespace Vista_App
             string telefonoIngresado = "40901613";
             string emailIngresado = "lll@gmail.com";
             string claveIngresada = "asd";
-
 
             if (Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
                 Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
@@ -49,9 +49,15 @@ namespace Vista_App
             {
                 nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
 
-                if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)         // && bool ConfirmarDesicion(string descripcion, string titulo)       //  botones aceptar o cancelar
-                    )
+                //if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)         // && bool ConfirmarDesicion(string descripcion, string titulo)       //  botones aceptar o cancelar
+                //    )
+                if(nuevoEstudiante.RegistrarEstudianteIngresado())
                 {
+                    //  1- crea el estudiante con ID = 0;
+                    //  2- una vez creado, busca que no exista dentro del sistema
+                    //  3- si esta todo bien, asignarle un n° de legajo
+
+
                     DialogResult = DialogResult.OK;
                     // IF TRUE  // ACTUALIZAR BASEDATOS
                     MostrarDatos(nuevoEstudiante);
