@@ -92,6 +92,7 @@
             Controls.Add(pnlAdministrador);
             Name = "FrmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
+            FormClosing += FrmMenuPrincipal_FormClosing;
             pnlAdministrador.ResumeLayout(false);
             pnlAdministrador.PerformLayout();
             ResumeLayout(false);

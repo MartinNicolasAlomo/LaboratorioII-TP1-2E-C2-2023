@@ -7,8 +7,8 @@ namespace Vista_App
     {
         private string usuarioValido;
         private string claveValida;
-        FrmMenuPrincipal? menuPrincipal;
-        Usuario? usuarioLogueado;
+        private FrmMenuPrincipal? menuPrincipal;
+        private Usuario? usuarioLogueado;
 
         public frmIniciarSesion()
         {
@@ -27,9 +27,9 @@ namespace Vista_App
             {
                 if (usuarioLogueado?.GetType() == typeof(Administrador) && menuPrincipal == null)
                 {
-                    menuPrincipal = new FrmMenuPrincipal(emailIngresado);
+                    menuPrincipal = new FrmMenuPrincipal((Administrador)usuarioLogueado, this);
                     menuPrincipal.Show();
-                    //this.Hide();
+                    this.Hide();
                 }
                 else if (usuarioLogueado?.GetType() == typeof(Estudiante))
                 {
@@ -54,5 +54,11 @@ namespace Vista_App
             }
             return true;
         }
+
+        public void MostrarLogin()
+        {
+            this.Show();
+        }
+
     }
 }

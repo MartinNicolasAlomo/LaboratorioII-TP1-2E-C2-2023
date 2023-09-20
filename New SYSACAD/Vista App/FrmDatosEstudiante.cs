@@ -14,7 +14,7 @@ namespace Vista_App
 {
     public partial class FrmDatosEstudiante : Form
     {
-        Estudiante nuevoEstudiante;
+        Estudiante? nuevoEstudiante;
 
         public FrmDatosEstudiante()
         {
@@ -39,8 +39,7 @@ namespace Vista_App
             string claveIngresada = "asd";
 
 
-            if (
-                Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
+            if (Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
                 Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
                 Validador.ValidarTextoNumerico(dniIngresado, 8) &&
                 Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
@@ -49,14 +48,12 @@ namespace Vista_App
                 Validador.ValidarClaveIngresada(claveIngresada))
             {
                 nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
-                // IF EncontrarEstudiante no existe
-                //  INSTANCIAR FORMS "DESEA CONFIRMAR"  ??????   QUE SEA REUTILIZABLE - QUE RECIBA EL TEXTO COMO PARAMETRO Y LO MUESTRE
-                if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)
-                    //  bool ConfirmarDesicion(string descripcion, string titulo)       //  botones aceptar o cancelar
+
+                if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)         // && bool ConfirmarDesicion(string descripcion, string titulo)       //  botones aceptar o cancelar
                     )
                 {
-                    // IF TRUE
-                    // ACTUALIZAR BASEDATOS
+                    DialogResult = DialogResult.OK;
+                    // IF TRUE  // ACTUALIZAR BASEDATOS
                     MostrarDatos(nuevoEstudiante);
                     EnviarEmailConfirmacion(emailIngresado);
                 }
@@ -67,12 +64,8 @@ namespace Vista_App
             }
             else
             {
-                MessageBox.Show($"error datos INVALIDSO");
-
+                MessageBox.Show($"Error DATOS INVALIDOS");
             }
-
-
-
         }
 
         private static void MostrarDatos(Estudiante nuevoEstudiante)
@@ -99,7 +92,7 @@ namespace Vista_App
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            DialogResult = DialogResult.Cancel;
         }
     }
 }
