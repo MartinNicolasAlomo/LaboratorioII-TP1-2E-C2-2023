@@ -65,6 +65,7 @@
             btnGestionarCursos.TabIndex = 2;
             btnGestionarCursos.Text = "Gestionar Cursos";
             btnGestionarCursos.UseVisualStyleBackColor = true;
+            btnGestionarCursos.Click += btnGestionarCursos_Click;
             // 
             // btnRegistrarEstudiante
             // 

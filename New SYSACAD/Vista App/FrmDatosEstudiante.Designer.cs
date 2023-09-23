@@ -45,6 +45,10 @@
             label6 = new Label();
             lblClave = new Label();
             label1 = new Label();
+            lblFechaNacimiento = new Label();
+            tbxDia = new TextBox();
+            tbxMes = new TextBox();
+            tbxAnio = new TextBox();
             SuspendLayout();
             // 
             // tbxNombres
@@ -73,7 +77,7 @@
             // 
             // tbxDireccion
             // 
-            tbxDireccion.Location = new Point(80, 113);
+            tbxDireccion.Location = new Point(80, 142);
             tbxDireccion.Name = "tbxDireccion";
             tbxDireccion.PlaceholderText = "Ingrese la dirección";
             tbxDireccion.Size = new Size(240, 23);
@@ -81,7 +85,7 @@
             // 
             // tbxTelefono
             // 
-            tbxTelefono.Location = new Point(80, 142);
+            tbxTelefono.Location = new Point(80, 171);
             tbxTelefono.Name = "tbxTelefono";
             tbxTelefono.PlaceholderText = "Ingrese el teléfono (solo números)";
             tbxTelefono.Size = new Size(240, 23);
@@ -89,7 +93,7 @@
             // 
             // tbxEmail
             // 
-            tbxEmail.Location = new Point(80, 171);
+            tbxEmail.Location = new Point(80, 200);
             tbxEmail.Name = "tbxEmail";
             tbxEmail.PlaceholderText = "Ingrese el Email";
             tbxEmail.Size = new Size(240, 23);
@@ -97,7 +101,7 @@
             // 
             // tbxClave
             // 
-            tbxClave.Location = new Point(80, 200);
+            tbxClave.Location = new Point(80, 229);
             tbxClave.Name = "tbxClave";
             tbxClave.PlaceholderText = "Ingrese la clave";
             tbxClave.Size = new Size(240, 23);
@@ -105,7 +109,7 @@
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(12, 281);
+            btnConfirmar.Location = new Point(12, 321);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(150, 40);
             btnConfirmar.TabIndex = 7;
@@ -115,7 +119,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(242, 281);
+            btnCancelar.Location = new Point(242, 321);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(150, 40);
             btnCancelar.TabIndex = 8;
@@ -135,7 +139,7 @@
             // lblApellidos
             // 
             lblApellidos.AutoSize = true;
-            lblApellidos.Location = new Point(9, 58);
+            lblApellidos.Location = new Point(11, 58);
             lblApellidos.Name = "lblApellidos";
             lblApellidos.Size = new Size(59, 15);
             lblApellidos.TabIndex = 10;
@@ -144,7 +148,7 @@
             // lblDNI
             // 
             lblDNI.AutoSize = true;
-            lblDNI.Location = new Point(11, 87);
+            lblDNI.Location = new Point(9, 87);
             lblDNI.Name = "lblDNI";
             lblDNI.Size = new Size(39, 15);
             lblDNI.TabIndex = 11;
@@ -153,7 +157,7 @@
             // lblDireccion
             // 
             lblDireccion.AutoSize = true;
-            lblDireccion.Location = new Point(11, 116);
+            lblDireccion.Location = new Point(7, 145);
             lblDireccion.Name = "lblDireccion";
             lblDireccion.Size = new Size(60, 15);
             lblDireccion.TabIndex = 12;
@@ -162,7 +166,7 @@
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(9, 145);
+            lblTelefono.Location = new Point(7, 174);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(55, 15);
             lblTelefono.TabIndex = 13;
@@ -171,7 +175,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(11, 174);
+            label6.Location = new Point(7, 203);
             label6.Name = "label6";
             label6.Size = new Size(39, 15);
             label6.TabIndex = 14;
@@ -180,7 +184,7 @@
             // lblClave
             // 
             lblClave.AutoSize = true;
-            lblClave.Location = new Point(11, 203);
+            lblClave.Location = new Point(7, 232);
             lblClave.Name = "lblClave";
             lblClave.Size = new Size(55, 15);
             lblClave.TabIndex = 15;
@@ -190,17 +194,54 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(12, 237);
+            label1.Location = new Point(11, 255);
             label1.Name = "label1";
             label1.Size = new Size(137, 13);
             label1.TabIndex = 16;
             label1.Text = "(*) La clave es provisional.";
             // 
+            // lblFechaNacimiento
+            // 
+            lblFechaNacimiento.AutoSize = true;
+            lblFechaNacimiento.Location = new Point(7, 116);
+            lblFechaNacimiento.Name = "lblFechaNacimiento";
+            lblFechaNacimiento.Size = new Size(106, 15);
+            lblFechaNacimiento.TabIndex = 17;
+            lblFechaNacimiento.Text = "Fecha Nacimiento:";
+            // 
+            // tbxDia
+            // 
+            tbxDia.Location = new Point(80, 113);
+            tbxDia.Name = "tbxDia";
+            tbxDia.PlaceholderText = "Día";
+            tbxDia.Size = new Size(40, 23);
+            tbxDia.TabIndex = 18;
+            // 
+            // tbxMes
+            // 
+            tbxMes.Location = new Point(126, 113);
+            tbxMes.Name = "tbxMes";
+            tbxMes.PlaceholderText = "Mes";
+            tbxMes.Size = new Size(40, 23);
+            tbxMes.TabIndex = 19;
+            // 
+            // tbxAnio
+            // 
+            tbxAnio.Location = new Point(172, 113);
+            tbxAnio.Name = "tbxAnio";
+            tbxAnio.PlaceholderText = "Año";
+            tbxAnio.Size = new Size(40, 23);
+            tbxAnio.TabIndex = 20;
+            // 
             // FrmDatosEstudiante
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(404, 336);
+            ClientSize = new Size(404, 373);
+            Controls.Add(tbxAnio);
+            Controls.Add(tbxMes);
+            Controls.Add(tbxDia);
+            Controls.Add(lblFechaNacimiento);
             Controls.Add(label1);
             Controls.Add(lblClave);
             Controls.Add(label6);
@@ -244,5 +285,9 @@
         private Label label6;
         private Label lblClave;
         private Label label1;
+        private Label lblFechaNacimiento;
+        private TextBox tbxDia;
+        private TextBox tbxMes;
+        private TextBox tbxAnio;
     }
 }

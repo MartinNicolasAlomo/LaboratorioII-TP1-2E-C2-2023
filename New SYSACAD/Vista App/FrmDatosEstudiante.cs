@@ -21,6 +21,12 @@ namespace Vista_App
             InitializeComponent();
         }
 
+
+        public Estudiante? NuevoEstudiante
+        {
+            get { return nuevoEstudiante; }
+        }
+
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             //string nombresIngresados = tbxNombres.Text;
@@ -30,6 +36,12 @@ namespace Vista_App
             //string telefonoIngresado = tbxTelefono.Text;
             //string emailIngresado = tbxEmail.Text;
             //string claveIngresada = tbxClave.Text;
+            //string diaIngresado = tbxDia.Text;
+            //string mesIngresado = tbxMes.Text;
+            //string anioIngresado = tbxAnio.Text;
+            //  1- crea el estudiante con ID = 0;
+            //  2- una vez creado, busca que no exista dentro del sistema
+            //  3- si esta todo bien y el admin confirma, asignarle un n° de legajo
 
             string nombresIngresados = "martín nicolas";
             string apellidosIngresados = "alomo";
@@ -38,41 +50,64 @@ namespace Vista_App
             string telefonoIngresado = "40901613";
             string emailIngresado = "lll@gmail.com";
             string claveIngresada = "asd";
-
+            string diaIngresado = "07";
+            string mesIngresado = "01";
+            string anioIngresado = "1998";
             if (Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
                 Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
                 Validador.ValidarTextoNumerico(dniIngresado, 8) &&
                 Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
                 Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
                 Validador.ValidarEmailIngresado(emailIngresado) &&
-                Validador.ValidarClaveIngresada(claveIngresada))
+                Validador.ValidarClaveIngresada(claveIngresada) &&
+                Validador.ValidaFechaIngresada(out DateTime fechaFinal, anioIngresado, mesIngresado, diaIngresado))
             {
-                nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada);
-
-                //if (!SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante)         // && bool ConfirmarDesicion(string descripcion, string titulo)       //  botones aceptar o cancelar
-                //    )
-                if(nuevoEstudiante.RegistrarEstudianteIngresado())
+                nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada, fechaFinal);
+                if (SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante))
                 {
-                    //  1- crea el estudiante con ID = 0;
-                    //  2- una vez creado, busca que no exista dentro del sistema
-                    //  3- si esta todo bien, asignarle un n° de legajo
-
-
-                    DialogResult = DialogResult.OK;
-                    // IF TRUE  // ACTUALIZAR BASEDATOS
-                    MostrarDatos(nuevoEstudiante);
-                    EnviarEmailConfirmacion(emailIngresado);
+                    MessageBox.Show($"Ya existe este/a estudiante registrado en el sistema.");
                 }
                 else
                 {
-                    MessageBox.Show($"YA EXISTE EL ALUMNO REGISTRADO EN EL SISTEMA");
+                    string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el ingreso del/la estudiante {nuevoEstudiante.NombreCompletoOrdenApellido}?";
+                    if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
+                    {
+                        nuevoEstudiante.AsignarNumeroLegajo();
+                        //EnviarEmailConfirmacion(emailIngresado);
+                        DialogResult = DialogResult.OK;
+                        //MostrarDatos(nuevoEstudiante);
+                        // ACTUALIZAR BASEDATOS
+                    }
                 }
             }
             else
             {
-                MessageBox.Show($"Error DATOS INVALIDOS");
+                MessageBox.Show($"Los datos ingresados no son válidos, reviselos y vuelva a intentarlo.");
             }
         }
+
+        private static DialogResult PreguntarConfirmacion(string pregunta)
+        {
+            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
+            //DialogResult resultado = mensajeConfirmacion.ShowDialog();
+            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
+            {
+                return DialogResult.OK;
+            }
+            return DialogResult.Cancel;
+            
+            //if (resultado == DialogResult.OK)
+            //{
+            //    //MessageBox.Show($"¡Se guardaron los datos del estudante!", $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return true;
+            //}
+            //else
+            //{
+            //    //MessageBox.Show($"¡Se Cancel*****************************!", $"¡11111111111111111!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+        }
+
 
         private static void MostrarDatos(Estudiante nuevoEstudiante)
         {
@@ -83,6 +118,7 @@ namespace Vista_App
                 .AppendLine($"{nuevoEstudiante.Nombres}")
                 .AppendLine($"{nuevoEstudiante.Apellidos}")
                 .AppendLine($"{nuevoEstudiante.DNI}")
+                .AppendLine($"{nuevoEstudiante.FechaNacimiento.ToString("dd/MM/yyyy")}")
                 .AppendLine($"{nuevoEstudiante.Direccion}")
                 .AppendLine($"{nuevoEstudiante.Telefono}")
                 .AppendLine($"{nuevoEstudiante.Email}")
@@ -91,10 +127,6 @@ namespace Vista_App
             MessageBox.Show(text.ToString());
         }
 
-        private static void EnviarEmailConfirmacion(string emailIngresado)
-        {
-            MessageBox.Show($"¡Se envió el email a {emailIngresado} notificando la confirmacion de ingreso!", $"¡Aviso de envío de confirmación!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

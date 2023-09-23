@@ -606,16 +606,29 @@ namespace Logica_Sysacad
         //    return false;
         //}
 
-        public static bool ValidaFechaIngresada(out DateTime fecha, string anioIngresado, string mesIngresado, string diaIgresado)
+        public static bool ValidaFechaIngresada(out DateTime fechaFinal, string anioIngresado, string mesIngresado, string diaIgresado)
         {
-            if (ValidarNumeroIngresado(out decimal anioFinal, anioIngresado, 2006, 1905) &&
-                ValidarNumeroIngresado(out decimal mesFinal, mesIngresado, 1, 12) &&
-                ValidarNumeroIngresado(out decimal diaFinal, diaIgresado, 1, 31))
+            if (ValidarNumeroIngresado(out decimal anioFinal, anioIngresado, 1905, 2006))
             {
-                fecha = new DateTime((int)anioFinal, (int)mesFinal, (int)diaFinal);
-                return true;
+                decimal MesFinal;
+                decimal diaFinal;
+                bool esBisiesto = VerificarEsAnioBisiesto((ushort)anioFinal);
+
+                if (ValidarNumeroIngresado(out MesFinal, mesIngresado, 1, 12) &&
+                        (MesFinal == 2 &&
+                        (esBisiesto && ValidarNumeroIngresado(out diaFinal, diaIgresado, 1, 29)) ||
+                        (!esBisiesto && ValidarNumeroIngresado(out diaFinal, diaIgresado, 1, 28)))
+                        ||
+                        ((MesFinal == 1 || MesFinal == 3 || MesFinal == 5 || MesFinal == 7 || MesFinal == 8 || MesFinal == 10 || MesFinal == 12) && ValidarNumeroIngresado(out diaFinal, diaIgresado, 1, 31))
+                        ||
+                        ((MesFinal == 4 || MesFinal == 6 || MesFinal == 9 || MesFinal == 11) && ValidarNumeroIngresado(out diaFinal, diaIgresado, 1, 30))
+                )
+                {
+                    fechaFinal = new DateTime((int)anioFinal, (int)MesFinal, (int)diaFinal);
+                    return true;
+                }
             }
-            fecha = DateTime.MinValue;
+            fechaFinal = DateTime.MinValue;
             return false;
         }
 

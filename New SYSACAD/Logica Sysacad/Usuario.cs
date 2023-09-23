@@ -75,11 +75,6 @@ namespace Logica_Sysacad
             get { return dni; }
         }
 
-        //public DateTime FechaNacimiento
-        //{
-        //    get { return fechaNacimiento; }
-        //}
-
         public string Email
         {
             get { return email; }

@@ -36,8 +36,8 @@ namespace Logica_Sysacad
                 new Administrador("Julieta", "Pérez", "30321654", "jperez@utn.com", "40401122", "Av. Mitre 2005"),
                 new Administrador("Romina", "Gomez", "30777111", "rgomez@utn.com", "40404477", "Av. Belgrano 448"),
                 new Administrador("Mariano", "Díaz", "35003992", "mdiaz@utn.com", "40401010", "Av. Calchaquí 307"),
-                new Estudiante("Juan", "García", "45333789", "jgarcia@gmail.com", "25308811", "Gral. Deheza 651"),
-                new Estudiante("Martín Nicolás", "Alomo", "40916734", "ma@gmail.com", "42461213", "Corvalan 435")
+                new Estudiante("Juan", "García", "45333789", "jgarcia@gmail.com", "25308811", "Gral. Deheza 651", new DateTime(1981,7,27)),
+                new Estudiante("Martín Nicolás", "Alomo", "40916734", "ma@gmail.com", "42461213", "Corvalan 435", new DateTime(1998, 1, 7))
         };
 
 
