@@ -24,11 +24,11 @@ namespace Vista_App
             Text = $"Bienvenido a SYSACAD - Usuario {administradorLogueado.NombreCompletoOrdenApellido}";
         }
 
+
+
         private void btnRegistrarEstudiante_Click(object sender, EventArgs e)
         {
             FrmDatosEstudiante? altaEstudiate = new FrmDatosEstudiante();
-            //DialogResult resultado = altaEstudiate.ShowDialog();
-
             if (altaEstudiate.ShowDialog() == DialogResult.OK)
             {
                 StringBuilder text = new StringBuilder();
@@ -58,7 +58,19 @@ namespace Vista_App
 
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
+            FrmGestionCursos? gestionCursos = new FrmGestionCursos();
+            if (gestionCursos.ShowDialog() == DialogResult.OK)
+            {
+                //StringBuilder text = new StringBuilder();
+                //text.AppendLine($"¡Se guardaron los datos gestionasdasdas5464as65d4sa656!").AppendLine()
+                //    ;
 
+                //MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                //MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -9,13 +9,13 @@ namespace Logica_Sysacad
     public static class SistemaUTN
     {
         #region CAMPOS
-        private static string nombre;
+        private static string? nombre;
 
         //private static List<Estudiante> listaEstudiantes;
         //private static List<Administrador> listaAdministradores;
         //private static List<Profesor> listaProfesor;
-        private static List<Usuario> baseDatosUsuarios;
-        private static List<Curso> listaCurso;
+        private static List<Usuario>? baseDatosUsuarios;
+        private static List<Curso>? baseDatosCursos;
 
 
 
@@ -27,6 +27,7 @@ namespace Logica_Sysacad
         static SistemaUTN()
         {
             HardcodearUsuarios();
+            HardcodearCursos();
         }
 
         private static void HardcodearUsuarios()
@@ -38,7 +39,19 @@ namespace Logica_Sysacad
                 new Administrador("Mariano", "Díaz", "35003992", "mdiaz@utn.com", "40401010", "Av. Calchaquí 307"),
                 new Estudiante("Juan", "García", "45333789", "jgarcia@gmail.com", "25308811", "Gral. Deheza 651", new DateTime(1981,7,27)),
                 new Estudiante("Martín Nicolás", "Alomo", "40916734", "ma@gmail.com", "42461213", "Corvalan 435", new DateTime(1998, 1, 7))
-        };
+            };
+
+
+        }
+
+        private static void HardcodearCursos()
+        {
+            Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", "mrampi@utn.com", "40406060", "Mitre 205");
+            baseDatosCursos = new List<Curso>
+            {
+                new Curso("2°E","---",110,Turno.Noche,"7",profe1,"18","30","22","30"),
+                new Curso("2°D","---",110,Turno.Noche,"12",profe1,"18","30","22","30"),
+            };
 
 
         }
@@ -49,7 +62,7 @@ namespace Logica_Sysacad
 
 
         #region PROPIEDADES
-        public static List<Usuario> BaseDatosUsuarios
+        public static List<Usuario>? BaseDatosUsuarios
         {
             get { return baseDatosUsuarios; }
         }
@@ -145,7 +158,7 @@ namespace Logica_Sysacad
 
         public static bool EncontrarEstudianteRegistrado(Estudiante estudianteRecibido)
         {
-            if (baseDatosUsuarios.Count > 0 && estudianteRecibido is not null)
+            if (baseDatosUsuarios?.Count > 0 && estudianteRecibido is not null)
             {
                 foreach (Usuario usuarioAnalizado in baseDatosUsuarios)
                 {
@@ -153,18 +166,6 @@ namespace Logica_Sysacad
                     {
                         return true;
                     }
-                }
-            }
-            return false;
-        }
-
-        public static bool VerificarEsUsuarioValido(string usuarioIngresado, string claveIngresada)
-        {
-            foreach (Usuario usuarioEncontrado in baseDatosUsuarios)
-            {
-                if (usuarioEncontrado.ComprobarUsuario(usuarioIngresado, claveIngresada))
-                {
-                    return true;
                 }
             }
             return false;
@@ -182,6 +183,20 @@ namespace Logica_Sysacad
             return null;
         }
 
+        public static bool EncontrarCursoRegistrado(Curso cursoRecibido)
+        {
+            if (baseDatosCursos?.Count > 0 && cursoRecibido is not null)
+            {
+                foreach (Curso cursoAnalizado in baseDatosCursos)
+                {
+                    if (cursoAnalizado.Codigo == cursoRecibido.Codigo || cursoAnalizado.Nombre == cursoRecibido.Nombre)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
 
 

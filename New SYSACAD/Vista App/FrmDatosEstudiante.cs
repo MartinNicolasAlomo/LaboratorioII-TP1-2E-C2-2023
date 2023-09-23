@@ -29,6 +29,8 @@ namespace Vista_App
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
+            //***************************
+                        #region INGRESO DATOS .TEXT
             //string nombresIngresados = tbxNombres.Text;
             //string apellidosIngresados = tbxApellidos.Text;
             //string dniIngresado = tbxDNI.Text;
@@ -43,6 +45,11 @@ namespace Vista_App
             //  2- una vez creado, busca que no exista dentro del sistema
             //  3- si esta todo bien y el admin confirma, asignarle un n° de legajo
 
+
+            #endregion
+            
+            //***************************
+                        
             string nombresIngresados = "martín nicolas";
             string apellidosIngresados = "alomo";
             string dniIngresado = "40916777";
@@ -73,7 +80,6 @@ namespace Vista_App
                     if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                     {
                         nuevoEstudiante.AsignarNumeroLegajo();
-                        //EnviarEmailConfirmacion(emailIngresado);
                         DialogResult = DialogResult.OK;
                         //MostrarDatos(nuevoEstudiante);
                         // ACTUALIZAR BASEDATOS
@@ -89,23 +95,11 @@ namespace Vista_App
         private static DialogResult PreguntarConfirmacion(string pregunta)
         {
             FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
-            //DialogResult resultado = mensajeConfirmacion.ShowDialog();
             if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
             {
                 return DialogResult.OK;
             }
             return DialogResult.Cancel;
-            
-            //if (resultado == DialogResult.OK)
-            //{
-            //    //MessageBox.Show($"¡Se guardaron los datos del estudante!", $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    return true;
-            //}
-            //else
-            //{
-            //    //MessageBox.Show($"¡Se Cancel*****************************!", $"¡11111111111111111!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return false;
-            //}
         }
 
 

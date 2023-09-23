@@ -28,18 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
+            dgvListaCursos = new DataGridView();
+            btnAgregarCurso = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
             SuspendLayout();
+            // 
+            // dgvListaCursos
+            // 
+            dgvListaCursos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvListaCursos.Location = new Point(52, 34);
+            dgvListaCursos.Name = "dgvListaCursos";
+            dgvListaCursos.Size = new Size(676, 232);
+            dgvListaCursos.TabIndex = 0;
+            // 
+            // btnAgregarCurso
+            // 
+            btnAgregarCurso.Location = new Point(77, 290);
+            btnAgregarCurso.Name = "btnAgregarCurso";
+            btnAgregarCurso.Size = new Size(75, 23);
+            btnAgregarCurso.TabIndex = 1;
+            btnAgregarCurso.Text = "Agregar Curso";
+            btnAgregarCurso.UseVisualStyleBackColor = true;
+            btnAgregarCurso.Click += btnAgregarCurso_Click;
             // 
             // FrmGestionCursos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 341);
+            Controls.Add(btnAgregarCurso);
+            Controls.Add(dgvListaCursos);
             Name = "FrmGestionCursos";
             Text = "Gestión de Cursos";
+            ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dgvListaCursos;
+        private Button btnAgregarCurso;
     }
 }

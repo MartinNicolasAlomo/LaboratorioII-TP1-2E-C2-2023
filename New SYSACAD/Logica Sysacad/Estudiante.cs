@@ -68,15 +68,6 @@ namespace Logica_Sysacad
 
         #region METODOS
 
-        public bool RegistrarEstudianteIngresado()
-        {
-            if (!SistemaUTN.EncontrarEstudianteRegistrado(this))
-            {
-                AsignarNumeroLegajo();
-                return true;
-            }
-            return false;
-        }
 
 
 
