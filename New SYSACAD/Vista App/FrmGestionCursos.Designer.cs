@@ -60,6 +60,7 @@
             Controls.Add(dgvListaCursos);
             Name = "FrmGestionCursos";
             Text = "Gestión de Cursos";
+            FormClosing += FrmGestionCursos_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);
         }

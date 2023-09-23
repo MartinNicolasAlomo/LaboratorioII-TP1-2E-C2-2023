@@ -1,23 +1,18 @@
 ﻿using Logica_Sysacad;
-using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Vista_App
 {
     public partial class FrmGestionCursos : Form
     {
+        private FrmMenuPrincipal? menuPrincipal;
+        private List<Curso> listaCursos;
 
-        public FrmGestionCursos()
+        public FrmGestionCursos(FrmMenuPrincipal menuPrincipal)
         {
             InitializeComponent();
+            this.menuPrincipal = menuPrincipal;
+            listaCursos = new List<Curso>();
         }
 
         private void btnAgregarCurso_Click(object sender, EventArgs e)
@@ -25,26 +20,23 @@ namespace Vista_App
             FrmAltaCurso? altaCurso = new FrmAltaCurso();
             if (altaCurso.ShowDialog() == DialogResult.OK)
             {
+                listaCursos.Add(altaCurso.NuevoCurso);
                 StringBuilder text = new StringBuilder();
-                text.AppendLine($"¡Se guardaron los datos del CURSO {altaCurso.NuevoCurso?.Nombre}!").AppendLine()
-                    //.AppendLine($"¡Se envió un email a {altaCurso.NuevoCurso?.Nombre} notificando la confirmacion de ingreso!")
-                    ;
-
+                text.AppendLine($"¡Se guardaron los datos del CURSO {altaCurso.NuevoCurso?.Nombre}!").AppendLine();
                 MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+        private void FrmGestionCursos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            menuPrincipal?.MostrarMenuPrincipal();
         }
 
 
-
-        //private void FrmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    login.MostrarLogin();
-        //}
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Vista_App
 {
-    partial class FrmDatosEstudiante
+    partial class FrmAltaEstudiante
     {
         /// <summary>
         /// Required designer variable.
@@ -21,6 +21,7 @@
         }
 
         #region Windows Form Designer generated code
+
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -233,7 +234,7 @@
             tbxAnio.Size = new Size(40, 23);
             tbxAnio.TabIndex = 20;
             // 
-            // FrmDatosEstudiante
+            // FrmAltaEstudiante
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -259,9 +260,8 @@
             Controls.Add(tbxDNI);
             Controls.Add(tbxApellidos);
             Controls.Add(tbxNombres);
-            Name = "FrmDatosEstudiante";
+            Name = "FrmAltaEstudiante";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmDatosEstudiante";
             ResumeLayout(false);
             PerformLayout();
         }

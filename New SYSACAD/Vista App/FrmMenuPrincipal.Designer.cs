@@ -56,6 +56,7 @@
             btnCerrarSesion.TabIndex = 3;
             btnCerrarSesion.Text = "Cerrar Sesión";
             btnCerrarSesion.UseVisualStyleBackColor = true;
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // btnGestionarCursos
             // 

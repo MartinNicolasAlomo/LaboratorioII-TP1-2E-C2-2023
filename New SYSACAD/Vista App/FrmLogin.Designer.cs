@@ -1,6 +1,6 @@
 ﻿namespace Vista_App
 {
-    partial class frmIniciarSesion
+    partial class FrmLogin
     {
         /// <summary>
         ///  Required designer variable.

@@ -10,17 +10,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Vista_App
 {
-    public partial class FrmDatosEstudiante : Form
+    public partial class FrmAltaEstudiante : Form
     {
         Estudiante? nuevoEstudiante;
 
-        public FrmDatosEstudiante()
+        public FrmAltaEstudiante()
         {
             InitializeComponent();
         }
-
 
         public Estudiante? NuevoEstudiante
         {
@@ -30,7 +30,7 @@ namespace Vista_App
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             //***************************
-                        #region INGRESO DATOS .TEXT
+            #region INGRESO DATOS .TEXT
             //string nombresIngresados = tbxNombres.Text;
             //string apellidosIngresados = tbxApellidos.Text;
             //string dniIngresado = tbxDNI.Text;
@@ -47,9 +47,9 @@ namespace Vista_App
 
 
             #endregion
-            
+
             //***************************
-                        
+
             string nombresIngresados = "martín nicolas";
             string apellidosIngresados = "alomo";
             string dniIngresado = "40916777";
@@ -102,7 +102,6 @@ namespace Vista_App
             return DialogResult.Cancel;
         }
 
-
         private static void MostrarDatos(Estudiante nuevoEstudiante)
         {
             StringBuilder text = new StringBuilder();
@@ -120,7 +119,6 @@ namespace Vista_App
                 ;
             MessageBox.Show(text.ToString());
         }
-
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

@@ -13,10 +13,13 @@ namespace Vista_App
 {
     public partial class FrmMenuPrincipal : Form
     {
-        private Administrador administradorLogueado;                               //  tipo Usuario    / profe/admin
-        private frmIniciarSesion login;
 
-        public FrmMenuPrincipal(Administrador administradorLogueado, frmIniciarSesion login)                 //  recibe usuario / profe/admin
+        #region CAMPOS Y CONSTRUCTORES
+        private Administrador administradorLogueado;                               //  tipo Usuario    / profe/admin
+        private FrmLogin login;
+        private FrmGestionCursos? gestionCursos;
+
+        public FrmMenuPrincipal(Administrador administradorLogueado, FrmLogin login)                 //  recibe usuario / profe/admin
         {
             InitializeComponent();
             this.administradorLogueado = administradorLogueado;
@@ -24,13 +27,18 @@ namespace Vista_App
             Text = $"Bienvenido a SYSACAD - Usuario {administradorLogueado.NombreCompletoOrdenApellido}";
         }
 
+        #endregion
 
 
+
+
+        #region CASO 1 - REGISTRAR ESTUDIANTE
         private void btnRegistrarEstudiante_Click(object sender, EventArgs e)
         {
-            FrmDatosEstudiante? altaEstudiate = new FrmDatosEstudiante();
+            FrmAltaEstudiante? altaEstudiate = new FrmAltaEstudiante();
             if (altaEstudiate.ShowDialog() == DialogResult.OK)
             {
+                //      LIST.ADD(altaEstudiate.NUEVO)
                 StringBuilder text = new StringBuilder();
                 text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
                     .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmacion de ingreso!")
@@ -51,26 +59,60 @@ namespace Vista_App
         }
 
 
+        #endregion
+
+
+
+        #region CASO 2 - GESTIONAR CURSOS
+        private void btnGestionarCursos_Click(object sender, EventArgs e)
+        {
+            if (gestionCursos == null)
+            {
+                gestionCursos = new FrmGestionCursos(this);
+                gestionCursos.Show();
+                Hide();
+            }
+
+
+            //FrmGestionCursos? gestionCursos = new FrmGestionCursos();
+            //if (gestionCursos.ShowDialog() == DialogResult.OK)
+            //{
+            //    //StringBuilder text = new StringBuilder();
+            //    //text.AppendLine($"¡Se guardaron los datos gestionasdasdas5464as65d4sa656!").AppendLine()
+            //    //    ;
+
+            //    //MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //{
+            //    //MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
+        public void MostrarMenuPrincipal()
+        {
+            Show();
+            gestionCursos = null;
+        }
+
+        #endregion
+
+
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            //FrmMenuPrincipal_FormClosing(sender, (FormClosingEventArgs)e);
+            login.MostrarLogin();
+        }
+
         private void FrmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             login.MostrarLogin();
         }
 
-        private void btnGestionarCursos_Click(object sender, EventArgs e)
-        {
-            FrmGestionCursos? gestionCursos = new FrmGestionCursos();
-            if (gestionCursos.ShowDialog() == DialogResult.OK)
-            {
-                //StringBuilder text = new StringBuilder();
-                //text.AppendLine($"¡Se guardaron los datos gestionasdasdas5464as65d4sa656!").AppendLine()
-                //    ;
 
-                //MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                //MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+
+
+
     }
 }

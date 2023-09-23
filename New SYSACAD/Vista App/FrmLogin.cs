@@ -3,14 +3,15 @@ using Logica_Sysacad;
 
 namespace Vista_App
 {
-    public partial class frmIniciarSesion : Form
+    public partial class FrmLogin : Form
     {
+        #region CAMPOS Y CONSTRUCTORES
         private string usuarioValido;
         private string claveValida;
         private FrmMenuPrincipal? menuPrincipal;
         private Usuario? usuarioLogueado;
 
-        public frmIniciarSesion()
+        public FrmLogin()
         {
             InitializeComponent();
             usuarioValido = "jperez@utn.com";
@@ -19,23 +20,39 @@ namespace Vista_App
             tbxClave.Text = claveValida;
         }
 
+
+        //private bool menuCreado = false;
+        //public bool MenuCreado
+        //{
+        //    set { menuCreado = value; }
+        //}
+            //if (menuCreado == false && ValidarUsuarioIngresado(out usuarioLogueado, emailIngresado, claveIngresada))
+                    //menuCreado = true;
+        #endregion
+
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            string emailIngresado = tbxUsuario.Text;
-            string claveIngresada = tbxClave.Text;
-            if (ValidarUsuarioIngresado(out usuarioLogueado, emailIngresado, claveIngresada))
+            if (menuPrincipal == null && ValidarUsuarioIngresado(out usuarioLogueado, tbxUsuario.Text, tbxClave.Text))
             {
-                if (usuarioLogueado?.GetType() == typeof(Administrador) && menuPrincipal == null)
+                if (usuarioLogueado?.GetType() == typeof(Administrador))
                 {
                     menuPrincipal = new FrmMenuPrincipal((Administrador)usuarioLogueado, this);
                     menuPrincipal.Show();
-                    this.Hide();
+                    Hide();
                 }
+
+
                 else if (usuarioLogueado?.GetType() == typeof(Estudiante))
                 {
                     //  Abrir el Form/Panel del PROFE
                 }
             }
+        }
+     
+        public void MostrarLogin()
+        {
+            Show();
+            menuPrincipal = null;
         }
 
         private bool ValidarUsuarioIngresado(out Usuario? usuarioIngresado, string emailIngresado, string claveIngresada)
@@ -55,10 +72,6 @@ namespace Vista_App
             return true;
         }
 
-        public void MostrarLogin()
-        {
-            this.Show();
-        }
 
     }
 }
