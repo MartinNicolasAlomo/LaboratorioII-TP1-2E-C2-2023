@@ -59,6 +59,7 @@
             Controls.Add(btnAgregarCurso);
             Controls.Add(dgvListaCursos);
             Name = "FrmGestionCursos";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión de Cursos";
             FormClosing += FrmGestionCursos_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();

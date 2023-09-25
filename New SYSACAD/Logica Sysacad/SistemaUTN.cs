@@ -12,7 +12,7 @@ namespace Logica_Sysacad
         private static string? nombre;
 
         //private static List<Estudiante> listaEstudiantes;
-        //private static List<Administrador> listaAdministradores;
+        private static List<Administrador> listaAdministradores;
         //private static List<Profesor> listaProfesor;
         private static List<Usuario>? baseDatosUsuarios;
         private static List<Curso>? baseDatosCursos;
@@ -28,6 +28,7 @@ namespace Logica_Sysacad
         {
             HardcodearUsuarios();
             HardcodearCursos();
+            HardcodearAdministradores();
         }
 
         private static void HardcodearUsuarios()
@@ -49,12 +50,27 @@ namespace Logica_Sysacad
             Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", "mrampi@utn.com", "40406060", "Mitre 205");
             baseDatosCursos = new List<Curso>
             {
-                new Curso("2°E","---",110,Turno.Noche,"7",profe1,"18","30","22","30"),
-                new Curso("2°D","---",110,Turno.Noche,"12",profe1,"18","30","22","30"),
+                //    new Curso("2°E","---",110,Turno.Noche,"7",profe1,"18","30","22","30"),
+                //    new Curso("2°D","---",110,Turno.Noche,"12",profe1,"18","30","22","30"),
             };
 
 
         }
+
+        private static void HardcodearAdministradores()
+        {
+            listaAdministradores = new List<Administrador>();
+            foreach (Usuario usuario in baseDatosUsuarios)
+            {
+                if (usuario.GetType() == typeof(Administrador))
+                {
+                    listaAdministradores.Add((Administrador)usuario);
+                }
+            }
+
+        }
+
+
 
 
         #endregion
@@ -189,7 +205,9 @@ namespace Logica_Sysacad
             {
                 foreach (Curso cursoAnalizado in baseDatosCursos)
                 {
-                    if (cursoAnalizado.Codigo == cursoRecibido.Codigo || cursoAnalizado.Nombre == cursoRecibido.Nombre)
+                    if (1 > 10
+                        //cursoAnalizado.Codigo == cursoRecibido.Codigo && cursoAnalizado.Nombre == cursoRecibido.Nombre
+                        )
                     {
                         return true;
                     }

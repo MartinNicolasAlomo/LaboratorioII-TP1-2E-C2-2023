@@ -1,10 +1,19 @@
 ﻿using Logica_Sysacad;
+using System.Text;
 
 namespace Vista_App
 {
     public partial class FrmAltaCurso : Form
     {
         Curso? nuevoCurso;
+        private string? cuatrimestreIngresado;
+        private string? divisionIngresada;
+        private string? descripcionIngresada;
+        private string? cupoIngresado;
+        private string? turnoIngresado;
+        private string? diaIngresado;
+        private string? aulaIngresada;
+        private string? horarioIngresado;
 
         public FrmAltaCurso()
         {
@@ -18,17 +27,6 @@ namespace Vista_App
 
 
 
-
-
-        private static DialogResult PreguntarConfirmacion(string pregunta)
-        {
-            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
-            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
-            {
-                return DialogResult.OK;
-            }
-            return DialogResult.Cancel;
-        }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
@@ -62,16 +60,14 @@ namespace Vista_App
             //private byte minutoFinal;
             #endregion
 
-            string nombresIngresado = "3as3d";
-            string descripcionIngresada = "corvalan 435";
-            string cupoMaximoIngresado = "110";
-            Turno turnoIngresado = Turno.Noche; //  USAR EL TOOL QUE TIENE PARA SELECCIONAR PREDETERMINADO, SE DESPLIEGAN OPCIONES YA ESTABLECIDAS
-            string aulaIngresado = "lll@gmail.com"; // MISMO TOOL
-            Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", "mrampi@utn.com", "40406060", "Mitre 205");
-            string horaInicioIngresado = "18";
-            string horaFinalIngresado = "30";
-            string minutoInicioIngresado = "22";
-            string minutoFinalIngresado = "30";
+            //string nombresIngresado = cuatrimestreIngresado;
+            //string descripcionIngresada = "Segundo Grupo, 3 Cuatrimestre";
+            ////string cupoMaximoIngresado = "110";
+            //Turno turnoIngresado = Turno.Noche; //  USAR EL TOOL QUE TIENE PARA SELECCIONAR PREDETERMINADO, SE DESPLIEGAN OPCIONES YA ESTABLECIDAS
+            //Dia diaIngresado = Dia.Martes;
+            //string aulaIngresado = "207"; // MISMO TOOL
+            ////Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", "mrampi@utn.com", "40406060", "Mitre 205");
+            //string horarioIngresado = "18:30 - 22:30";
             decimal cupoFinal = 110;
             if (
                 //Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
@@ -89,7 +85,8 @@ namespace Vista_App
                 //Validador.ValidaFechaIngresada(out DateTime fechaFinal, anioIngresado, mesIngresado, diaIngresado)
                 true)
             {
-                nuevoCurso = new Curso(nombresIngresado, descripcionIngresada, (byte)cupoFinal, turnoIngresado, aulaIngresado, profe1, horaInicioIngresado, horaFinalIngresado, minutoInicioIngresado, minutoFinalIngresado);
+                string nombre = $"{cuatrimestreIngresado}{divisionIngresada}";
+                nuevoCurso = new Curso(nombre, descripcionIngresada, (byte)cupoFinal, turnoIngresado, diaIngresado, aulaIngresada, horarioIngresado);
                 if (SistemaUTN.EncontrarCursoRegistrado(nuevoCurso))
                 {
                     MessageBox.Show($"Ya existe este/a curso registrado en el sistema.");
@@ -101,6 +98,7 @@ namespace Vista_App
                     {
                         nuevoCurso.AsignarCodigo();
                         DialogResult = DialogResult.OK;
+                        MostrarDatos(nuevoCurso);
                         //MostrarDatos(nuevoEstudiante);
                         // ACTUALIZAR BASEDATOS
                     }
@@ -112,6 +110,83 @@ namespace Vista_App
             }
 
 
+        }
+
+
+
+        private static DialogResult PreguntarConfirmacion(string pregunta)
+        {
+            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
+            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
+            {
+                return DialogResult.OK;
+            }
+            return DialogResult.Cancel;
+        }
+
+        private static void MostrarDatos(Curso nuevoCurso)
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine()
+                .AppendLine($"Informacion ingresada del Estudiante:")
+                .AppendLine($"{nuevoCurso.Codigo}")
+                .AppendLine($"{nuevoCurso.Nombre}")
+                .AppendLine($"{nuevoCurso.Descripcion}")
+                .AppendLine($"{nuevoCurso.Turno}")
+                .AppendLine($"{nuevoCurso.Horario}")
+                .AppendLine($"{nuevoCurso.Dia}")
+                //.AppendLine($"{nuevoCurso.HorarioFinal}")
+                //.AppendLine($"{nuevoCurso.Profesor.NombreCompletoOrdenApellido}")
+                .AppendLine($"{nuevoCurso.Aula}")
+                .AppendLine($"{nuevoCurso.CupoMaximo}")
+                ;
+            MessageBox.Show(text.ToString());
+        }
+
+        private void FrmAltaCurso_Load(object sender, EventArgs e)
+        {
+            cbxCuatrimestre.DataSource = Curso.cuatrimestres;
+            cbxDivision.DataSource = Enum.GetNames(typeof(Division));
+            cbxTurno.DataSource = Enum.GetNames(typeof(Turno));
+            cbxDia.DataSource = Enum.GetNames(typeof(Dia));
+            cbxDescripcion.DataSource = Curso.materias;
+            cbxHorario.DataSource = Curso.horarios;
+            cbxAula.DataSource = Curso.aulas;
+        }
+
+        private void cbxCuatrimestre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cuatrimestreIngresado = cbxCuatrimestre.Items[cbxCuatrimestre.SelectedIndex].ToString();
+        }
+
+        private void cbxDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            divisionIngresada = cbxDivision.Items[cbxDivision.SelectedIndex].ToString();
+        }
+
+        private void cbxDescripcion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            descripcionIngresada = cbxDescripcion.Items[cbxDescripcion.SelectedIndex].ToString();
+        }
+
+        private void cbxHorario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            horarioIngresado = cbxHorario.Items[cbxHorario.SelectedIndex].ToString();
+        }
+
+        private void cbxAula_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aulaIngresada = cbxAula.Items[cbxAula.SelectedIndex].ToString();
+        }
+
+        private void cbxDia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            diaIngresado = cbxDia.Items[cbxDia.SelectedIndex].ToString();
+        }
+
+        private void cbxTurno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            turnoIngresado = cbxTurno.Items[cbxTurno.SelectedIndex].ToString();
         }
     }
 }

@@ -41,7 +41,6 @@ namespace Vista_App
                     Hide();
                 }
 
-
                 else if (usuarioLogueado?.GetType() == typeof(Estudiante))
                 {
                     //  Abrir el Form/Panel del PROFE
