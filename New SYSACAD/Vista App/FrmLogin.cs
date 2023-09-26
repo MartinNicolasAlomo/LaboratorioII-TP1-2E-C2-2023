@@ -3,6 +3,11 @@ using Logica_Sysacad;
 
 namespace Vista_App
 {
+    #region AAAA
+
+
+    #endregion
+
     public partial class FrmLogin : Form
     {
         #region CAMPOS Y CONSTRUCTORES
@@ -19,17 +24,9 @@ namespace Vista_App
             tbxUsuario.Text = usuarioValido;
             tbxClave.Text = claveValida;
         }
-
-
-        //private bool menuCreado = false;
-        //public bool MenuCreado
-        //{
-        //    set { menuCreado = value; }
-        //}
-            //if (menuCreado == false && ValidarUsuarioIngresado(out usuarioLogueado, emailIngresado, claveIngresada))
-                    //menuCreado = true;
         #endregion
 
+        #region METODOS
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
             if (menuPrincipal == null && ValidarUsuarioIngresado(out usuarioLogueado, tbxUsuario.Text, tbxClave.Text))
@@ -47,7 +44,7 @@ namespace Vista_App
                 }
             }
         }
-     
+
         public void MostrarLogin()
         {
             Show();
@@ -71,6 +68,8 @@ namespace Vista_App
             return true;
         }
 
+
+        #endregion
 
     }
 }

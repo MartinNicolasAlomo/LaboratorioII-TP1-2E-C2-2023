@@ -38,12 +38,13 @@ namespace Vista_App
             FrmAltaEstudiante? altaEstudiate = new FrmAltaEstudiante();
             if (altaEstudiate.ShowDialog() == DialogResult.OK)
             {
+
                 //      LIST.ADD(altaEstudiate.NUEVO)
+
                 StringBuilder text = new StringBuilder();
                 text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
-                    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmacion de ingreso!")
+                    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmación de ingreso!")
                     ;
-
                 MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -52,12 +53,10 @@ namespace Vista_App
             }
         }
 
-
         private static void EnviarEmailConfirmacion(string emailIngresado)
         {
             MessageBox.Show($"¡Se envió un email a {emailIngresado} notificando la confirmacion de ingreso!", $"¡Aviso de envío de confirmación!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
 
         #endregion
 
@@ -66,39 +65,33 @@ namespace Vista_App
         #region CASO 2 - GESTIONAR CURSOS
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
-            if (gestionCursos == null)
+            gestionCursos = new FrmGestionCursos(this);
+            Hide();
+            if (gestionCursos.ShowDialog() == DialogResult.OK)
             {
-                gestionCursos = new FrmGestionCursos(this);
-                gestionCursos.Show();
-                Hide();
+                MessageBox.Show("SALIO BIEN", $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-
-            //FrmGestionCursos? gestionCursos = new FrmGestionCursos();
-            //if (gestionCursos.ShowDialog() == DialogResult.OK)
-            //{
-            //    //StringBuilder text = new StringBuilder();
-            //    //text.AppendLine($"¡Se guardaron los datos gestionasdasdas5464as65d4sa656!").AppendLine()
-            //    //    ;
-
-            //    //MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else
-            //{
-            //    //MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            else
+            {
+                MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        public void MostrarMenuPrincipal()
+
+
+        /*
+
+                     if (gestionCursos == null)
         {
-            Show();
-            gestionCursos = null;
+            gestionCursos = new FrmGestionCursos(this);
+            gestionCursos.Show();
+            Hide();
         }
-
-        #endregion
-
+         */
 
 
+
+        #region CERRAR MENU PRINCIPAL
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             //FrmMenuPrincipal_FormClosing(sender, (FormClosingEventArgs)e);
@@ -110,9 +103,23 @@ namespace Vista_App
             login.MostrarLogin();
         }
 
+        #endregion
+
+
+        public void MostrarMenuPrincipal()
+        {
+            Show();
+            gestionCursos = null;
+        }
+
 
 
 
 
     }
+
+    #endregion
+
+
+
 }

@@ -30,6 +30,8 @@
         {
             dgvListaCursos = new DataGridView();
             btnAgregarCurso = new Button();
+            btnEditarCurso = new Button();
+            btnEliminarCurso = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
             SuspendLayout();
             // 
@@ -45,17 +47,39 @@
             // 
             btnAgregarCurso.Location = new Point(77, 290);
             btnAgregarCurso.Name = "btnAgregarCurso";
-            btnAgregarCurso.Size = new Size(75, 23);
+            btnAgregarCurso.Size = new Size(170, 35);
             btnAgregarCurso.TabIndex = 1;
-            btnAgregarCurso.Text = "Agregar Curso";
+            btnAgregarCurso.Text = "Agregar Nuevo Curso";
             btnAgregarCurso.UseVisualStyleBackColor = true;
             btnAgregarCurso.Click += btnAgregarCurso_Click;
+            // 
+            // btnEditarCurso
+            // 
+            btnEditarCurso.Location = new Point(386, 290);
+            btnEditarCurso.Name = "btnEditarCurso";
+            btnEditarCurso.Size = new Size(140, 35);
+            btnEditarCurso.TabIndex = 2;
+            btnEditarCurso.Text = "Editar Curso";
+            btnEditarCurso.UseVisualStyleBackColor = true;
+            btnEditarCurso.Click += btnEditarCurso_Click;
+            // 
+            // btnEliminarCurso
+            // 
+            btnEliminarCurso.Location = new Point(558, 290);
+            btnEliminarCurso.Name = "btnEliminarCurso";
+            btnEliminarCurso.Size = new Size(140, 35);
+            btnEliminarCurso.TabIndex = 3;
+            btnEliminarCurso.Text = "Eliminar Curso";
+            btnEliminarCurso.UseVisualStyleBackColor = true;
+            btnEliminarCurso.Click += btnEliminarCurso_Click;
             // 
             // FrmGestionCursos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 341);
+            Controls.Add(btnEliminarCurso);
+            Controls.Add(btnEditarCurso);
             Controls.Add(btnAgregarCurso);
             Controls.Add(dgvListaCursos);
             Name = "FrmGestionCursos";
@@ -70,5 +94,7 @@
 
         private DataGridView dgvListaCursos;
         private Button btnAgregarCurso;
+        private Button btnEditarCurso;
+        private Button btnEliminarCurso;
     }
 }

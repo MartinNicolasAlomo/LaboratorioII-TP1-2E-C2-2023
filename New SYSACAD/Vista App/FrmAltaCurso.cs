@@ -15,9 +15,10 @@ namespace Vista_App
         private string? aulaIngresada;
         private string? horarioIngresado;
 
-        public FrmAltaCurso()
+        public FrmAltaCurso(string titulo)
         {
             InitializeComponent();
+            Text = titulo;
         }
 
         public Curso? NuevoCurso
@@ -25,6 +26,21 @@ namespace Vista_App
             get { return nuevoCurso; }
         }
 
+        private void FrmAltaCurso_Load(object sender, EventArgs e)
+        {
+            cbxCuatrimestre.DataSource = Curso.cuatrimestres;
+            cbxDivision.DataSource = Enum.GetNames(typeof(Division));
+            cbxTurno.DataSource = Enum.GetNames(typeof(Turno));
+            cbxDia.DataSource = Enum.GetNames(typeof(Dia));
+            cbxDescripcion.DataSource = Curso.materias;
+            cbxHorario.DataSource = Curso.horarios;
+            cbxAula.DataSource = Curso.aulas;
+        }
+
+        private void Horaer()
+        {
+
+        }
 
 
 
@@ -141,17 +157,6 @@ namespace Vista_App
                 .AppendLine($"{nuevoCurso.CupoMaximo}")
                 ;
             MessageBox.Show(text.ToString());
-        }
-
-        private void FrmAltaCurso_Load(object sender, EventArgs e)
-        {
-            cbxCuatrimestre.DataSource = Curso.cuatrimestres;
-            cbxDivision.DataSource = Enum.GetNames(typeof(Division));
-            cbxTurno.DataSource = Enum.GetNames(typeof(Turno));
-            cbxDia.DataSource = Enum.GetNames(typeof(Dia));
-            cbxDescripcion.DataSource = Curso.materias;
-            cbxHorario.DataSource = Curso.horarios;
-            cbxAula.DataSource = Curso.aulas;
         }
 
         private void cbxCuatrimestre_SelectedIndexChanged(object sender, EventArgs e)
