@@ -24,7 +24,7 @@ namespace Vista_App
             InitializeComponent();
             this.administradorLogueado = administradorLogueado;
             this.login = login;
-            Text = $"Bienvenido a SYSACAD - Usuario {administradorLogueado.NombreCompletoOrdenApellido}";
+            Text = $"Bienvenido a SYSACAD - {administradorLogueado.NombreCompletoOrdenApellido}";
         }
 
         #endregion

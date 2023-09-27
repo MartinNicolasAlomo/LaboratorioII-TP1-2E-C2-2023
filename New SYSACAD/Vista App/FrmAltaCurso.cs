@@ -10,8 +10,10 @@ namespace Vista_App
         private string? divisionIngresada;
         private string? descripcionIngresada;
         private string? cupoIngresado;
-        private string? turnoIngresado;
-        private string? diaIngresado;
+        private Turno turnoIngresado;
+        private Dia diaIngresado;
+        //private string? turnoIngresado;
+        //private string? diaIngresado;
         private string? aulaIngresada;
         private string? horarioIngresado;
 
@@ -29,9 +31,9 @@ namespace Vista_App
         private void FrmAltaCurso_Load(object sender, EventArgs e)
         {
             cbxCuatrimestre.DataSource = Curso.cuatrimestres;
-            cbxDivision.DataSource = Enum.GetNames(typeof(Division));
-            cbxTurno.DataSource = Enum.GetNames(typeof(Turno));
-            cbxDia.DataSource = Enum.GetNames(typeof(Dia));
+            cbxDivision.DataSource = Enum.GetValues(typeof(Division));
+            cbxTurno.DataSource = Enum.GetValues(typeof(Turno));
+            cbxDia.DataSource = Enum.GetValues(typeof(Dia));
             cbxDescripcion.DataSource = Curso.materias;
             cbxHorario.DataSource = Curso.horarios;
             cbxAula.DataSource = Curso.aulas;
@@ -46,69 +48,20 @@ namespace Vista_App
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-
-            #region INGRESO DATOS .TEXT
-            //string nombresIngresados = tbxNombres.Text;
-            //string apellidosIngresados = tbxApellidos.Text;
-            //string dniIngresado = tbxDNI.Text;
-            //string direccionIngresada = tbxDireccion.Text;
-            //string telefonoIngresado = tbxTelefono.Text;
-            //string emailIngresado = tbxEmail.Text;
-            //string claveIngresada = tbxClave.Text;
-            //string diaIngresado = tbxDia.Text;
-            //string mesIngresado = tbxMes.Text;
-            //string anioIngresado = tbxAnio.Text;
-            //  1- crea el estudiante con ID = 0;
-            //  2- una vez creado, busca que no exista dentro del sistema
-            //  3- si esta todo bien y el admin confirma, asignarle un n° de legajo
-
-
-
-            //***************************
-
-
-            //private Turno turno;
-            //private string aula;    //  numero en texto
-            //private Profesor profesor;
-            //private byte horaInicio;
-            //private byte horaFinal;
-            //private byte minutoInicio;
-            //private byte minutoFinal;
-            #endregion
-
-            //string nombresIngresado = cuatrimestreIngresado;
-            //string descripcionIngresada = "Segundo Grupo, 3 Cuatrimestre";
-            ////string cupoMaximoIngresado = "110";
-            //Turno turnoIngresado = Turno.Noche; //  USAR EL TOOL QUE TIENE PARA SELECCIONAR PREDETERMINADO, SE DESPLIEGAN OPCIONES YA ESTABLECIDAS
-            //Dia diaIngresado = Dia.Martes;
-            //string aulaIngresado = "207"; // MISMO TOOL
-            ////Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", "mrampi@utn.com", "40406060", "Mitre 205");
-            //string horarioIngresado = "18:30 - 22:30";
-            decimal cupoFinal = 110;
-            if (
-                //Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
-                //Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
-                //Validador.ValidarNumeroIngresado(out cupoFinal,cupoMaximoIngresado,1,120) &&
-                //Validador.ValidarTextoNumerico(aulaIngresado, 3) &&
-                //Validador.ValidarTextoNumerico(horaInicioIngresado, 2) &&
-                //Validador.ValidarTextoNumerico(minutoInicioIngresado, 2) &&
-                //Validador.ValidarTextoNumerico(horaFinalIngresado, 2) &&
-                //Validador.ValidarTextoNumerico(minutoFinalIngresado, 2) &&
-                //Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
-                //Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
-                //Validador.ValidarEmailIngresado(emailIngresado) &&
-                //Validador.ValidarClaveIngresada(claveIngresada) &&
-                //Validador.ValidaFechaIngresada(out DateTime fechaFinal, anioIngresado, mesIngresado, diaIngresado)
-                true)
+            cupoIngresado = tbxCupMaximo.Text;
+            if (Validador.ValidarNumeroIngresado(out decimal cupoFinal, cupoIngresado, 15, 120))
             {
+                //  1- crea el estudiante con ID = 0;
                 string nombre = $"{cuatrimestreIngresado}{divisionIngresada}";
                 nuevoCurso = new Curso(nombre, descripcionIngresada, (byte)cupoFinal, turnoIngresado, diaIngresado, aulaIngresada, horarioIngresado);
+                //  2- una vez creado, busca que no exista dentro del sistema
                 if (SistemaUTN.EncontrarCursoRegistrado(nuevoCurso))
                 {
-                    MessageBox.Show($"Ya existe este/a curso registrado en el sistema.");
+                    MessageBox.Show($"Ya existe este curso registrado en el sistema.");
                 }
                 else
                 {
+                    //  3- si esta todo bien y el admin confirma, asignarle un n° de legajo
                     string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {nuevoCurso.Nombre}?";
                     if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                     {
@@ -124,8 +77,6 @@ namespace Vista_App
             {
                 MessageBox.Show($"Los datos ingresados no son válidos, reviselos y vuelva a intentarlo.");
             }
-
-
         }
 
 
@@ -186,12 +137,12 @@ namespace Vista_App
 
         private void cbxDia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            diaIngresado = cbxDia.Items[cbxDia.SelectedIndex].ToString();
+            diaIngresado = (Dia)cbxDia.Items[cbxDia.SelectedIndex];//.ToString();
         }
 
         private void cbxTurno_SelectedIndexChanged(object sender, EventArgs e)
         {
-            turnoIngresado = cbxTurno.Items[cbxTurno.SelectedIndex].ToString();
+            turnoIngresado = (Turno)cbxTurno.Items[cbxTurno.SelectedIndex];//.ToString();
         }
     }
 }

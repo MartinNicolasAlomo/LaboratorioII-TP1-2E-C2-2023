@@ -14,13 +14,16 @@ namespace Vista_App
         private string usuarioValido;
         private string claveValida;
         private FrmMenuPrincipal? menuPrincipal;
+        private FrmMenuEstudiante? menuEstudiante;
         private Usuario? usuarioLogueado;
 
         public FrmLogin()
         {
             InitializeComponent();
-            usuarioValido = "jperez@utn.com";
-            claveValida = "30321654";
+            //usuarioValido = "ma@gmail.com";
+            //claveValida = "40916734";  
+            usuarioValido = "jdiaz@utn.com";
+            claveValida = "30303030";
             tbxUsuario.Text = usuarioValido;
             tbxClave.Text = claveValida;
         }
@@ -29,7 +32,8 @@ namespace Vista_App
         #region METODOS
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            if (menuPrincipal == null && ValidarUsuarioIngresado(out usuarioLogueado, tbxUsuario.Text, tbxClave.Text))
+            //  REVISAR MENUS SON NULOS ???
+            if (menuPrincipal == null && menuEstudiante == null && ValidarUsuarioIngresado(out usuarioLogueado, tbxUsuario.Text, tbxClave.Text))
             {
                 if (usuarioLogueado?.GetType() == typeof(Administrador))
                 {
@@ -40,7 +44,9 @@ namespace Vista_App
 
                 else if (usuarioLogueado?.GetType() == typeof(Estudiante))
                 {
-                    //  Abrir el Form/Panel del PROFE
+                    menuEstudiante = new FrmMenuEstudiante((Estudiante)usuarioLogueado, this);
+                    menuEstudiante.Show();
+                    Hide();
                 }
             }
         }
@@ -49,6 +55,7 @@ namespace Vista_App
         {
             Show();
             menuPrincipal = null;
+            menuEstudiante = null;
         }
 
         private bool ValidarUsuarioIngresado(out Usuario? usuarioIngresado, string emailIngresado, string claveIngresada)

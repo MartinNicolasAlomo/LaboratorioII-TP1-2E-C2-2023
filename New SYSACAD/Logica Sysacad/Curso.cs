@@ -52,12 +52,12 @@ namespace Logica_Sysacad
         private string nombre;
         private string descripcion;
         private byte cupoMaximo;
-        private string turno;
-        private string dia;
+        //private string turno;
+        //private string dia;
         private string aula;
         private string horario;
-        //private Turno turno;
-        //private Dia dia;
+        private Turno turno;
+        private Dia dia;
         //private Profesor profesor;
         //private string minutoInicio;
         //private string minutoFinal;
@@ -81,7 +81,7 @@ namespace Logica_Sysacad
             HardcodearTurnos();
         }
 
-        public Curso(string nombre, string descripcion, byte cupoMaximo, string turno, string dia,//Turno turno, Dia dia, 
+        public Curso(string nombre, string descripcion, byte cupoMaximo, Turno turno, Dia dia, //string turno, string dia,
                      string aula, string horario)
         {
             codigo = 0;
@@ -249,7 +249,22 @@ namespace Logica_Sysacad
         }
 
 
+        public string Mostrar()
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine($"{codigo}")
+                .AppendLine($"{nombre}")
+                .AppendLine($"{descripcion}")
+                .AppendLine($"{cupoMaximo.ToString()}")
+                .AppendLine($"{turno.ToString()}")
+                .AppendLine($"{dia.ToString()}")
+                .AppendLine($"{horario}")
+                .AppendLine($"{aula}")
+                .AppendLine($"")
+                ;
 
+            return text.ToString();
+        }
 
 
         #endregion

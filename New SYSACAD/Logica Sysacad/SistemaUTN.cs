@@ -18,6 +18,11 @@ namespace Logica_Sysacad
         private static List<Curso>? baseDatosCursos;
 
 
+        public static List<Curso>? BaseDatosCursos
+        {
+            get { return baseDatosCursos; }
+        }
+
 
         #endregion
 
@@ -35,9 +40,9 @@ namespace Logica_Sysacad
         {
             baseDatosUsuarios = new List<Usuario>
             {
-                new Administrador("Julieta", "Pérez", "30321654", "jperez@utn.com", "40401122", "Av. Mitre 2005"),
+                new Administrador("Julieta", "Díaz", "30303030", "jdiaz@utn.com", "40401122", "Av. Mitre 2005"),
                 new Administrador("Romina", "Gomez", "30777111", "rgomez@utn.com", "40404477", "Av. Belgrano 448"),
-                new Administrador("Mariano", "Díaz", "35003992", "mdiaz@utn.com", "40401010", "Av. Calchaquí 307"),
+                new Administrador("Mariano", "González", "35003992", "mgonzalez@utn.com", "40401010", "Av. Calchaquí 307"),
                 new Estudiante("Juan", "García", "45333789", "jgarcia@gmail.com", "25308811", "Gral. Deheza 651", new DateTime(1981,7,27)),
                 new Estudiante("Martín Nicolás", "Alomo", "40916734", "ma@gmail.com", "42461213", "Corvalan 435", new DateTime(1998, 1, 7))
             };
@@ -52,6 +57,11 @@ namespace Logica_Sysacad
             {
                 //    new Curso("2°E","---",110,Turno.Noche,"7",profe1,"18","30","22","30"),
                 //    new Curso("2°D","---",110,Turno.Noche,"12",profe1,"18","30","22","30"),
+                new Curso("3°D","Programación III",50,Turno.Noche, Dia.Lunes, "215","18:30 - 22:30"),
+                new Curso("3°D","Laboratorio III",50,Turno.Noche, Dia.Martes, "212","18:30 - 22:30"),
+                new Curso("3°D","Org. Contable",50,Turno.Noche, Dia.Miércoles, "201","18:30 - 22:30"),
+                new Curso("3°D","Org. Empresarial",50,Turno.Noche, Dia.Jueves, "207","18:30 - 22:30"),
+                new Curso("3°D","Inv. Operativa",50,Turno.Noche, Dia.Viernes, "210","18:30 - 22:30"),
             };
 
 
@@ -214,6 +224,22 @@ namespace Logica_Sysacad
                 }
             }
             return false;
+        }
+
+
+
+        public static string MostrarCursos()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (Curso item in baseDatosCursos)
+            {
+                if (item is not null)
+                {
+                    sb.AppendLine(item.Mostrar());
+                }
+            }
+
+            return sb.ToString();
         }
 
 

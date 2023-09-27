@@ -18,7 +18,7 @@ namespace Logica_Sysacad
         protected static ushort ultimoLegajo;
         protected DateTime fechaNacimiento;
         protected CarrerasUTN carrera;
-
+        public List<Curso> cursosInscriptos;
 
 
         #endregion

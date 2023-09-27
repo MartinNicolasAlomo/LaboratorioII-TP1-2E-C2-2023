@@ -79,5 +79,9 @@ namespace Vista_App
             menuPrincipal?.MostrarMenuPrincipal();
         }
 
+        private void FrmGestionCursos_Load(object sender, EventArgs e)
+        {
+            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
+        }
     }
 }
