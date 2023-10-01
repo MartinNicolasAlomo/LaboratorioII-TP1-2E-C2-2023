@@ -86,7 +86,7 @@ namespace Vista_App
                 else
                 {
                     string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del/la estudiante {nuevoEstudiante.NombreCompletoOrdenApellido}?";
-                    if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
+                    if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                     {
                         nuevoEstudiante.AsignarNumeroLegajo();
                         MessageBox.Show(nuevoEstudiante.MostrarDatos());
@@ -100,15 +100,6 @@ namespace Vista_App
             }
         }
 
-        private static DialogResult PreguntarConfirmacion(string pregunta)
-        {
-            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
-            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
-            {
-                return DialogResult.OK;
-            }
-            return DialogResult.Cancel;
-        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

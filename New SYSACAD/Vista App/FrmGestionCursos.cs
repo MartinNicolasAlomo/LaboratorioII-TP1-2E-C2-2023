@@ -16,6 +16,22 @@ namespace Vista_App
             this.menuPrincipal = menuPrincipal;
         }
 
+        private void FrmGestionCursos_Load(object sender, EventArgs e)
+        {
+            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
+            dgvListaCursos.Columns[0].HeaderText = "Código";
+            dgvListaCursos.Columns[3].HeaderText = "División";
+            dgvListaCursos.Columns[4].HeaderText = "Descripción";
+            dgvListaCursos.Columns[6].HeaderText = "Día";
+            dgvListaCursos.Columns[9].HeaderText = "Cupo Máx.";
+            ////  AGREGAR CUPO ACTUAL:    17/60
+            //dgvListaCursos.Columns[5].DisplayIndex = 3;
+            btnEditarCurso.Enabled = false;
+            btnEliminarCurso.Enabled = false;
+        }
+
+
+
         #endregion
 
 
@@ -48,7 +64,6 @@ namespace Vista_App
 
 
         #endregion
-
 
 
         #region B) MODIFICAR CURSO
@@ -110,8 +125,9 @@ namespace Vista_App
             if (auxCurso is not null)
             {
                 MessageBox.Show(auxCurso.MostrarDatos());
-                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {auxCurso.Descripcion} - {auxCurso.Nombre}?";
-                if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
+                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.Descripcion} - {auxCurso.Nombre}?";
+                //if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
+                if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                 {
                     SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
                     ActualizarDataGridView();
@@ -123,31 +139,30 @@ namespace Vista_App
             }
         }
 
-        #endregion
 
-        private static DialogResult PreguntarConfirmacion(string pregunta)
-        {
-            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
-            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
-            {
-                return DialogResult.OK;
-            }
-            return DialogResult.Cancel;
-        }
+        #endregion
 
 
         private Curso? ObtenerCursoDesdeDataGridView()
         {
             int indice = seleccion.RowIndex;
             //  USAR  EXCEPCIONES   TRY CATCH
+            //try
+            //{
+
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
+
             if (indice != -1 && indice >= 0)
             {
                 return SistemaUTN.BaseDatosCursos?[indice];
             }
             return null;
         }
-
-
 
         public void ActualizarDataGridView()
         {
@@ -160,7 +175,6 @@ namespace Vista_App
             menuPrincipal?.MostrarMenuPrincipal();
         }
 
-
         private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnEditarCurso.Enabled = true;
@@ -169,86 +183,5 @@ namespace Vista_App
         }
 
 
-        private void FrmGestionCursos_Load(object sender, EventArgs e)
-        {
-            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
-            dgvListaCursos.Columns[5].DisplayIndex = 3;
-            dgvListaCursos.Columns[6].DisplayIndex = 4;
-            dgvListaCursos.Columns[7].DisplayIndex = 5;
-            dgvListaCursos.Columns[0].HeaderText = "Código";
-            dgvListaCursos.Columns[2].HeaderText = "Descripción";
-            //  AGREGAR CUPO ACTUAL:    17/60
-            dgvListaCursos.Columns[4].HeaderText = "Cupo Máx.";
-            dgvListaCursos.Columns[6].HeaderText = "Día";
-
-            btnEditarCurso.Enabled = false;
-            btnEliminarCurso.Enabled = false;
-
-        }
-
-
-
-
-
-
-
-
-
-
-        //private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //    btnEditarCurso.Enabled = true;
-        //    btnEliminarCurso.Enabled = true;
-        //    //ObtenerCursoDesdeDataGridView();
-        //    //DataGridViewRow selectedRow = dgvListaCursos.SelectedRows[0];
-        //    //var materia = selectedRow.Cells[3].Value;
-
-        //    //MessageBox.Show(materia.ToString());
-        //    //if (dgvListaCursos.SelectedRows.Count > 0)
-        //    //{
-        //    //    // Get the selected row
-        //    //    MessageBox.Show(selectedRow.ToString());
-        //    //}
-        //    //else
-        //    //{
-
-        //    //    MessageBox.Show(dgvListaCursos.SelectedRows.Count.ToString());
-        //    //}
-
-        //}
-
-        ////private void dgvListaCursos_SelectionChanged(object sender, EventArgs e)
-        ////{
-        ////    // Check if a row is selected
-        //    //if (dgvListaCursos.SelectedRows.Count > 0)
-        //    //{
-        //    //    // Get the selected sport based on the selected row
-        //    //    Curso selectedSport = (Curso)dgvListaCursos.SelectedRows[0].DataBoundItem;
-
-        //    //    // Display sport information in a MessageBox
-        //    //    string message = $"Name: {selectedSport.Codigo}\nType: {selectedSport.Turno}\nPlayers: {selectedSport.Descripcion} {selectedSport.Nombre}";
-        //    //    MessageBox.Show(message, "Selected Sport Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    //}
-        //    //else
-        ////    //{
-        ////    //    MessageBox.Show(dgvListaCursos.SelectedRows.Count.ToString());
-        ////    //}
-        ////}
-
-        ////private void dgvListaCursos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    if (e.RowIndex>=0)
-        //    {
-        //        DataGridViewRow fila = dgvListaCursos.Rows[e.RowIndex];
-        //        string materia = fila.Cells[0].Value.ToString();
-        //        MessageBox.Show(materia);
-        //    }
-        //    else
-        //    {
-
-        //        MessageBox.Show("nada asdsa56");
-        //    }
-        //}
     }
 }

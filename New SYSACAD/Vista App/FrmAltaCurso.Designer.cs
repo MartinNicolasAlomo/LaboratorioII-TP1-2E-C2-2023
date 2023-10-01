@@ -35,7 +35,7 @@
             cbxCuatrimestre = new ComboBox();
             cbxDivision = new ComboBox();
             cbxDescripcion = new ComboBox();
-            tbxCupMaximo = new TextBox();
+            tbxCupoMaximo = new TextBox();
             cbxHorario = new ComboBox();
             lblNombre = new Label();
             lblDescripcion = new Label();
@@ -113,11 +113,11 @@
             // 
             // tbxCupMaximo
             // 
-            tbxCupMaximo.Location = new Point(108, 88);
-            tbxCupMaximo.Name = "tbxCupMaximo";
-            tbxCupMaximo.PlaceholderText = "(Máximo 120).";
-            tbxCupMaximo.Size = new Size(100, 23);
-            tbxCupMaximo.TabIndex = 10;
+            tbxCupoMaximo.Location = new Point(108, 88);
+            tbxCupoMaximo.Name = "tbxCupMaximo";
+            tbxCupoMaximo.PlaceholderText = "(Máximo 120).";
+            tbxCupoMaximo.Size = new Size(100, 23);
+            tbxCupoMaximo.TabIndex = 10;
             // 
             // cbxHorario
             // 
@@ -215,7 +215,7 @@
             Controls.Add(lblDescripcion);
             Controls.Add(lblNombre);
             Controls.Add(cbxHorario);
-            Controls.Add(tbxCupMaximo);
+            Controls.Add(tbxCupoMaximo);
             Controls.Add(cbxDescripcion);
             Controls.Add(cbxDivision);
             Controls.Add(cbxCuatrimestre);
@@ -239,7 +239,7 @@
         private ComboBox cbxCuatrimestre;
         private ComboBox cbxDivision;
         private ComboBox cbxDescripcion;
-        private TextBox tbxCupMaximo;
+        private TextBox tbxCupoMaximo;
         private ComboBox cbxHorario;
         private Label lblNombre;
         private Label lblDescripcion;

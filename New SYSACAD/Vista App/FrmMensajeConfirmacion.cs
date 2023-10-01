@@ -28,6 +28,17 @@ namespace Vista_App
             DialogResult = DialogResult.Cancel;
         }
 
+        public static DialogResult PreguntarConfirmacion(string pregunta)
+        {
+            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
+            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
+            {
+                return DialogResult.OK;
+            }
+            return DialogResult.Cancel;
+        }
+
+
         //private void FrmMensajeConfirmacion_FormClosing(object sender, FormClosingEventArgs e)
         //{
         //    DialogResult = DialogResult.Cancel;

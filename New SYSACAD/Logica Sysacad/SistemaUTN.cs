@@ -63,17 +63,14 @@ namespace Logica_Sysacad
 
         private static void HardcodearCursos()
         {
-            Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", new DateTime(1983, 4, 27), 40, "mrampi@utn.com", "40406060", "Mitre 205");
             baseDatosCursos = new List<Curso>
             {
-                new Curso("3°D","Programación III",50,Turno.Noche, Dia.Lunes, "215","18:30 - 22:30"),
-                new Curso("3°D","Laboratorio III",50,Turno.Noche, Dia.Martes, "212","18:30 - 22:30"),
-                new Curso("3°D","Org. Contable",50,Turno.Noche, Dia.Miércoles, "201","18:30 - 22:30"),
-                new Curso("3°D","Org. Empresarial",50,Turno.Noche, Dia.Jueves, "207","18:30 - 22:30"),
-                new Curso("3°D","Inv. Operativa",50,Turno.Noche, Dia.Viernes, "210","18:30 - 22:30"),
+                new Curso("3°","D", "Programación III", "Noche", "Lunes", "18:30 - 22:30", "215", 50),
+                new Curso("3°","D","Laboratorio III", "Noche", "Martes", "18:30 - 22:30", "212", 50),
+                new Curso("3°","D", "Org. Contable", "Noche", "Miércoles", "18:30 - 22:30", "201", 50),
+                new Curso("3°","D", "Org. Empresarial", "Noche", "Jueves", "18:30 - 22:30", "207", 50),
+                new Curso("3°","D", "Elem. de Invest. Operativa", "Noche", "Viernes", "18:30 - 22:30", "210", 50),
             };
-
-
         }
 
         private static void HardcodearAdministradores()
@@ -256,7 +253,7 @@ namespace Logica_Sysacad
             {
                 if (item is not null)
                 {
-                    sb.AppendLine(item.Mostrar());
+                    sb.AppendLine(item.MostrarDatos());
                 }
             }
 
