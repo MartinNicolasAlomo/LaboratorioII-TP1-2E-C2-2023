@@ -32,20 +32,22 @@
             btnAgregarCurso = new Button();
             btnEditarCurso = new Button();
             btnEliminarCurso = new Button();
+            lblInfo = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
             SuspendLayout();
             // 
             // dgvListaCursos
             // 
             dgvListaCursos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListaCursos.Location = new Point(52, 34);
+            dgvListaCursos.Location = new Point(12, 35);
             dgvListaCursos.Name = "dgvListaCursos";
-            dgvListaCursos.Size = new Size(676, 232);
+            dgvListaCursos.Size = new Size(941, 232);
             dgvListaCursos.TabIndex = 0;
+            dgvListaCursos.CellClick += dgvListaCursos_CellClick;
             // 
             // btnAgregarCurso
             // 
-            btnAgregarCurso.Location = new Point(77, 290);
+            btnAgregarCurso.Location = new Point(238, 290);
             btnAgregarCurso.Name = "btnAgregarCurso";
             btnAgregarCurso.Size = new Size(170, 35);
             btnAgregarCurso.TabIndex = 1;
@@ -55,7 +57,7 @@
             // 
             // btnEditarCurso
             // 
-            btnEditarCurso.Location = new Point(386, 290);
+            btnEditarCurso.Location = new Point(482, 290);
             btnEditarCurso.Name = "btnEditarCurso";
             btnEditarCurso.Size = new Size(140, 35);
             btnEditarCurso.TabIndex = 2;
@@ -65,7 +67,7 @@
             // 
             // btnEliminarCurso
             // 
-            btnEliminarCurso.Location = new Point(558, 290);
+            btnEliminarCurso.Location = new Point(654, 290);
             btnEliminarCurso.Name = "btnEliminarCurso";
             btnEliminarCurso.Size = new Size(140, 35);
             btnEliminarCurso.TabIndex = 3;
@@ -73,11 +75,21 @@
             btnEliminarCurso.UseVisualStyleBackColor = true;
             btnEliminarCurso.Click += btnEliminarCurso_Click;
             // 
+            // lblInfo
+            // 
+            lblInfo.AutoSize = true;
+            lblInfo.Location = new Point(38, 295);
+            lblInfo.Name = "lblInfo";
+            lblInfo.Size = new Size(32, 15);
+            lblInfo.TabIndex = 4;
+            lblInfo.Text = "*****";
+            // 
             // FrmGestionCursos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 341);
+            ClientSize = new Size(965, 366);
+            Controls.Add(lblInfo);
             Controls.Add(btnEliminarCurso);
             Controls.Add(btnEditarCurso);
             Controls.Add(btnAgregarCurso);
@@ -89,6 +101,7 @@
             Load += FrmGestionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -97,5 +110,6 @@
         private Button btnAgregarCurso;
         private Button btnEditarCurso;
         private Button btnEliminarCurso;
+        private Label lblInfo;
     }
 }

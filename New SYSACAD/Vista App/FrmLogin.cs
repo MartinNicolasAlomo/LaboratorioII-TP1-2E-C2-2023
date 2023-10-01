@@ -75,6 +75,12 @@ namespace Vista_App
             return true;
         }
 
+        /*
+         metodo
+        si aprieto ctrl + esc se cierra el programa
+         
+            Application.Exit();
+         */
 
         #endregion
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logica_Sysacad
 {
-    public class Profesor : Usuario
+    public sealed class Profesor : Usuario
     {
         #region CAMPOS
         protected static ushort ultimoLegajo;
@@ -24,14 +24,11 @@ namespace Logica_Sysacad
             ultimoLegajo = 1;
         }
 
-        public Profesor(string nombres, string apellidos, string dni, //DateTime fechaNacimiento, 
-                        string correoElectronico, string telefono, string direccion) 
-                        : base(nombres, apellidos, dni, //fechaNacimiento, 
-                              correoElectronico, telefono, direccion)
+        public Profesor(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string telefono, string direccion)
+                        : base(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
         {
             legajo = ultimoLegajo;
             ultimoLegajo++;
-
         }
 
 

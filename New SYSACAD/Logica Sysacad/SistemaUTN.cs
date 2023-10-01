@@ -11,16 +11,29 @@ namespace Logica_Sysacad
         #region CAMPOS
         private static string? nombre;
 
-        //private static List<Estudiante> listaEstudiantes;
-        private static List<Administrador> listaAdministradores;
-        //private static List<Profesor> listaProfesor;
+        private static List<Administrador>? listaAdministradores;
         private static List<Usuario>? baseDatosUsuarios;
+        private static List<Estudiante>? listaEstudiantes;
         private static List<Curso>? baseDatosCursos;
 
 
         public static List<Curso>? BaseDatosCursos
         {
             get { return baseDatosCursos; }
+            set { baseDatosCursos = value; }
+        }
+
+
+        public static List<Estudiante>? ListaEstudiantes
+        {
+            get { return listaEstudiantes; }
+            set { listaEstudiantes = value; }
+        }
+
+        public static List<Administrador>? ListaAdministradores
+        {
+            get { return listaAdministradores; }
+            set { listaAdministradores = value; }
         }
 
 
@@ -40,23 +53,19 @@ namespace Logica_Sysacad
         {
             baseDatosUsuarios = new List<Usuario>
             {
-                new Administrador("Julieta", "Díaz", "30303030", "jdiaz@utn.com", "40401122", "Av. Mitre 2005"),
-                new Administrador("Romina", "Gomez", "30777111", "rgomez@utn.com", "40404477", "Av. Belgrano 448"),
-                new Administrador("Mariano", "González", "35003992", "mgonzalez@utn.com", "40401010", "Av. Calchaquí 307"),
-                new Estudiante("Juan", "García", "45333789", "jgarcia@gmail.com", "25308811", "Gral. Deheza 651", new DateTime(1981,7,27)),
-                new Estudiante("Martín Nicolás", "Alomo", "40916734", "ma@gmail.com", "42461213", "Corvalan 435", new DateTime(1998, 1, 7))
+                new Administrador("Julieta", "Díaz", "30303030", new DateTime(1983,4,27), 40, "jdiaz@utn.com", "40401122", "Av. Mitre 2005"),
+                new Administrador("Romina", "Gomez", "30777111", new DateTime(1983,4,27), 40,"rgomez@utn.com", "40404477", "Av. Belgrano 448"),
+                new Administrador("Mariano", "González", "35003992", new DateTime(1983,4,27), 40,"mgonzalez@utn.com", "40401010", "Av. Calchaquí 307"),
+                new Estudiante("Juan", "García", "45333789", new DateTime(1996,12,29), 27,"jgarcia@gmail.com", "25308811", "Gral. Deheza 651"),
+                new Estudiante("Martín Nicolás", "Alomo", "40916734", new DateTime(1998,1,7), 25,"ma@gmail.com", "42461213", "Corvalan 435")
             };
-
-
         }
 
         private static void HardcodearCursos()
         {
-            Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", "mrampi@utn.com", "40406060", "Mitre 205");
+            Profesor profe1 = new Profesor("Mario", "Rampi", "33222444", new DateTime(1983, 4, 27), 40, "mrampi@utn.com", "40406060", "Mitre 205");
             baseDatosCursos = new List<Curso>
             {
-                //    new Curso("2°E","---",110,Turno.Noche,"7",profe1,"18","30","22","30"),
-                //    new Curso("2°D","---",110,Turno.Noche,"12",profe1,"18","30","22","30"),
                 new Curso("3°D","Programación III",50,Turno.Noche, Dia.Lunes, "215","18:30 - 22:30"),
                 new Curso("3°D","Laboratorio III",50,Turno.Noche, Dia.Martes, "212","18:30 - 22:30"),
                 new Curso("3°D","Org. Contable",50,Turno.Noche, Dia.Miércoles, "201","18:30 - 22:30"),
@@ -80,6 +89,18 @@ namespace Logica_Sysacad
 
         }
 
+
+        private static void HardcodearEstudiantes()
+        {
+            listaEstudiantes = new List<Estudiante>();
+            foreach (Usuario usuario in baseDatosUsuarios)
+            {
+                if (usuario.GetType() == typeof(Estudiante))
+                {
+                    listaEstudiantes.Add((Estudiante)usuario);
+                }
+            }
+        }
 
 
 

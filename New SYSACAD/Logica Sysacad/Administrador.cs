@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logica_Sysacad
 {
-    public class Administrador : Usuario
+    public sealed class Administrador : Usuario
     {
         #region CAMPOS
         protected static ushort ultimoLegajo;
@@ -22,10 +22,8 @@ namespace Logica_Sysacad
             ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
         }
 
-        public Administrador(string nombres, string apellidos, string dni, //DateTime fechaNacimiento, 
-                             string correoElectronico, string telefono, string direccion)
-                            : base(nombres, apellidos, dni, //fechaNacimiento, 
-                                  correoElectronico, telefono, direccion)
+        public Administrador(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string telefono, string direccion)
+                            : base(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
         {
             legajo = ultimoLegajo;
             ultimoLegajo++;

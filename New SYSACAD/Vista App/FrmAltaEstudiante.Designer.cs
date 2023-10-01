@@ -43,13 +43,13 @@
             lblDNI = new Label();
             lblDireccion = new Label();
             lblTelefono = new Label();
-            label6 = new Label();
+            lblEmail = new Label();
             lblClave = new Label();
-            label1 = new Label();
             lblFechaNacimiento = new Label();
             tbxDia = new TextBox();
             tbxMes = new TextBox();
             tbxAnio = new TextBox();
+            chxPermitirCambioClave = new CheckBox();
             SuspendLayout();
             // 
             // tbxNombres
@@ -110,7 +110,7 @@
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(12, 321);
+            btnConfirmar.Location = new Point(12, 309);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(150, 40);
             btnConfirmar.TabIndex = 7;
@@ -120,7 +120,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(242, 321);
+            btnCancelar.Location = new Point(242, 309);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(150, 40);
             btnCancelar.TabIndex = 8;
@@ -173,14 +173,14 @@
             lblTelefono.TabIndex = 13;
             lblTelefono.Text = "Teléfono:";
             // 
-            // label6
+            // lblEmail
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(7, 203);
-            label6.Name = "label6";
-            label6.Size = new Size(39, 15);
-            label6.TabIndex = 14;
-            label6.Text = "Email:";
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(7, 203);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(39, 15);
+            lblEmail.TabIndex = 14;
+            lblEmail.Text = "Email:";
             // 
             // lblClave
             // 
@@ -190,16 +190,6 @@
             lblClave.Size = new Size(55, 15);
             lblClave.TabIndex = 15;
             lblClave.Text = "Clave (*):";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(11, 255);
-            label1.Name = "label1";
-            label1.Size = new Size(137, 13);
-            label1.TabIndex = 16;
-            label1.Text = "(*) La clave es provisional.";
             // 
             // lblFechaNacimiento
             // 
@@ -234,18 +224,29 @@
             tbxAnio.Size = new Size(40, 23);
             tbxAnio.TabIndex = 20;
             // 
+            // chxPermitirCambioClave
+            // 
+            chxPermitirCambioClave.AutoSize = true;
+            chxPermitirCambioClave.Location = new Point(80, 258);
+            chxPermitirCambioClave.Name = "chxPermitirCambioClave";
+            chxPermitirCambioClave.Size = new Size(178, 19);
+            chxPermitirCambioClave.TabIndex = 21;
+            chxPermitirCambioClave.Text = "(*) Permitir cambio de clave?";
+            chxPermitirCambioClave.UseVisualStyleBackColor = true;
+            //chxPermitirCambioClave.CheckedChanged += chxPermitirCambioClave_CheckedChanged;
+            // 
             // FrmAltaEstudiante
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(404, 373);
+            ClientSize = new Size(404, 361);
+            Controls.Add(chxPermitirCambioClave);
             Controls.Add(tbxAnio);
             Controls.Add(tbxMes);
             Controls.Add(tbxDia);
             Controls.Add(lblFechaNacimiento);
-            Controls.Add(label1);
             Controls.Add(lblClave);
-            Controls.Add(label6);
+            Controls.Add(lblEmail);
             Controls.Add(lblTelefono);
             Controls.Add(lblDireccion);
             Controls.Add(lblDNI);
@@ -282,12 +283,12 @@
         private Label lblDNI;
         private Label lblDireccion;
         private Label lblTelefono;
-        private Label label6;
+        private Label lblEmail;
         private Label lblClave;
-        private Label label1;
         private Label lblFechaNacimiento;
         private TextBox tbxDia;
         private TextBox tbxMes;
         private TextBox tbxAnio;
+        private CheckBox chxPermitirCambioClave;
     }
 }

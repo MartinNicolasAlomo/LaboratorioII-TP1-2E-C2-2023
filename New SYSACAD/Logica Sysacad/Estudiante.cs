@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logica_Sysacad
 {
-    public class Estudiante : Usuario
+    public sealed class Estudiante : Usuario
     {
         public enum CarrerasUTN
         {
@@ -16,9 +16,8 @@ namespace Logica_Sysacad
 
         #region CAMPOS
         protected static ushort ultimoLegajo;
-        protected DateTime fechaNacimiento;
-        protected CarrerasUTN carrera;
-        public List<Curso> cursosInscriptos;
+        //        protected CarrerasUTN carrera;
+        public List<Curso>? cursosInscriptos;
 
 
         #endregion
@@ -31,13 +30,19 @@ namespace Logica_Sysacad
             ultimoLegajo = 3;//      1;           //  EL ULTIMO LEGAJO ESTA EN LA BASE DE DATOS
         }
 
-        public Estudiante(string nombres, string apellidos, string dni, string correoElectronico,
-                          string telefono, string direccion, DateTime fechaNacimiento, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion)
-                          : base(nombres, apellidos, dni, correoElectronico, telefono, direccion)
+        public Estudiante(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string telefono, string direccion)
+                          : base(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
         {
             legajo = 0;
-            this.fechaNacimiento = fechaNacimiento;
-            this.carrera = carrera;
+            //, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion
+            //this.carrera = carrera;
+        }
+
+        public Estudiante(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string clave, string telefono, string direccion)
+                  : this(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
+        {
+            this.clave = clave;
+            //, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion
         }
 
         public void AsignarNumeroLegajo()
@@ -47,17 +52,12 @@ namespace Logica_Sysacad
         }
 
 
-
         #endregion
 
 
 
         #region PROPIEDADES
 
-        public DateTime FechaNacimiento
-        {
-            get { return fechaNacimiento; }
-        }
 
 
 
@@ -84,6 +84,7 @@ namespace Logica_Sysacad
         //{
         //    return !(estudiante1 == estudiante2);
         //}
+
 
 
 

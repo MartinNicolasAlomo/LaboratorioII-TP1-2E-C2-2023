@@ -38,19 +38,23 @@ namespace Vista_App
             FrmAltaEstudiante? altaEstudiate = new FrmAltaEstudiante();
             if (altaEstudiate.ShowDialog() == DialogResult.OK)
             {
-
-                //      LIST.ADD(altaEstudiate.NUEVO)
-
-                StringBuilder text = new StringBuilder();
-                text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
-                    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmación de ingreso!")
-                    ;
-                MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SistemaUTN.ListaEstudiantes?.Add(altaEstudiate.NuevoEstudiante);
+                MessageBox.Show(CrearMensajeConfirmacionRegistroEstudiante(altaEstudiate.NuevoEstudiante), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+
+        private static string CrearMensajeConfirmacionRegistroEstudiante(Estudiante nuevoEstudiante)
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine($"¡Se guardaron los datos del Estudante {nuevoEstudiante.NombreCompletoOrdenApellido}!").AppendLine()
+                .AppendLine($"¡Se envió un email a {nuevoEstudiante.Email} notificando la confirmación de ingreso!")
+                ;
+            return text.ToString();
         }
 
         private static void EnviarEmailConfirmacion(string emailIngresado)
@@ -65,29 +69,23 @@ namespace Vista_App
         #region CASO 2 - GESTIONAR CURSOS
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
-            gestionCursos = new FrmGestionCursos(this);
-            Hide();
-            if (gestionCursos.ShowDialog() == DialogResult.OK)
+            if (gestionCursos is null)
             {
-                MessageBox.Show("SALIO BIEN", $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                gestionCursos = new FrmGestionCursos(this);
+                gestionCursos.Show();
+                Hide();
             }
-            else
-            {
-                MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //if (gestionCursos.ShowDialog() == DialogResult.OK)
+            //{
+            //    //MessageBox.Show("SALIO BIEN", $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
-
-
-        /*
-
-                     if (gestionCursos == null)
-        {
-            gestionCursos = new FrmGestionCursos(this);
-            gestionCursos.Show();
-            Hide();
-        }
-         */
+        #endregion
 
 
 
@@ -103,14 +101,14 @@ namespace Vista_App
             login.MostrarLogin();
         }
 
-        #endregion
-
-
         public void MostrarMenuPrincipal()
         {
             Show();
             gestionCursos = null;
         }
+
+        #endregion
+
 
 
 
@@ -118,7 +116,6 @@ namespace Vista_App
 
     }
 
-    #endregion
 
 
 

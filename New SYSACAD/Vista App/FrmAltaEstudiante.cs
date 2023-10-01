@@ -16,6 +16,19 @@ namespace Vista_App
     public partial class FrmAltaEstudiante : Form
     {
         Estudiante? nuevoEstudiante;
+        private string? nombresIngresados;
+        private string? apellidosIngresados;
+        private string? dniIngresado;
+        private string? emailIngresado;
+        private string? claveIngresada;
+        private string? telefonoIngresado;
+        private string? direccionIngresada;
+        private string? diaIngresado;
+        private string? mesIngresado;
+        private string? anioIngresado;
+        private DateTime fechaNacimiento;
+        private byte edad;
+
 
         public FrmAltaEstudiante()
         {
@@ -29,60 +42,55 @@ namespace Vista_App
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            //***************************
-            #region INGRESO DATOS .TEXT
-            //string nombresIngresados = tbxNombres.Text;
-            //string apellidosIngresados = tbxApellidos.Text;
-            //string dniIngresado = tbxDNI.Text;
-            //string direccionIngresada = tbxDireccion.Text;
-            //string telefonoIngresado = tbxTelefono.Text;
-            //string emailIngresado = tbxEmail.Text;
-            //string claveIngresada = tbxClave.Text;
-            //string diaIngresado = tbxDia.Text;
-            //string mesIngresado = tbxMes.Text;
-            //string anioIngresado = tbxAnio.Text;
-            //  1- crea el estudiante con ID = 0;
-            //  2- una vez creado, busca que no exista dentro del sistema
-            //  3- si esta todo bien y el admin confirma, asignarle un n° de legajo
-
-
-            #endregion
-
-            //***************************
-
-            string nombresIngresados = "martín nicolas";
-            string apellidosIngresados = "alomo";
-            string dniIngresado = "40916777";
-            string direccionIngresada = "corvalan 435";
-            string telefonoIngresado = "40901613";
-            string emailIngresado = "lll@gmail.com";
-            string claveIngresada = "asd";
-            string diaIngresado = "07";
-            string mesIngresado = "01";
-            string anioIngresado = "1998";
+            nombresIngresados = "martín nicolas";
+            apellidosIngresados = "alomo";
+            dniIngresado = "40916777";
+            emailIngresado = "lll@gmail.com";
+            claveIngresada = "lallaslal";
+            telefonoIngresado = "40901613";
+            direccionIngresada = "corvalan 435";
+            diaIngresado = "01";
+            mesIngresado = "10";
+            anioIngresado = "1998";
+            //nombresIngresados = tbxNombres.Text;
+            //apellidosIngresados = tbxApellidos.Text;
+            //dniIngresado = tbxDNI.Text;
+            //direccionIngresada = tbxDireccion.Text;
+            //telefonoIngresado = tbxTelefono.Text;
+            //emailIngresado = tbxEmail.Text;
+            //claveIngresada = tbxClave.Text;
+            //diaIngresado = tbxDia.Text;
+            //mesIngresado = tbxMes.Text;
+            //anioIngresado = tbxAnio.Text;
             if (Validador.ValidarNombreIngresado(ref nombresIngresados, 50) &&
                 Validador.ValidarNombreIngresado(ref apellidosIngresados, 50) &&
                 Validador.ValidarTextoNumerico(dniIngresado, 8) &&
-                Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
-                Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
                 Validador.ValidarEmailIngresado(emailIngresado) &&
                 Validador.ValidarClaveIngresada(claveIngresada) &&
-                Validador.ValidaFechaIngresada(out DateTime fechaFinal, anioIngresado, mesIngresado, diaIngresado))
+                Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
+                Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
+                Validador.ValidarFechaNacimiento(out fechaNacimiento, out edad, anioIngresado, mesIngresado, diaIngresado))
             {
-                nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, emailIngresado, telefonoIngresado, direccionIngresada, fechaFinal);
+                if (chxPermitirCambioClave.Checked == true)
+                {
+                    nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, fechaNacimiento, edad, emailIngresado, claveIngresada,telefonoIngresado, direccionIngresada);
+                }
+                else
+                {
+                    nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, fechaNacimiento, edad, emailIngresado, telefonoIngresado, direccionIngresada);
+                }
                 if (SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante))
                 {
                     MessageBox.Show($"Ya existe este/a estudiante registrado en el sistema.");
                 }
                 else
                 {
-                    string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el ingreso del/la estudiante {nuevoEstudiante.NombreCompletoOrdenApellido}?";
+                    string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del/la estudiante {nuevoEstudiante.NombreCompletoOrdenApellido}?";
                     if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                     {
                         nuevoEstudiante.AsignarNumeroLegajo();
+                        MessageBox.Show(nuevoEstudiante.MostrarDatos());
                         DialogResult = DialogResult.OK;
-                        //MostrarDatos(nuevoEstudiante);
-                        // ACTUALIZAR BASEDATOS
                     }
                 }
             }
@@ -102,27 +110,11 @@ namespace Vista_App
             return DialogResult.Cancel;
         }
 
-        private static void MostrarDatos(Estudiante nuevoEstudiante)
-        {
-            StringBuilder text = new StringBuilder();
-            text.AppendLine()
-                .AppendLine($"Informacion ingresada del Estudiante:")
-                .AppendLine($"{nuevoEstudiante.Legajo}")
-                .AppendLine($"{nuevoEstudiante.Nombres}")
-                .AppendLine($"{nuevoEstudiante.Apellidos}")
-                .AppendLine($"{nuevoEstudiante.DNI}")
-                .AppendLine($"{nuevoEstudiante.FechaNacimiento.ToString("dd/MM/yyyy")}")
-                .AppendLine($"{nuevoEstudiante.Direccion}")
-                .AppendLine($"{nuevoEstudiante.Telefono}")
-                .AppendLine($"{nuevoEstudiante.Email}")
-                .AppendLine($"{nuevoEstudiante.Clave}")
-                ;
-            MessageBox.Show(text.ToString());
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
+
+
     }
 }

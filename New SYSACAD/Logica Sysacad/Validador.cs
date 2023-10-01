@@ -8,20 +8,6 @@ namespace Logica_Sysacad
 {
     public class Validador
     {
-        private const decimal LETRA_E = 2.71828M;
-        const decimal NUMERO_PI = 3.141592653589793238462643383279502884197M;
-
-
-        public decimal LetraE
-        {
-            get { return LETRA_E; }
-        }
-
-        public decimal NumeroPI
-        {
-            get { return NUMERO_PI; }
-        }
-
 
         //public static bool VerificarEsNumeroValido(out byte numeroFinal, string textoIngresado, byte minimo, byte maximo)
         //{
@@ -100,18 +86,6 @@ namespace Logica_Sysacad
             }
             return true;
         }
-
-
-
-
-        //public static bool ValidarRespuesta(string respuestaRecibida, string respuestaEsperada)
-        //{
-        //    if (respuestaRecibida.Equals(respuestaEsperada, StringComparison.Ordinal))
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
 
 
 
@@ -194,7 +168,7 @@ namespace Logica_Sysacad
 
         public static bool VerificarEsCaracterAlfanumerico(char caracter)
         {
-            if ((caracter != ' ') && (caracter != '-') &&
+            if ((caracter != ' ') && (caracter != '-') && (caracter != '.') &&
                 (caracter < 'a' || caracter > 'z') &&
                 (caracter < 'A' || caracter > 'Z') &&
                 (caracter < '0' || caracter > '9') &&
@@ -313,11 +287,8 @@ namespace Logica_Sysacad
                     return false;
                 }
             }
-            //if (!VerificarEsGmail(ref email))
-            //{
-            //    return false;
-            //}
-            if (!email.Contains("@gmail.com"))
+            if (!email.Contains("@gmail.com") || !email.Contains("@gmail.com.ar") || !email.Contains("@hotmail.com") || !email.Contains("@hotmail.com.ar") ||
+                !email.Contains("@outlook.com") || !email.Contains("@outlook.es") || !email.Contains("@yahoo.com") || !email.Contains("@protonmail.com"))
             {
                 return false;
             }
@@ -336,25 +307,11 @@ namespace Logica_Sysacad
             return true;
         }
 
-
-        public static bool VerificarEsGmail(ref string nombre)
-        {
-            for (int i = 0; i < nombre.Length && nombre[i] != '\0'; i++)
-            {
-                if (nombre[i] == '@' && nombre[i + 1] == 'g' && nombre[i + 2] == 'm' && nombre[i + 3] == 'a' && nombre[i + 4] == 'i' && nombre[i + 5] == 'l'
-                    && nombre[i + 6] == '.' && nombre[i + 7] == 'c' && nombre[i + 8] == 'o' && nombre[i + 9] == 'm'
-                    && (nombre[i + 10] == '\0' || nombre[i + 10] == '\n'))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public static bool ValidarClaveIngresada(string datoIngresado)
         {
             return !VerificarEsDatoVacio(datoIngresado) && VerificarEsClaveValida(ref datoIngresado);
         }
+
         public static bool VerificarEsClaveValida(ref string clave)
         {
             for (int i = 0; i < clave.Length && clave[i] != '\0'; i++)
@@ -372,241 +329,8 @@ namespace Logica_Sysacad
         #endregion
 
 
-        //public static bool VerificarEsNombre(string cadena, out string mensajeError)
-        //{
-
-        //    for (int i = 0; i < cadena.Length && cadena[i] != '\0'; i++)
-        //    {
-        //        if (cadena[i] == ' ' && cadena[i + 1] == ' ' && (cadena[i + 2] == ' ' || cadena[i + 2] == '\n' || cadena[i + 2] == '\0'))
-        //        {
-        //            mensajeError = "Se ingresaron múltiples espacios en blanco consecutivos.";
-        //            return false;
-        //        }
-        //        else if ((i == 0 && (cadena[0] == ' ' || cadena[0] == '-')) ||
-        //                (cadena[i] == ' ' && (cadena[i + 1] == ' ' || cadena[i + 1] == '-' || cadena[i + 1] == '\0')) ||
-        //                (cadena[i] == '-' && (cadena[i + 1] == ' ' || cadena[i + 1] == '-' || cadena[i + 1] == '\0')))
-        //        {
-        //            mensajeError = "Se escribieron caracteres en posiciones no debidas.";
-        //            return false;
-        //        }
-        //        else if (!ValidarCaracterNombre(cadena[i]))
-        //        {
-        //            mensajeError = "Se ingresaron caracteres no aceptados.";
-        //            return false;
-        //        }
-        //    }
-
-        //    mensajeError = "";
-        //    string auxCadena = PasarInicialesNombreAMayusculas(cadena);
-        //    cadena = auxCadena;
-        //    return true;
-        //}
-
-        //public static bool VerificarAlfanumerico(string cadena, out string mensajeError)
-        //{
-        //    for (int i = 0; i < cadena.Length && cadena[i] != '\0'; i++)
-        //    {
-        //        if (cadena[i] == ' ' && cadena[i + 1] == ' ' && (cadena[i + 2] == ' ' || cadena[i + 2] == '\n' || cadena[i + 2] == '\0'))
-        //        {
-        //            mensajeError = "Se ingresaron múltiples espacios en blanco consecutivos.";
-        //            return false;
-        //        }
-        //        else if ((i == 0 && cadena[0] == ' ') || (cadena[i] == ' ' && (cadena[i + 1] == ' ' || cadena[i + 1] == '\0')))
-        //        {
-        //            mensajeError = "Se escribieron caracteres en posiciones no debidas.";
-        //            return false;
-        //        }
-        //        else if (!ValidarCaracterAlfanumerico(cadena[i]))
-        //        {
-        //            mensajeError = "Se ingresaron caracteres no aceptados.";
-        //            return false;
-        //        }
-        //    }
-        //    mensajeError = "";
-        //    return true;
-        //}
-
-
-
-
-
-        //public static bool VerificarEsOperadorAritmetico(string cadena, out string mensajeError)
-        //{
-        //    for (int i = 0; i < cadena.Length && cadena[i] != '\0'; i++)
-        //    {
-        //        if (!ValidarCaracterOperadorAritmetico(cadena[i]))
-        //        {
-        //            mensajeError = "Se ingresaron carácteres no aceptados.";
-        //            return false;
-        //        }
-        //    }
-        //    mensajeError = "";
-        //    return true;
-        //}
-
-        //public static bool ValidarCaracterOperadorAritmetico(char caracter)
-        //{
-        //    if ((caracter != '+') && (caracter != '-') && (caracter != '*') && (caracter != '/'))
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
-
-
-
-
-
-        ////public static bool IngresarTelefonoFijo(out string telefono, uint largoTelefono, string mensajeIngreso, string mensajeInvalido, byte reintentos = 3)
-        ////{
-        ////    if (largoTelefono>0)
-        ////    {
-        ////        do
-        ////        {
-        ////            Console.WriteLine($"{Environment.NewLine}{mensajeIngreso}");
-        ////            if (ObtenerCadena(out string auxTelefono, uint largo, string mensajeError) &&
-        ////                VerificarAlfanumerico(auxTelefono, out mensajeError))
-        ////            {
-        ////                telefono = PasarTodasLetrasNombreAMayusculas(auxTelefono);
-        ////                return true;
-        ////            }
-        ////            else
-        ////            {
-        ////                Console.WriteLine($"¡Error! {mensajeInvalido} {mensajeError}{Environment.NewLine}");
-        ////                reintentos--;
-        ////            }
-        ////        } while (reintentos >= 0);
-        ////    }
-        ////    else
-        ////    {
-        ////        Console.WriteLine("¡Error! El número minimo establecido es mayor que el número máximo establecido.");
-        ////    }
-        ////    telefono = "";
-        ////    return false;
-        ////}
-
-        ////public static bool VerificarEsTelefonoFijo(string cadena, out string mensajeError)
-        ////{
-        ////    for (short i = 0; i < cadena.Length && cadena[i] != '\0'; i++)
-        ////    {
-        ////        if (cadena[i] == ' ' && cadena[i + 1] == ' ' && (cadena[i + 2] == ' ' || cadena[i + 2] == '\n' || cadena[i + 2] == '\0'))
-        ////        {
-        ////            mensajeError = "Se ingresaron múltiples espacios en blanco consecutivos.";
-        ////            return false;
-        ////        }
-        ////        else if ((i == 0 && cadena[0] == ' ') || (cadena[i] == ' ' && (cadena[i + 1] == ' ' || cadena[i + 1] == '\0')))
-        ////        {
-        ////            mensajeError = "Se escribieron caracteres en posiciones no debidas.";
-        ////            return false;
-        ////        }
-        ////        else if (!ValidarCaracterTelefonoFijo(cadena[i]))
-        ////        {
-        ////            mensajeError = "Se ingresaron caracteres no aceptados.";
-        ////            return false;
-        ////        }
-        ////    }
-        ////    mensajeError = "";
-        ////    return true;
-        ////}
-
-
-        ////public static bool ValidarCaracterTelefonoFijo(char caracter)
-        ////{
-        ////    if (caracter < '0' || caracter > '9')
-        ////    {
-        ////        return false;
-        ////    }
-        ////        return true;
-        ////}
-
-
         #region VALIDAR FECHAS
-
-        //public static bool IngresarFecha(out DateTime fechaIngresada, string mensajeAnio, string mensajeMes, string mensajeDia,
-        //                                 ushort anioMinimo, ushort anioMaximo, byte reintentos = 3)
-        //{
-        //    if (anioMinimo <= anioMaximo && anioMinimo != 0 && anioMaximo != 0 &&
-        //        IngresarAnio(out ushort anioIngresado, $"{mensajeAnio} (entre {anioMinimo} y {anioMaximo})", anioMinimo, anioMaximo, reintentos))
-        //    {
-        //        byte mesIngresado;
-        //        byte diaIngresado;
-        //        string mensajeErrorDia = "No es un día válido.";
-        //        byte anioActual = (byte)DateTime.Now.Year;
-        //        bool esBisiesto = VerificarEsAnioBisiesto(anioIngresado);
-
-        //        if (anioIngresado == anioActual)
-        //        {
-        //            Console.WriteLine($"{Environment.NewLine}Actualmente estamos en el año {anioActual}.");
-        //            if (esBisiesto)
-        //            {
-        //                Console.WriteLine($"El año {anioActual} es un año Bisiesto, tiene 366 dias, febrero tiene/tuvo 29 dias.{Environment.NewLine}");
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine($"El año {anioActual} es un año Normal, tiene 365 dias, febrero tiene/tuvo 28 dias.{Environment.NewLine}");
-        //            }
-        //            byte mesActualNumero = (byte)DateTime.Now.Month;
-        //            byte diaActual = (byte)DateTime.Now.Day;
-        //            if (IngresarNumero(out mesIngresado, $"{mensajeMes} (hasta el mes actual {DateTime.Now:MMMM} {mesActualNumero})", "No es un mes válido.", 1, mesActualNumero, reintentos) &&
-        //                    ((mesIngresado == mesActualNumero && IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al dia de hoy {diaActual})", mensajeErrorDia, 1, diaActual, reintentos)) ||
-        //                        (mesIngresado == 2 &&
-        //                        ((esBisiesto &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 29, es/fue un año bisiesto)", mensajeErrorDia, 1, 29, reintentos)) ||
-        //                        (!esBisiesto &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 28, es/fue un año normal)", mensajeErrorDia, 1, 28, reintentos)))) ||
-        //                        ((mesIngresado == 1 || mesIngresado == 3 || mesIngresado == 5 || mesIngresado == 7 || mesIngresado == 8 || mesIngresado == 10 || mesIngresado == 12) &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 31)", mensajeErrorDia, 1, 31, reintentos)) ||
-        //                        ((mesIngresado == 4 || mesIngresado == 6 || mesIngresado == 9 || mesIngresado == 11) &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 30)", mensajeErrorDia, 1, 30, reintentos))) &&
-        //                DateTime.TryParse($"{diaIngresado}/{mesIngresado}/{anioIngresado}", out fechaIngresada))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (esBisiesto)
-        //            {
-        //                Console.WriteLine($"*El año {anioIngresado} fue un año Bisiesto, tiene 366 dias, febrero tuvo 29 dias.{Environment.NewLine}");
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine($"*El año {anioIngresado} fue un año Normal, tuvo 365 dias, febrero tuvo 28 dias.{Environment.NewLine}");
-        //            }
-        //            if (IngresarNumero(out mesIngresado, $"{mensajeMes} (del 1 al 12)", "No es un mes válido.", 1, 12, reintentos) &&
-        //                    ((mesIngresado == 2 &&
-        //                    ((esBisiesto &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 29, fue un año bisiesto)", mensajeErrorDia, 1, 29, reintentos)) ||
-        //                    (!esBisiesto &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 28, fue un año normal)", mensajeErrorDia, 1, 28, reintentos)))) ||
-        //                    ((mesIngresado == 1 || mesIngresado == 3 || mesIngresado == 5 || mesIngresado == 7 || mesIngresado == 8 || mesIngresado == 10 || mesIngresado == 12) &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 31)", mensajeErrorDia, 1, 31, reintentos)) ||
-        //                    ((mesIngresado == 4 || mesIngresado == 6 || mesIngresado == 9 || mesIngresado == 11) &&
-        //                        IngresarNumero(out diaIngresado, $"{mensajeDia} (del 1 al 30)", mensajeErrorDia, 1, 30, reintentos))) &&
-        //                    DateTime.TryParse($"{diaIngresado}/{mesIngresado}/{anioIngresado}", out fechaIngresada))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //    }
-        //    else if (anioMinimo > anioMaximo)
-        //    {
-        //        Console.WriteLine("El numero minimo establecido es mayor al numero maximo establecido.");
-        //    }
-        //    else if (anioMinimo == 0)
-        //    {
-        //        Console.WriteLine("El numero establecido como minimo fue 0 (cero), y no existió el año 0.");
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("No se ingreso un año válido.");
-        //    }
-        //    fechaIngresada = DateTime.Now;
-        //    return false;
-        //}
-
-        public static bool ValidaFechaIngresada(out DateTime fechaFinal, string anioIngresado, string mesIngresado, string diaIgresado)
+        public static bool ValidarFechaIngresada(out DateTime fechaFinal, string anioIngresado, string mesIngresado, string diaIgresado)
         {
             if (ValidarNumeroIngresado(out decimal anioFinal, anioIngresado, 1905, 2006))
             {
@@ -641,35 +365,34 @@ namespace Logica_Sysacad
             return false;
         }
 
-        //public static TimeSpan CalcularDiferenciaDias(DateTime fechaIngresada)
-        //{
-        //    return DateTime.Now.Subtract(fechaIngresada);
-        //}
+        public static TimeSpan CalcularAniosDiferencia(DateTime fechaNacimiento)
+        {
+            return DateTime.Now - fechaNacimiento;
+        }
 
-        //public static TimeSpan CalcularAniosDiferencia(DateTime fechaNacimiento)
-        //{
-        //    return DateTime.Now - fechaNacimiento;
-        //}
-
-        //public static byte CalcularAniosTotales(DateTime fechaNacimiento)
-        //{
-        //    TimeSpan edadActual = CalcularAniosDiferencia(fechaNacimiento);
-        //    double aniosConvertidos = (double)edadActual.TotalDays / 365.2425;
-        //    return (byte)aniosConvertidos;
-        //}
+        public static byte CalcularAniosTotales(DateTime fechaNacimiento)
+        {
+            TimeSpan edadActual = CalcularAniosDiferencia(fechaNacimiento);
+            double aniosConvertidos = (double)edadActual.TotalDays / 365.2425;
+            return (byte)aniosConvertidos;
+        }
 
 
-        //public static TimeSpan CalcularDiferenciaFechas(DateTime fechaIngresada)
-        //{
-        //    return DateTime.Now.Subtract(fechaIngresada);
-        //}
-
-
-        /*  if (DateTime.TryParse($"{2013}/{1}/{2}", out fecha))
+        public static bool ValidarFechaNacimiento(out DateTime fechaFinal, out byte edadActual, string anioIngresado, string mesIngresado, string diaIgresado)
+        {
+            if (ValidarFechaIngresada(out fechaFinal, anioIngresado, mesIngresado, diaIgresado))
             {
-                personaNueva.FechaNacimiento = fecha;
+                edadActual = CalcularAniosTotales(fechaFinal);
+                if (edadActual >= 18)
+                {
+                    return true;
+                }
+                return false;
             }
-        */
+            fechaFinal = DateTime.UtcNow;
+            edadActual = 0;
+            return false;
+        }
 
 
         #endregion
