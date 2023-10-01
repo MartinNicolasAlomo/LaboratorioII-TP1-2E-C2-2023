@@ -54,8 +54,6 @@ namespace Logica_Sysacad
         private string nombre;
         private string descripcion;
         private byte cupoMaximo;
-        //private string turno;
-        //private string dia;1
         private string aula;
         private string horario;
         private Turno turno;
@@ -79,8 +77,7 @@ namespace Logica_Sysacad
             HardcodearMaterias11();
         }
 
-        public Curso(string nombre, string descripcion, byte cupoMaximo, Turno turno, Dia dia, //string turno, string dia,
-                     string aula, string horario)
+        public Curso(string nombre, string descripcion, byte cupoMaximo, Turno turno, Dia dia, string aula, string horario)
         {
             codigo = 0;
             this.nombre = nombre;
@@ -90,7 +87,6 @@ namespace Logica_Sysacad
             this.dia = dia;
             this.aula = aula;
             this.horario = horario;
-            //this.horaFinal = horaFinal;
         }
 
         public void AsignarCodigo()
@@ -271,6 +267,20 @@ namespace Logica_Sysacad
                 .AppendLine($"{"Cupo Máx.:",ESP_COLM_1}{cupoMaximo.ToString(),ESP_COLM_2}")
                 ;
             return text.ToString();
+        }
+
+
+
+
+        public void ModificarCursoExistente(string nombre, string descripcion, byte cupoMaximo, Turno turno, Dia dia, string aula, string horario)
+        {
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.cupoMaximo = cupoMaximo;
+            this.turno = turno;
+            this.dia = dia;
+            this.aula = aula;
+            this.horario = horario;
         }
 
         #endregion

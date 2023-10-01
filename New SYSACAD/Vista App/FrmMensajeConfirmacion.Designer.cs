@@ -70,8 +70,8 @@
             Controls.Add(btnCancelar);
             Controls.Add(btnConfirmar);
             Name = "FrmMensajeConfirmacion";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "¿Desea confirmar?";
-            //FormClosing += FrmMensajeConfirmacion_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

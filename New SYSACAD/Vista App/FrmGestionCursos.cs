@@ -54,7 +54,25 @@ namespace Vista_App
         #region B) MODIFICAR CURSO
         private void btnEditarCurso_Click(object sender, EventArgs e)
         {
-
+            Curso? auxCurso = ObtenerCursoDesdeDataGridView();
+            if (auxCurso is not null)
+            {
+                FrmAltaCurso? edicionCurso = new FrmAltaCurso(auxCurso, "Modificar curso existente");
+                if (edicionCurso.ShowDialog() == DialogResult.OK)
+                {
+                    //  preguntar confirmacion
+                    //SistemaUTN.BaseDatosCursos?.Add(edicionCurso.CursoIngresado);
+                    MessageBox.Show(CrearMensajeConfirmacionRegistroCurso(edicionCurso.CursoIngresado), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ActualizarDataGridView();
+                }
+                //MessageBox.Show(auxCurso.MostrarDatos());
+                //SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
+                //ActualizarDataGridView();
+            }
+            else
+            {
+                MessageBox.Show("MALALALALALLAL");
+            }
 
 
 
@@ -92,9 +110,12 @@ namespace Vista_App
             if (auxCurso is not null)
             {
                 MessageBox.Show(auxCurso.MostrarDatos());
-                //  preguntar confirmacion
-                SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
-                ActualizarDataGridView();
+                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {auxCurso.Descripcion} - {auxCurso.Nombre}?";
+                if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
+                {
+                    SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
+                    ActualizarDataGridView();
+                }
             }
             else
             {
@@ -103,6 +124,16 @@ namespace Vista_App
         }
 
         #endregion
+
+        private static DialogResult PreguntarConfirmacion(string pregunta)
+        {
+            FrmMensajeConfirmacion? mensajeConfirmacion = new FrmMensajeConfirmacion(pregunta);
+            if (mensajeConfirmacion.ShowDialog() == DialogResult.OK)
+            {
+                return DialogResult.OK;
+            }
+            return DialogResult.Cancel;
+        }
 
 
         private Curso? ObtenerCursoDesdeDataGridView()
