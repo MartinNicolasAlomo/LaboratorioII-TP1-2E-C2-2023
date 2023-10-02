@@ -24,6 +24,7 @@ namespace Vista_App
             dgvListaCursos.Columns[4].HeaderText = "Descripción";
             dgvListaCursos.Columns[6].HeaderText = "Día";
             dgvListaCursos.Columns[9].HeaderText = "Cupo Máx.";
+            dgvListaCursos.Columns[10].HeaderText = "Cupo Disp.";
             ////  AGREGAR CUPO ACTUAL:    17/60
             //dgvListaCursos.Columns[5].DisplayIndex = 3;
             btnEditarCurso.Enabled = false;
@@ -88,30 +89,6 @@ namespace Vista_App
             {
                 MessageBox.Show("MALALALALALLAL");
             }
-
-
-
-            //Curso? auxCurso = ObtenerCursoDesdeDataGridView();
-            //if (auxCurso is not null)
-            //{
-            //    /////////
-            //    FrmAltaCurso edicionCurso = new FrmAltaCurso(auxCurso, "Modificar curso existente");
-            //    if (edicionCurso.ShowDialog() == DialogResult.OK)
-            //    {
-            //        ActualizarDataGridView();
-            //        //listaCursos.Add(altaCurso.NuevoCurso);
-            //        //StringBuilder text = new StringBuilder();
-            //        //text.AppendLine($"¡Se MODIFICARON los datos del CURSO {altaCurso.NuevoCurso?.Nombre}!").AppendLine();
-            //        //MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show($"¡Se Cancelo la edicion!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
-
-
-
         }
 
 
@@ -126,7 +103,6 @@ namespace Vista_App
             {
                 MessageBox.Show(auxCurso.MostrarDatos());
                 string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.Descripcion} - {auxCurso.Nombre}?";
-                //if (PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                 if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                 {
                     SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
@@ -142,6 +118,14 @@ namespace Vista_App
 
         #endregion
 
+
+
+        private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditarCurso.Enabled = true;
+            btnEliminarCurso.Enabled = true;
+            seleccion = e;
+        }
 
         private Curso? ObtenerCursoDesdeDataGridView()
         {
@@ -174,14 +158,6 @@ namespace Vista_App
         {
             menuPrincipal?.MostrarMenuPrincipal();
         }
-
-        private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            btnEditarCurso.Enabled = true;
-            btnEliminarCurso.Enabled = true;
-            seleccion = e;
-        }
-
 
     }
 }

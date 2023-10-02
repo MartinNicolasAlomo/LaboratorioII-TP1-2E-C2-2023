@@ -20,10 +20,10 @@ namespace Vista_App
         public FrmLogin()
         {
             InitializeComponent();
-            //usuarioValido = "ma@gmail.com";
-            //claveValida = "40916734";  
-            usuarioValido = "jdiaz@utn.com";
-            claveValida = "30303030";
+            usuarioValido = "ma@gmail.com";
+            claveValida = "40916734";
+            //usuarioValido = "jdiaz@utn.com";
+            //claveValida = "30303030";
             tbxUsuario.Text = usuarioValido;
             tbxClave.Text = claveValida;
         }

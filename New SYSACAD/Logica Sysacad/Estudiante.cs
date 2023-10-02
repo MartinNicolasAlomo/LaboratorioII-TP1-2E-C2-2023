@@ -34,6 +34,7 @@ namespace Logica_Sysacad
                           : base(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
         {
             legajo = 0;
+            cursosInscriptos = new List<Curso>();
             //, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion
             //this.carrera = carrera;
         }
@@ -57,7 +58,10 @@ namespace Logica_Sysacad
 
 
         #region PROPIEDADES
-
+        public List<Curso>? CursosInscriptos
+        {
+            get { return cursosInscriptos; }
+        }
 
 
 
@@ -87,7 +91,17 @@ namespace Logica_Sysacad
 
 
 
-
+        public string MostrarCursosSubscritos()
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine("MI ESTUDIANTE ELIGIO ESTO:");
+            foreach (Curso curso in cursosInscriptos)
+            {
+                text.AppendLine(curso.Descripcion);
+            }
+            text.AppendLine("CONFIRMAS????????????????????:");
+            return text.ToString();
+        }
 
 
 

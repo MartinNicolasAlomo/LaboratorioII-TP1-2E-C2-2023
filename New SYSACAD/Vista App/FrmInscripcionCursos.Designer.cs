@@ -29,37 +29,73 @@
         private void InitializeComponent()
         {
             dgvListaCursos = new DataGridView();
+            CursoSeleccionado = new DataGridViewCheckBoxColumn();
             btnConfirmar = new Button();
+            cbxCuatrimestre = new ComboBox();
+            cbxMaterias = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
             SuspendLayout();
             // 
             // dgvListaCursos
             // 
+            dgvListaCursos.AllowUserToAddRows = false;
+            dgvListaCursos.AllowUserToDeleteRows = false;
+            dgvListaCursos.AllowUserToResizeColumns = false;
+            dgvListaCursos.AllowUserToResizeRows = false;
             dgvListaCursos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListaCursos.Location = new Point(107, 51);
+            dgvListaCursos.Columns.AddRange(new DataGridViewColumn[] { CursoSeleccionado });
+            dgvListaCursos.Location = new Point(12, 113);
             dgvListaCursos.Name = "dgvListaCursos";
             dgvListaCursos.RowTemplate.Height = 25;
-            dgvListaCursos.Size = new Size(593, 250);
+            dgvListaCursos.Size = new Size(760, 176);
             dgvListaCursos.TabIndex = 0;
+            dgvListaCursos.CellContentClick += dgvListaCursos_CellContentClick;
+            // 
+            // CursoSeleccionado
+            // 
+            CursoSeleccionado.HeaderText = "Selecciondo";
+            CursoSeleccionado.Name = "CursoSeleccionado";
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(125, 362);
+            btnConfirmar.Location = new Point(189, 314);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(130, 23);
             btnConfirmar.TabIndex = 1;
             btnConfirmar.Text = "Confirmar";
             btnConfirmar.UseVisualStyleBackColor = true;
+            btnConfirmar.Click += btnConfirmar_Click;
+            // 
+            // cbxCuatrimestre
+            // 
+            cbxCuatrimestre.FormattingEnabled = true;
+            cbxCuatrimestre.Location = new Point(39, 37);
+            cbxCuatrimestre.Name = "cbxCuatrimestre";
+            cbxCuatrimestre.Size = new Size(121, 23);
+            cbxCuatrimestre.TabIndex = 2;
+            cbxCuatrimestre.SelectedIndexChanged += cbxCuatrimestre_SelectedIndexChanged;
+            // 
+            // cbxMaterias
+            // 
+            cbxMaterias.FormattingEnabled = true;
+            cbxMaterias.Location = new Point(189, 37);
+            cbxMaterias.Name = "cbxMaterias";
+            cbxMaterias.Size = new Size(121, 23);
+            cbxMaterias.TabIndex = 3;
             // 
             // FrmInscripcionCursos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 411);
+            ClientSize = new Size(784, 361);
+            Controls.Add(cbxMaterias);
+            Controls.Add(cbxCuatrimestre);
             Controls.Add(btnConfirmar);
             Controls.Add(dgvListaCursos);
             Name = "FrmInscripcionCursos";
             Text = "FrmInscripcionCursos";
+            FormClosing += FrmInscripcionCursos_FormClosing;
+            Load += FrmInscripcionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);
         }
@@ -68,5 +104,8 @@
 
         private DataGridView dgvListaCursos;
         private Button btnConfirmar;
+        private DataGridViewCheckBoxColumn CursoSeleccionado;
+        private ComboBox cbxCuatrimestre;
+        private ComboBox cbxMaterias;
     }
 }

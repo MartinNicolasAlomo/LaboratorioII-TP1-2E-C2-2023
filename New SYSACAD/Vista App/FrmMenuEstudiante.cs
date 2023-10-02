@@ -15,7 +15,7 @@ namespace Vista_App
     {
         private Estudiante estudianteLogueado;
         private FrmLogin login;
-        private FrmGestionCursos? gestionCursos;
+        private FrmInscripcionCursos? inscripcionCursos;
 
         public FrmMenuEstudiante(Estudiante estudianteLogueado, FrmLogin login)
         {
@@ -32,22 +32,30 @@ namespace Vista_App
 
         private void btnInscripcionCursos_Click(object sender, EventArgs e)
         {
-            FrmInscripcionCursos? inscripcionCursos = new FrmInscripcionCursos(estudianteLogueado);
-            if (inscripcionCursos.ShowDialog() == DialogResult.OK)
+            if (inscripcionCursos is null)
             {
-                //estudianteLogueado.cursosInscriptos = inscripcionCursos.CursosInscriptos.ToList();
+                inscripcionCursos = new FrmInscripcionCursos(this, estudianteLogueado);
+                inscripcionCursos.Show();
+                Hide();
+            }
 
 
-                StringBuilder text = new StringBuilder();
-                //text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
-                //    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmación de ingreso!")
-                //    ;
-                MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //FrmInscripcionCursos? inscripcionCursos = new FrmInscripcionCursos(this, estudianteLogueado);
+            //if (inscripcionCursos.ShowDialog() == DialogResult.OK)
+            //{
+            //    //estudianteLogueado.cursosInscriptos = inscripcionCursos.CursosInscriptos.ToList();
+
+
+            //    StringBuilder text = new StringBuilder();
+            //    //text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
+            //    //    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmación de ingreso!")
+            //    //    ;
+            //    MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void btnConsultarHorario_Click(object sender, EventArgs e)
@@ -68,5 +76,13 @@ namespace Vista_App
                 MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        public void MostrarMenuEstudiante()
+        {
+            Show();
+            inscripcionCursos = null;
+        }
+
     }
 }
