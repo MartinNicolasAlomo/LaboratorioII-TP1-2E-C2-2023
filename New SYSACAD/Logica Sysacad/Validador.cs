@@ -48,27 +48,6 @@ namespace Logica_Sysacad
         }
 
 
-        public static bool ValidarNumeroIngresado(out decimal numero, string datoIngresado, decimal minimo, decimal maximo)
-        {
-            numero = 0;
-            return !VerificarEsDatoVacio(datoIngresado) && ConvertirTextoANumero(datoIngresado, out numero) && ValidarRangoNumero(numero, minimo, maximo);
-        }
-
-        public static bool ConvertirTextoANumero(string datoIngresado, out decimal numero)
-        {
-            return decimal.TryParse(datoIngresado, out numero);
-        }
-
-        public static bool ValidarRangoNumero(decimal numero, decimal minimo, decimal maximo)
-        {
-            if (minimo <= maximo && numero >= minimo && numero <= maximo)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
 
         public static bool ValidarTextoNumerico(string datoIngresado, byte cantidadCaracteresPermitidos)
         {
@@ -90,22 +69,67 @@ namespace Logica_Sysacad
 
 
         #region VALIDAR NUMEROS
+        public static bool ValidarNumeroIngresado(out decimal numero, string datoIngresado, decimal minimo, decimal maximo)
+        {
+            numero = 0;
+            return !VerificarEsDatoVacio(datoIngresado) && ConvertirTextoANumero(datoIngresado, out numero) && ValidarRangoNumero(numero, minimo, maximo);
+        }
+
+        public static bool ConvertirTextoANumero(string datoIngresado, out decimal numero)
+        {
+            return decimal.TryParse(datoIngresado, out numero);
+        }
+
+        public static bool ValidarRangoNumero(decimal numero, decimal minimo, decimal maximo)
+        {
+            if (minimo <= maximo && numero >= minimo && numero <= maximo)
+            {
+                return true;
+            }
+            return false;
+        }
 
 
+        public static bool ValidarNumeroIngresado(out byte numero, string datoIngresado, byte minimo, byte maximo)
+        {
+            numero = 0;
+            return !VerificarEsDatoVacio(datoIngresado) && ConvertirTextoANumero(datoIngresado, out numero) && ValidarRangoNumero(numero, minimo, maximo);
+        }
+
+        public static bool ConvertirTextoANumero(string datoIngresado, out byte numero)
+        {
+            return byte.TryParse(datoIngresado, out numero);
+        }
+
+        public static bool ValidarRangoNumero(byte numero, byte minimo, byte maximo)
+        {
+            if (minimo <= maximo && numero >= minimo && numero <= maximo)
+            {
+                return true;
+            }
+            return false;
+        }
 
 
+        public static bool ValidarNumeroIngresado(out ushort numero, string datoIngresado, ushort minimo, ushort maximo)
+        {
+            numero = 0;
+            return !VerificarEsDatoVacio(datoIngresado) && ConvertirTextoANumero(datoIngresado, out numero) && ValidarRangoNumero(numero, minimo, maximo);
+        }
 
+        public static bool ConvertirTextoANumero(string datoIngresado, out ushort numero)
+        {
+            return ushort.TryParse(datoIngresado, out numero);
+        }
 
-
-
-
-
-
-
-
-
-
-
+        public static bool ValidarRangoNumero(ushort numero, ushort minimo, ushort maximo)
+        {
+            if (minimo <= maximo && numero >= minimo && numero <= maximo)
+            {
+                return true;
+            }
+            return false;
+        }
 
 
 
@@ -150,14 +174,14 @@ namespace Logica_Sysacad
 
         public static bool ValidarDireccionIngresada(ref string datoIngresado, byte cantidadCaracteresPermitidos)
         {
-            return !VerificarEsDatoVacio(datoIngresado) && datoIngresado.Length <= cantidadCaracteresPermitidos && VerificarEsAlfanumerico(ref datoIngresado);
+            return !VerificarEsDatoVacio(datoIngresado) && datoIngresado.Length <= cantidadCaracteresPermitidos && VerificarEsDireccion(ref datoIngresado);
         }
 
-        public static bool VerificarEsAlfanumerico(ref string nombre)
+        public static bool VerificarEsDireccion(ref string nombre)
         {
             for (int i = 0; i < nombre.Length && nombre[i] != '\0'; i++)
             {
-                if (!VerificarEsCaracterAlfanumerico(nombre[i]))
+                if (!VerificarEsCaracterDireccion(nombre[i]))
                 {
                     return false;
                 }
@@ -166,7 +190,7 @@ namespace Logica_Sysacad
             return true;
         }
 
-        public static bool VerificarEsCaracterAlfanumerico(char caracter)
+        public static bool VerificarEsCaracterDireccion(char caracter)
         {
             if ((caracter != ' ') && (caracter != '-') && (caracter != '.') &&
                 (caracter < 'a' || caracter > 'z') &&
@@ -287,8 +311,8 @@ namespace Logica_Sysacad
                     return false;
                 }
             }
-            if (!email.Contains("@gmail.com") || !email.Contains("@gmail.com.ar") || !email.Contains("@hotmail.com") || !email.Contains("@hotmail.com.ar") ||
-                !email.Contains("@outlook.com") || !email.Contains("@outlook.es") || !email.Contains("@yahoo.com") || !email.Contains("@protonmail.com"))
+            if (!email.Contains("@gmail.com") && !email.Contains("@gmail.com.ar") && !email.Contains("@hotmail.com") && !email.Contains("@hotmail.com.ar") &&
+                !email.Contains("@outlook.com") && !email.Contains("@outlook.es") && !email.Contains("@yahoo.com") && !email.Contains("@protonmail.com"))
             {
                 return false;
             }
@@ -332,12 +356,11 @@ namespace Logica_Sysacad
         #region VALIDAR FECHAS
         public static bool ValidarFechaIngresada(out DateTime fechaFinal, string anioIngresado, string mesIngresado, string diaIgresado)
         {
-            if (ValidarNumeroIngresado(out decimal anioFinal, anioIngresado, 1905, 2006))
+            if (ValidarNumeroIngresado(out ushort anioFinal, anioIngresado, 1905, 2005))
             {
-                decimal MesFinal;
-                decimal diaFinal;
-                bool esBisiesto = VerificarEsAnioBisiesto((ushort)anioFinal);
-
+                byte MesFinal;
+                byte diaFinal;
+                bool esBisiesto = VerificarEsAnioBisiesto(anioFinal);
                 if (ValidarNumeroIngresado(out MesFinal, mesIngresado, 1, 12) &&
                         (MesFinal == 2 &&
                         (esBisiesto && ValidarNumeroIngresado(out diaFinal, diaIgresado, 1, 29)) ||
@@ -348,7 +371,7 @@ namespace Logica_Sysacad
                         ((MesFinal == 4 || MesFinal == 6 || MesFinal == 9 || MesFinal == 11) && ValidarNumeroIngresado(out diaFinal, diaIgresado, 1, 30))
                 )
                 {
-                    fechaFinal = new DateTime((int)anioFinal, (int)MesFinal, (int)diaFinal);
+                    fechaFinal = new DateTime(anioFinal, MesFinal, diaFinal);
                     return true;
                 }
             }
@@ -369,6 +392,11 @@ namespace Logica_Sysacad
         {
             return DateTime.Now - fechaNacimiento;
         }
+
+        //public static TimeSpan CalcularAnioLegal(DateTime fechaNacimiento)
+        //{
+        //    return DateTime.Now - fechaNacimiento;
+        //}
 
         public static byte CalcularAniosTotales(DateTime fechaNacimiento)
         {

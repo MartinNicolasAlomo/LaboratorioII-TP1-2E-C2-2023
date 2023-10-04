@@ -18,6 +18,8 @@ namespace Logica_Sysacad
         protected static ushort ultimoLegajo;
         //        protected CarrerasUTN carrera;
         public List<Curso>? cursosInscriptos;
+        private List<Servicio>? serviciosImpagos;
+        private List<Servicio>? serviciosAbonados;
 
 
         #endregion
@@ -35,9 +37,27 @@ namespace Logica_Sysacad
         {
             legajo = 0;
             cursosInscriptos = new List<Curso>();
+            serviciosImpagos = new List<Servicio>
+            {
+                new Servicio("Matrícula",7000,1),
+                new Servicio("Cuotas Mensuales", 18000, 12),
+                new Servicio("Cargos Administrativos",1500, 12),
+                new Servicio("Libros de Texto",2000,6)
+            };
+            serviciosAbonados = new List<Servicio>();
+            //CargarServiciosAPagar();
             //, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion
             //this.carrera = carrera;
         }
+
+        //private void CargarServiciosAPagar()
+        //{
+        //    serviciosAPagar = new List<Servicio>();
+        //    foreach (Servicio servicio in SistemaUTN.ListaServicios)
+        //    {
+        //        serviciosAPagar.Add(servicio);
+        //    }
+        //}
 
         public Estudiante(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string clave, string telefono, string direccion)
                   : this(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
@@ -63,6 +83,17 @@ namespace Logica_Sysacad
             get { return cursosInscriptos; }
         }
 
+        public List<Servicio>? ServiciosImpagos
+        {
+            get { return serviciosImpagos; }
+        }
+
+        public List<Servicio>? ServiciosAbonados
+        {
+            get { return serviciosAbonados; }
+        }
+
+
 
 
 
@@ -72,6 +103,30 @@ namespace Logica_Sysacad
 
         #region METODOS
 
+        public bool PagarServicios(Servicio servicioElegido, byte cantidadCuotas, out string mensaje)
+        {
+            if (servicioElegido.VerificarEsServicioImpago())
+            {
+                serviciosAbonados?.Add(servicioElegido);
+                servicioElegido.ActualizarCuotas(cantidadCuotas);
+                if (servicioElegido.VerificarEsServicioImpago())
+                {
+                    mensaje = $"¡{servicioElegido.Nombre} - Se pagarón {cantidadCuotas} cuotas por un monto de {servicioElegido.CalcularMontoAPagar(cantidadCuotas):C2}!";
+                    return true;
+                }
+                else
+                {
+                    serviciosImpagos?.Remove(servicioElegido);
+                    mensaje = $"¡Se pagó el total de {servicioElegido.Nombre}, se canceló el total de la deuda!";
+                    return false;
+                }
+            }
+            else
+            {
+                mensaje = $"¡El servicio {servicioElegido.Nombre} ya fue pagado!";
+                return false;
+            }
+        }
 
 
 
@@ -103,6 +158,17 @@ namespace Logica_Sysacad
             return text.ToString();
         }
 
+
+        public string MostrarServiciosAPagar()
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine($"{NombreCompletoOrdenApellido} pago:{Environment.NewLine}");
+            foreach (Servicio servicio in serviciosImpagos)
+            {
+                text.AppendLine($"{servicio.Nombre}   -   {servicio.PrecioTotal.ToString("C2")}  -  {servicio.CuotasImpagas}*** {servicio.CuotasAbonadas}/{servicio.CuotasTotales})");
+            }
+            return text.ToString();
+        }
 
 
         #endregion

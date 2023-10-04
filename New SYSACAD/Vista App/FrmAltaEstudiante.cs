@@ -45,11 +45,11 @@ namespace Vista_App
             nombresIngresados = "martín nicolas";
             apellidosIngresados = "alomo";
             dniIngresado = "40916777";
-            emailIngresado = "lll@gmail.com";
+            emailIngresado = "lll@outlook.com";
             claveIngresada = "lallaslal";
             telefonoIngresado = "40901613";
             direccionIngresada = "corvalan 435";
-            diaIngresado = "01";
+            diaIngresado = "27";
             mesIngresado = "10";
             anioIngresado = "1998";
             //nombresIngresados = tbxNombres.Text;
@@ -73,7 +73,7 @@ namespace Vista_App
             {
                 if (chxPermitirCambioClave.Checked == true)
                 {
-                    nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, fechaNacimiento, edad, emailIngresado, claveIngresada,telefonoIngresado, direccionIngresada);
+                    nuevoEstudiante = new Estudiante(nombresIngresados, apellidosIngresados, dniIngresado, fechaNacimiento, edad, emailIngresado, claveIngresada, telefonoIngresado, direccionIngresada);
                 }
                 else
                 {

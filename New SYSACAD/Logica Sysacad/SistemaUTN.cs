@@ -14,6 +14,7 @@ namespace Logica_Sysacad
         private static List<Administrador>? listaAdministradores;
         private static List<Usuario>? baseDatosUsuarios;
         private static List<Estudiante>? listaEstudiantes;
+        private static List<Servicio>? listaServicios;
         private static List<Curso>? baseDatosCursos;
 
 
@@ -23,6 +24,11 @@ namespace Logica_Sysacad
             set { baseDatosCursos = value; }
         }
 
+        public static List<Servicio>? ListaServicios
+        {
+            get { return listaServicios; }
+            set { listaServicios = value; }
+        }
 
         public static List<Estudiante>? ListaEstudiantes
         {
@@ -47,6 +53,7 @@ namespace Logica_Sysacad
             HardcodearUsuarios();
             HardcodearCursos();
             HardcodearAdministradores();
+            //HardcodearServicios();
         }
 
         private static void HardcodearUsuarios()
@@ -72,6 +79,18 @@ namespace Logica_Sysacad
                 new Curso("3°","D", "Elem. de Invest. Operativa", "Noche", "Viernes", "18:30 - 22:30", "210", 50, 50),
             };
         }
+
+        //private static void HardcodearServicios()
+        //{
+        //    listaServicios = new List<Servicio>
+        //    {
+        //        new Servicio("Matrícula",7000,1),
+        //        new Servicio("Cuotas Mensuales", 18000, 12),
+        //        new Servicio("Cargos Administrativos",1500, 12),
+        //        new Servicio("Libros de Texto",2000,6)
+        //    };
+        //}
+
 
         private static void HardcodearAdministradores()
         {

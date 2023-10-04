@@ -85,16 +85,16 @@ namespace Vista_App
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             cupoIngresado = tbxCupoMaximo.Text;
-            if (Validador.ValidarNumeroIngresado(out decimal cupoMaximo, cupoIngresado, 15, 120))
+            if (Validador.ValidarNumeroIngresado(out byte cupoMaximo, cupoIngresado, 15, 120))
             {
                 if (esModificacion)
                 {
-                    cursoIngresado.ModificarCursoExistente(cuatrimestreIngresado, divisionIngresada, descripcionIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, (byte)cupoMaximo, (byte)cupoMaximo);
+                    cursoIngresado.ModificarCursoExistente(cuatrimestreIngresado, divisionIngresada, descripcionIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
                     preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la modificación del curso {cursoIngresado.Nombre}?";
                 }
                 else
                 {
-                    cursoIngresado = new Curso(cuatrimestreIngresado, divisionIngresada, descripcionIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, (byte)cupoMaximo, (byte)cupoMaximo);
+                    cursoIngresado = new Curso(cuatrimestreIngresado, divisionIngresada, descripcionIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
                     preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {cursoIngresado.Nombre}?";
                 }
                 if (SistemaUTN.EncontrarCursoRegistrado(cursoIngresado))

@@ -45,9 +45,12 @@ namespace Logica_Sysacad
         private static Dictionary<string, List<string>>? horariosDisponibles;
         private static string[]? aulasDisponibles;
 
+
         private static byte ultimoCodigo;
         private ushort codigo;
         private string nombre;
+        //  AGREGAR LISTA DE ESTUDIANTES QUE ESTAN INSCRIPTOS A ESTE CURSO
+        //  AGREGAR char carga horariA   DEPUES METODO  calcular carga horaria semanal (convertir de char a byte/int)
         private string cuatrimestre;
         private string division;
         private string descripcion;
@@ -163,6 +166,7 @@ namespace Logica_Sysacad
         public byte CupoDisponible
         {
             get { return cupoDisponible; }
+            set { cupoDisponible = value; }
         }
 
 

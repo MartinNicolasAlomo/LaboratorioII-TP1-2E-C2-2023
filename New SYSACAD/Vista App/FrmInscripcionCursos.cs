@@ -16,17 +16,15 @@ namespace Vista_App
         #region CAMPOS Y CONSTRUCTORES
         private string? cuatrimestreIngresado;
         private List<Curso> cursosSeleccionados;
-        private Estudiante estudiante;
-        private FrmMenuEstudiante? menuEstudiante;
+        private Estudiante estudianteLogueado;
         private DataGridViewCellEventArgs? seleccion;
 
-        public FrmInscripcionCursos(FrmMenuEstudiante menuEstudiante, Estudiante estudianteLogueado)
+        public FrmInscripcionCursos(Estudiante estudianteLogueado)
         {
             InitializeComponent();
-            this.menuEstudiante = menuEstudiante;
-            this.estudiante = estudianteLogueado;
+            this.estudianteLogueado = estudianteLogueado;
             cursosSeleccionados = new List<Curso>();
-            Text = $"Inscripción a Cursos C2, 2023 - {estudiante.NombreCompletoOrdenApellido}";
+            base.Text = $"Inscripción a Cursos C2, 2023 - {estudianteLogueado.NombreCompletoOrdenApellido}";
         }
 
         private void FrmInscripcionCursos_Load(object sender, EventArgs e)
@@ -52,98 +50,108 @@ namespace Vista_App
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            //StringBuilder text = new StringBuilder();
-            //foreach (Curso cursito in cursosSeleccionados)
-            //{
-            //    text.AppendLine(cursito.MostrarDatos());
-            //}
-            //MessageBox.Show(text.ToString());
-
+            StringBuilder text = new StringBuilder();
+            text.AppendLine("VISTA PREVIA: se seleccionaron estos cursos para solicitar inscripcion!!!!!!");
             foreach (Curso cursito in cursosSeleccionados)
             {
-                estudiante.CursosInscriptos?.Add(cursito);
+                text.AppendLine(cursito.Descripcion);
             }
-            MessageBox.Show(estudiante.MostrarCursosSubscritos());
+            MessageBox.Show(text.ToString());
+
+
+            // VERIFICAR QUE HAYA CUPOS
+
+            //foreach (Curso curso in cursosSeleccionados)
+            //{
+            //    // cupoDisponible == cupoMaximo - cuposOcupados;
+            //    if (curso.CupoDisponible < curso.CupoMaximo)
+            //    {
+            //        // ok
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Este curso está completo, no tiene mas cupos.");
+            //        cursosSeleccionados.Remove(curso);
+            //    }
+            //}
+
+            if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma") == DialogResult.OK)
+            {
+                //CREAR METOOD PARA AGREGAR Y ACTUALZIAR LAS BASES DE DATOS DE ESTUDIANTE Y CURSOS
+                estudianteLogueado.CursosInscriptos?.Clear();
+                foreach (Curso cursito in cursosSeleccionados)
+                {
+                    estudianteLogueado.CursosInscriptos?.Add(cursito);
+                    cursito.CupoDisponible--;
+                }
+                // ORDENARLOS POR CUATRI O CODIGO - PROG = 1 / LABO = 2 / MATEMATICA = 3 / INGLES = 4 / SPD = 5, ETC.
+                MessageBox.Show(estudianteLogueado.MostrarCursosSubscritos());
+            }
         }
 
-        private static string CrearMensajeConfirmacionRegistroCurso(Curso nuevoCurso)
-        {
-            StringBuilder text = new StringBuilder();
-            text.AppendLine($"¡Se guardaron los datos del Curso {nuevoCurso.Nombre}!").AppendLine()
-                .AppendLine(nuevoCurso.MostrarDatos())
-                ;
-            return text.ToString();
-        }
+        //private static string CrearMensajeConfirmacionRegistroCurso(Curso nuevoCurso)
+        //{
+        //    StringBuilder text = new StringBuilder();
+        //    text.AppendLine($"¡Se guardaron los datos del Curso {nuevoCurso.Nombre}!").AppendLine()
+        //        .AppendLine(nuevoCurso.MostrarDatos())
+        //        ;
+        //    return text.ToString();
+        //}
 
-        //private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
+        ////private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
         //{
         //    seleccion = e;
         //}
 
 
-        private Curso? ObtenerCursoDesdeDataGridView()
-        {
-            int indice = seleccion.RowIndex;
-            //  USAR  EXCEPCIONES   TRY CATCH
-            //try
-            //{
+        //private Curso? ObtenerCursoDesdeDataGridView()
+        //{
+        //    int indice = seleccion.RowIndex;
+        //    //  USAR  EXCEPCIONES   TRY CATCH
+        //    //try
+        //    //{
 
-            //}
-            //catch (Exception)
-            //{
+        //    //}
+        //    //catch (Exception)
+        //    //{
 
-            //    throw;
-            //}
+        //    //    throw;
+        //    //}
 
-            if (indice != -1 && indice >= 0)
-            {
-                return SistemaUTN.BaseDatosCursos?[indice];
-            }
-            return null;
-        }
+        //    if (indice != -1 && indice >= 0)
+        //    {
+        //        return SistemaUTN.BaseDatosCursos?[indice];
+        //    }
+        //    return null;
+        //}
 
-        public void ActualizarDataGridView()
-        {
-            dgvListaCursos.DataSource = null;
-            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
-        }
+        //public void ActualizarDataGridView()
+        //{
+        //    dgvListaCursos.DataSource = null;
+        //    dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
+        //}
 
         private void FrmInscripcionCursos_FormClosing(object sender, FormClosingEventArgs e)
         {
-            menuEstudiante?.MostrarMenuEstudiante();
+            //menuEstudiante?.MostrarMenu();
         }
+
+
 
         private void dgvListaCursos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Check if a checkbox cell was clicked
             if (e.RowIndex >= 0 && dgvListaCursos.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
             {
-                // Get the selected row's data
                 Curso rowData = (Curso)dgvListaCursos.Rows[e.RowIndex].DataBoundItem;
-
-                // Check the checkbox value
                 DataGridViewCheckBoxCell checkboxCell = dgvListaCursos.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewCheckBoxCell;
                 bool isChecked = (bool)checkboxCell.EditedFormattedValue;
-
-                // Add or remove the row data based on checkbox state
                 if (isChecked)
                 {
                     cursosSeleccionados.Add(rowData);
-                    //estudiante.CursosInscriptos?.Add(rowData);
-                    //StringBuilder text = new StringBuilder();
-                    //foreach (Curso cursito in cursosSeleccionados)
-                    //{
-                    //    text.AppendLine(cursito.Descripcion);
-                    //}
-                    //MessageBox.Show(text.ToString());
-                    //dgvListaCursos.Rows[e.RowIndex].ReadOnly = true;
                 }
                 else
                 {
-                    //cursosSeleccionados.Remove(rowData);
-                    estudiante.CursosInscriptos?.Remove(rowData);
-
-                    //MessageBox.Show($"Se deseleccionó {rowData.Descripcion}");
+                    cursosSeleccionados.Remove(rowData);
                 }
             }
         }

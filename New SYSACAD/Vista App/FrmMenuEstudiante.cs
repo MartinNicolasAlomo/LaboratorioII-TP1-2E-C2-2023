@@ -15,7 +15,9 @@ namespace Vista_App
     {
         private Estudiante estudianteLogueado;
         private FrmLogin login;
-        private FrmInscripcionCursos? inscripcionCursos;
+        //private FrmInscripcionCursos? inscripcionCursos;
+        //private FrmConsultaHorario? consultaHorarios;
+        //private FrmRealizarPagos? pagoCuotas;
 
         public FrmMenuEstudiante(Estudiante estudianteLogueado, FrmLogin login)
         {
@@ -25,64 +27,100 @@ namespace Vista_App
             Text = $"Bienvenido a SYSACAD - {estudianteLogueado.NombreCompletoOrdenApellido}";
         }
 
-        private void FrmMenuEstudiante_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            login.MostrarLogin();
-        }
 
         private void btnInscripcionCursos_Click(object sender, EventArgs e)
         {
-            if (inscripcionCursos is null)
-            {
-                inscripcionCursos = new FrmInscripcionCursos(this, estudianteLogueado);
-                inscripcionCursos.Show();
-                Hide();
-            }
-
-
-            //FrmInscripcionCursos? inscripcionCursos = new FrmInscripcionCursos(this, estudianteLogueado);
-            //if (inscripcionCursos.ShowDialog() == DialogResult.OK)
+            FrmInscripcionCursos? inscripcionCursos1 = new FrmInscripcionCursos(estudianteLogueado);
+            Hide();
+            inscripcionCursos1.ShowDialog();
+            Show();
+            //if (inscripcionCursos is null)
             //{
-            //    //estudianteLogueado.cursosInscriptos = inscripcionCursos.CursosInscriptos.ToList();
-
-
-            //    StringBuilder text = new StringBuilder();
-            //    //text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
-            //    //    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmación de ingreso!")
-            //    //    ;
-            //    MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else
-            //{
-            //    MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    inscripcionCursos = new FrmInscripcionCursos(this, estudianteLogueado);
+            //    inscripcionCursos.Show();
+            //    Hide();
             //}
         }
 
         private void btnConsultarHorario_Click(object sender, EventArgs e)
         {
-            FrmConsultaHorario? inscripcionCursos = new FrmConsultaHorario(estudianteLogueado);
-            if (inscripcionCursos.ShowDialog() == DialogResult.OK)
+            if (estudianteLogueado.CursosInscriptos?.Count == 0)
             {
-
-
-                StringBuilder text = new StringBuilder();
-                //text.AppendLine($"¡Se guardaron los datos del Estudante {altaEstudiate.NuevoEstudiante?.NombreCompletoOrdenApellido}!").AppendLine()
-                //    .AppendLine($"¡Se envió un email a {altaEstudiate.NuevoEstudiante?.Email} notificando la confirmación de ingreso!")
-                //    ;
-                MessageBox.Show(text.ToString(), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("¡El estudiante no esta inscripto a ningún curso!", $"¡Lista de cursos vacia!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmConsultaHorario? consultaHorarios1 = new FrmConsultaHorario(estudianteLogueado);
+                Hide();
+                consultaHorarios1.ShowDialog();
+                Show();
+
+                //if (consultaHorarios is null)
+                //{
+                //    consultaHorarios = new FrmConsultaHorario(this, estudianteLogueado);
+                //    Hide();
+                //    consultaHorarios.Show();
+                //}
             }
         }
 
+        private void btnRealizarPagos_Click(object sender, EventArgs e)
+        {
+            if (estudianteLogueado.ServiciosImpagos?.Count == 0)
+            {
+                MessageBox.Show($"¡El estudiante {estudianteLogueado.NombreCompletoOrdenApellido} está al día con sus pagos!", $"¡Cuotas pagadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                FrmRealizarPagos? pagoServicios = new FrmRealizarPagos(estudianteLogueado);
+                Hide();
+                pagoServicios.ShowDialog();
+                Show();
+            }
+            //MessageBox.Show($"{estudianteLogueado.MostrarServiciosAPagar()}");
 
-        public void MostrarMenuEstudiante()
+            //StringBuilder text = new StringBuilder();
+            //foreach (Servicio item in estudianteLogueado.ServiciosAPagar)
+            //{
+            //    text.AppendLine(item);
+            //}
+
+
+        }
+
+        public void MostrarMenu()
         {
             Show();
-            inscripcionCursos = null;
+            //inscripcionCursos = null;
+            //consultaHorarios = null;
+            //pagoCuotas = null;
         }
+
+
+
+
+        #region CERRAR MENU
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Close();
+            login.MostrarLogin();
+        }
+        private void FrmMenuEstudiante_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            login.MostrarLogin();
+        }
+
+
+        #endregion
+
+
+
+        //public void MostrarMenuDesdePagoCuotas(FrmRealizarPagos? frmPagoCuotas)
+        //{
+        //    Show();
+        //    frmPagoCuotas = null;
+        //}
 
     }
 }

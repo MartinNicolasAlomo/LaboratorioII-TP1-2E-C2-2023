@@ -7,13 +7,13 @@ namespace Vista_App
     public partial class FrmGestionCursos : Form
     {
         #region CAMPOS Y CONSTRUCTORES
-        private FrmMenuPrincipal? menuPrincipal;
+        //private FrmMenuPrincipal? menuPrincipal;
         private DataGridViewCellEventArgs? seleccion;
 
-        public FrmGestionCursos(FrmMenuPrincipal menuPrincipal)
+        public FrmGestionCursos()
         {
             InitializeComponent();
-            this.menuPrincipal = menuPrincipal;
+            //this.menuPrincipal = menuPrincipal;
         }
 
         private void FrmGestionCursos_Load(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace Vista_App
             }
             else
             {
-                MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"¡Se canceló el agregado!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -76,18 +76,17 @@ namespace Vista_App
                 FrmAltaCurso? edicionCurso = new FrmAltaCurso(auxCurso, "Modificar curso existente");
                 if (edicionCurso.ShowDialog() == DialogResult.OK)
                 {
-                    //  preguntar confirmacion
-                    //SistemaUTN.BaseDatosCursos?.Add(edicionCurso.CursoIngresado);
                     MessageBox.Show(CrearMensajeConfirmacionRegistroCurso(edicionCurso.CursoIngresado), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ActualizarDataGridView();
                 }
-                //MessageBox.Show(auxCurso.MostrarDatos());
-                //SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
-                //ActualizarDataGridView();
+                else
+                {
+                    MessageBox.Show($"¡Se canceló la edición!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("MALALALALALLAL");
+                MessageBox.Show($"¡No se pudo recuperar la informacion del curso seleccionado!", $"¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -101,17 +100,22 @@ namespace Vista_App
             Curso? auxCurso = ObtenerCursoDesdeDataGridView();
             if (auxCurso is not null)
             {
-                MessageBox.Show(auxCurso.MostrarDatos());
+                //MessageBox.Show(auxCurso.MostrarDatos());
                 string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.Descripcion} - {auxCurso.Nombre}?";
                 if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                 {
+                    MessageBox.Show($"¡Se eliminó el curso {auxCurso.Descripcion} - {auxCurso.Nombre}!", $"¡Hecho!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
                     ActualizarDataGridView();
+                }
+                else
+                {
+                    MessageBox.Show($"¡Se canceló el eliminado!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("MALALALALALLAL");
+                MessageBox.Show($"¡No se pudo recuperar la informacion del curso seleccionado!", $"¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -156,7 +160,7 @@ namespace Vista_App
 
         private void FrmGestionCursos_FormClosing(object sender, FormClosingEventArgs e)
         {
-            menuPrincipal?.MostrarMenuPrincipal();
+            //menuPrincipal?.MostrarMenu();
         }
 
     }

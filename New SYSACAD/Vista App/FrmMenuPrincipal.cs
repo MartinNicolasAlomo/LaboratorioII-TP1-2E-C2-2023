@@ -15,11 +15,10 @@ namespace Vista_App
     {
 
         #region CAMPOS Y CONSTRUCTORES
-        private Administrador administradorLogueado;                               //  tipo Usuario    / profe/admin
+        private Administrador administradorLogueado;
         private FrmLogin login;
-        private FrmGestionCursos? gestionCursos;
 
-        public FrmMenuPrincipal(Administrador administradorLogueado, FrmLogin login)                 //  recibe usuario / profe/admin
+        public FrmMenuPrincipal(Administrador administradorLogueado, FrmLogin login)
         {
             InitializeComponent();
             this.administradorLogueado = administradorLogueado;
@@ -27,40 +26,43 @@ namespace Vista_App
             Text = $"Bienvenido a SYSACAD - {administradorLogueado.NombreCompletoOrdenApellido}";
         }
 
+
         #endregion
-
-
 
 
         #region CASO 1 - REGISTRAR ESTUDIANTE
         private void btnRegistrarEstudiante_Click(object sender, EventArgs e)
         {
             FrmAltaEstudiante? altaEstudiate = new FrmAltaEstudiante();
+            Hide();
             if (altaEstudiate.ShowDialog() == DialogResult.OK)
             {
+                Show();
                 SistemaUTN.ListaEstudiantes?.Add(altaEstudiate.NuevoEstudiante);
-                MessageBox.Show(CrearMensajeConfirmacionRegistroEstudiante(altaEstudiate.NuevoEstudiante), $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(CrearMensajeConfirmacionRegistroEstudiante(altaEstudiate.NuevoEstudiante), $"¡Registro realizado con éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show($"¡Se Cancelo el registro!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Show();
+                MessageBox.Show($"¡Se Cancelo el registro!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private static string CrearMensajeConfirmacionRegistroEstudiante(Estudiante nuevoEstudiante)
         {
             StringBuilder text = new StringBuilder();
             text.AppendLine($"¡Se guardaron los datos del Estudante {nuevoEstudiante.NombreCompletoOrdenApellido}!").AppendLine()
-                .AppendLine($"¡Se envió un email a {nuevoEstudiante.Email} notificando la confirmación de ingreso!")
+                .AppendLine(EnviarEmailConfirmacion(nuevoEstudiante.Email))
+                //.AppendLine($"¡Se envió un email a {nuevoEstudiante.Email} notificando la confirmación de ingreso!")
                 ;
             return text.ToString();
         }
 
-        private static void EnviarEmailConfirmacion(string emailIngresado)
+        private static string EnviarEmailConfirmacion(string emailIngresado)
         {
-            MessageBox.Show($"¡Se envió un email a {emailIngresado} notificando la confirmacion de ingreso!", $"¡Aviso de envío de confirmación!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return $"¡Se envió un email a {emailIngresado} notificando la confirmacion de ingreso!";
         }
+
 
         #endregion
 
@@ -69,30 +71,22 @@ namespace Vista_App
         #region CASO 2 - GESTIONAR CURSOS
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
-            if (gestionCursos is null)
-            {
-                gestionCursos = new FrmGestionCursos(this);
-                gestionCursos.Show();
-                Hide();
-            }
-            //if (gestionCursos.ShowDialog() == DialogResult.OK)
-            //{
-            //    //MessageBox.Show("SALIO BIEN", $"¡PERFECTO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else
-            //{
-            //    MessageBox.Show($"¡Se Cancelo el gestio99sad54as6!", $"¡CANCALADOOOOOOO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            FrmGestionCursos? auxGestion = new FrmGestionCursos();
+            Hide();
+            auxGestion.ShowDialog();
+            Show();
+
         }
+
 
         #endregion
 
 
 
-        #region CERRAR MENU PRINCIPAL
+        #region CERRAR MENU
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            //FrmMenuPrincipal_FormClosing(sender, (FormClosingEventArgs)e);
+            Close();
             login.MostrarLogin();
         }
 
@@ -101,10 +95,10 @@ namespace Vista_App
             login.MostrarLogin();
         }
 
-        public void MostrarMenuPrincipal()
+        public void MostrarMenu()
         {
-            Show();
-            gestionCursos = null;
+            //Show();
+            //gestionCursos = null;
         }
 
         #endregion

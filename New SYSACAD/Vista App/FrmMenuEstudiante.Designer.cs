@@ -52,10 +52,11 @@
             // 
             btnCerrarSesion.Location = new Point(169, 325);
             btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Size = new Size(75, 23);
+            btnCerrarSesion.Size = new Size(132, 24);
             btnCerrarSesion.TabIndex = 3;
             btnCerrarSesion.Text = "Cerrar Sesión";
             btnCerrarSesion.UseVisualStyleBackColor = true;
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // btnRealizarPagos
             // 
@@ -65,6 +66,7 @@
             btnRealizarPagos.TabIndex = 2;
             btnRealizarPagos.Text = "Realizar Pagos";
             btnRealizarPagos.UseVisualStyleBackColor = true;
+            btnRealizarPagos.Click += btnRealizarPagos_Click;
             // 
             // btnConsultarHorario
             // 

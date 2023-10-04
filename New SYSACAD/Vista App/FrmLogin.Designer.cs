@@ -33,11 +33,13 @@
             tbxUsuario = new TextBox();
             lblUsuario = new Label();
             lblContrasenia = new Label();
+            btnCompletarDatosAdministrador = new Button();
+            btnCompletarDatosEstudiante = new Button();
             SuspendLayout();
             // 
             // btnIniciarSesion
             // 
-            btnIniciarSesion.Location = new Point(90, 225);
+            btnIniciarSesion.Location = new Point(90, 195);
             btnIniciarSesion.Name = "btnIniciarSesion";
             btnIniciarSesion.Size = new Size(150, 40);
             btnIniciarSesion.TabIndex = 2;
@@ -45,10 +47,10 @@
             btnIniciarSesion.UseVisualStyleBackColor = true;
             btnIniciarSesion.Click += btnIniciarSesion_Click;
             // 
-            // tbxContrasenia
+            // tbxClave
             // 
-            tbxClave.Location = new Point(91, 144);
-            tbxClave.Name = "tbxContrasenia";
+            tbxClave.Location = new Point(91, 132);
+            tbxClave.Name = "tbxClave";
             tbxClave.PasswordChar = '*';
             tbxClave.Size = new Size(152, 23);
             tbxClave.TabIndex = 1;
@@ -72,23 +74,45 @@
             // lblContrasenia
             // 
             lblContrasenia.AutoSize = true;
-            lblContrasenia.Location = new Point(91, 126);
+            lblContrasenia.Location = new Point(90, 114);
             lblContrasenia.Name = "lblContrasenia";
             lblContrasenia.Size = new Size(67, 15);
             lblContrasenia.TabIndex = 4;
             lblContrasenia.Text = "Contraseña";
             // 
-            // frmIniciarSesion
+            // btnCompletarDatosAdministrador
+            // 
+            btnCompletarDatosAdministrador.Location = new Point(45, 267);
+            btnCompletarDatosAdministrador.Name = "btnCompletarDatosAdministrador";
+            btnCompletarDatosAdministrador.Size = new Size(250, 30);
+            btnCompletarDatosAdministrador.TabIndex = 5;
+            btnCompletarDatosAdministrador.Text = "Completar datos como Administrador";
+            btnCompletarDatosAdministrador.UseVisualStyleBackColor = true;
+            btnCompletarDatosAdministrador.Click += btnCompletarDatosAdministrador_Click;
+            // 
+            // btnCompletarDatosEstudiante
+            // 
+            btnCompletarDatosEstudiante.Location = new Point(45, 303);
+            btnCompletarDatosEstudiante.Name = "btnCompletarDatosEstudiante";
+            btnCompletarDatosEstudiante.Size = new Size(250, 30);
+            btnCompletarDatosEstudiante.TabIndex = 6;
+            btnCompletarDatosEstudiante.Text = "Completar datos como Estudiante";
+            btnCompletarDatosEstudiante.UseVisualStyleBackColor = true;
+            btnCompletarDatosEstudiante.Click += btnCompletarDatosEstudiante_Click;
+            // 
+            // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(324, 341);
+            ClientSize = new Size(324, 351);
+            Controls.Add(btnCompletarDatosEstudiante);
+            Controls.Add(btnCompletarDatosAdministrador);
             Controls.Add(lblContrasenia);
             Controls.Add(lblUsuario);
             Controls.Add(tbxUsuario);
             Controls.Add(tbxClave);
             Controls.Add(btnIniciarSesion);
-            Name = "frmIniciarSesion";
+            Name = "FrmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Iniciar Sesión";
             ResumeLayout(false);
@@ -102,5 +126,7 @@
         private TextBox tbxUsuario;
         private Label lblUsuario;
         private Label lblContrasenia;
+        private Button btnCompletarDatosAdministrador;
+        private Button btnCompletarDatosEstudiante;
     }
 }

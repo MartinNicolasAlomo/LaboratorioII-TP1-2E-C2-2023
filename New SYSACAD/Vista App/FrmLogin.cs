@@ -11,8 +11,8 @@ namespace Vista_App
     public partial class FrmLogin : Form
     {
         #region CAMPOS Y CONSTRUCTORES
-        private string usuarioValido;
-        private string claveValida;
+        private string? usuarioValido;
+        private string? claveValida;
         private FrmMenuPrincipal? menuPrincipal;
         private FrmMenuEstudiante? menuEstudiante;
         private Usuario? usuarioLogueado;
@@ -20,14 +20,25 @@ namespace Vista_App
         public FrmLogin()
         {
             InitializeComponent();
-            usuarioValido = "ma@gmail.com";
-            claveValida = "40916734";
-            //usuarioValido = "jdiaz@utn.com";
-            //claveValida = "30303030";
-            tbxUsuario.Text = usuarioValido;
-            tbxClave.Text = claveValida;
         }
         #endregion
+
+
+
+        /*
+        if  estudiante
+            usuarioValido = "ma@gmail.com";
+            claveValida = "40916734";
+
+        else admin        
+            usuarioValido = "jdiaz@utn.com";
+            claveValida = "30303030";
+
+                     tbxUsuario.Text = usuarioValido;
+            tbxClave.Text = claveValida;
+         
+         */
+
 
         #region METODOS
         private void btnIniciarSesion_Click(object sender, EventArgs e)
@@ -41,7 +52,6 @@ namespace Vista_App
                     menuPrincipal.Show();
                     Hide();
                 }
-
                 else if (usuarioLogueado?.GetType() == typeof(Estudiante))
                 {
                     menuEstudiante = new FrmMenuEstudiante((Estudiante)usuarioLogueado, this);
@@ -56,6 +66,8 @@ namespace Vista_App
             Show();
             menuPrincipal = null;
             menuEstudiante = null;
+            tbxUsuario.Text = string.Empty;
+            tbxClave.Text = string.Empty;
         }
 
         private bool ValidarUsuarioIngresado(out Usuario? usuarioIngresado, string emailIngresado, string claveIngresada)
@@ -75,14 +87,24 @@ namespace Vista_App
             return true;
         }
 
-        /*
-         metodo
-        si aprieto ctrl + esc se cierra el programa
-         
-            Application.Exit();
-         */
 
         #endregion
 
+
+        private void btnCompletarDatosAdministrador_Click(object sender, EventArgs e)
+        {
+            usuarioValido = "jdiaz@utn.com";
+            claveValida = "30303030";
+            tbxUsuario.Text = usuarioValido;
+            tbxClave.Text = claveValida;
+        }
+
+        private void btnCompletarDatosEstudiante_Click(object sender, EventArgs e)
+        {
+            usuarioValido = "ma@gmail.com";
+            claveValida = "40916734";
+            tbxUsuario.Text = usuarioValido;
+            tbxClave.Text = claveValida;
+        }
     }
 }
