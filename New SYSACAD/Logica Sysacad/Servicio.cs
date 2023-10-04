@@ -11,9 +11,11 @@ namespace Logica_Sysacad
         private string nombre;
         private decimal precioTotal;
         private decimal precioCuota;
+        private decimal montoTotalAPagar;
         private byte cuotasImpagas;
         private byte cuotasAbonadas;
         private byte cuotasTotales;
+        private byte cuotasSeleccionadasAPagar;
 
         public Servicio(string nombre, decimal precioTotal, byte cuotasTotales)
         {
@@ -22,6 +24,8 @@ namespace Logica_Sysacad
             this.cuotasTotales = cuotasTotales;
             precioCuota = precioTotal / cuotasTotales;
             cuotasImpagas = cuotasTotales;
+            cuotasSeleccionadasAPagar = 0;
+            montoTotalAPagar = 0;
         }
 
 
@@ -54,8 +58,20 @@ namespace Logica_Sysacad
         {
             get { return cuotasTotales; }
         }
+        
+        public byte CuotasElegidasAPagar
+        {
+            get { return cuotasSeleccionadasAPagar; }
+            set { cuotasSeleccionadasAPagar = value; }
+        }
 
+        public decimal MontoTotalAPagar
+        {
+            get { return montoTotalAPagar; }
+            set { montoTotalAPagar = value; }
+        }
 
+        
 
         public void ActualizarCuotas(byte cuotasPagadas)
         {
