@@ -16,6 +16,7 @@ namespace Vista_App
         private Estudiante estudianteLogueado;
         private List<Servicio> serviciosSeleccionados;
         private byte cuotasImpagasOriginales;
+        private static decimal montoTotalAPagar;
 
         public FrmRealizarPagos(Estudiante estudianteLogueado)
         {
@@ -37,109 +38,140 @@ namespace Vista_App
             dgvServiciosImpagos.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvServiciosImpagos.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvServiciosImpagos.DataSource = estudianteLogueado.ServiciosImpagos;
-            //dgvServiciosImpagos.Columns[7].Data
-            DataGridViewComboBoxColumn comboColumn = new DataGridViewComboBoxColumn();
-            comboColumn.Name = "MonthlyFeesColumn"; // Set a name for the column
-            comboColumn.HeaderText = "CUOTITAS?"; // Set the header text
-            comboColumn.DataPropertyName = "monthlyFee"; // Set DataPropertyName to the property name
-            dgvServiciosImpagos.Columns.Add(comboColumn);
-
         }
 
         private void btnPagarServicio_Click(object sender, EventArgs e)
         {
-            // CREAR FORMILARIO
-            //StringBuilder text = new StringBuilder();
-            //text.AppendLine("VISTA PREVIA: se seleccionaron estos cursos para solicitar inscripcion!!!!!!");
-            //foreach (Servicio servicio in serviciosSeleccionados)
-            //{
-            //    text.AppendLine(servicio.Nombre);
-            //}
-            //MessageBox.Show(text.ToString());
-            if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma??") == DialogResult.OK)
+            if (serviciosSeleccionados.Count == 0)
             {
-                string mensaje;
-                //estudianteLogueado.ServiciosImpagos?.Clear();
-                //estudianteLogueado.ServiciosAbonados?.Clear();
-                foreach (Servicio servicio in serviciosSeleccionados)
+                MessageBox.Show("No hay servicios elegidoa para pagar");
+            }
+            else
+            {
+                if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma??") == DialogResult.OK)
                 {
+                    string mensaje;
+                    foreach (Servicio servicio in serviciosSeleccionados)
+                    {
+                        if (servicio.EstaPagadoTotalmente)
+                        {
+                            mensaje = $"¡El servicio {servicio.Nombre} ya fue pagado!";
+                            continue;
+                        }
+                        else
+                        {
+                            if (estudianteLogueado.PagarServicios(servicio, servicio.CuotasElegidasAPagar, out mensaje))
+                            {
+
+                            }
+                            servicio.ActulizarCuotasYMontoElegidos(0, 0);
+                        }
+                        MessageBox.Show(mensaje);
+                    }
+                    serviciosSeleccionados.Clear();
+                    RestaurarMontoGeneral();
+                    ActualizarDataGridView();
+
+                    //MessageBox.Show(estudianteLogueado.MostrarServiciosAPagar(), "EN BASE DE DATOS");
                     // si ya fue pagado en total    - remover de serviciosSeleccionados;
                     //  if estudianteLogueado.Servicios.contains(servicio)      continue;
-                    if (estudianteLogueado.PagarServicios(servicio, 3, out mensaje))
-                    {
-
-                    }
-                    MessageBox.Show(mensaje);
                     //serviciosSeleccionados.Remove(servicio);
+                    //estudianteLogueado.ServiciosImpagos?.Clear();
+                    //estudianteLogueado.ServiciosAbonados?.Clear();
+                    //if (estudianteLogueado.ServiciosImpagos?.Count == 0)
+                    //{
+                    //    MessageBox.Show("¡Se pagaron todos los servicios. No hay pagos pendientes!");
+                    //    Close();
+                    //}
                 }
-                ActualizarDataGridView();
-                MessageBox.Show(estudianteLogueado.MostrarServiciosAPagar(), "EN BASE DE DATOS");
-                //if (estudianteLogueado.ServiciosImpagos?.Count == 0)
-                //{
-                //    MessageBox.Show("¡Se pagaron todos los servicios. No hay pagos pendientes!");
-                //    Close();
-                //}
+
+            }
+
+        }
+
+        private void RestaurarMontoGeneral()
+        {
+            montoTotalAPagar = 0;
+            lblMontoTotal.Text = $"{0:C2}";
+        }
+
+        private void dgvServiciosImpagos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int indiceFila = e.RowIndex;
+            int indiceColumna = e.ColumnIndex;
+            if (indiceFila >= 0 && dgvServiciosImpagos.Columns[indiceColumna] is DataGridViewCheckBoxColumn)
+            {
+                Servicio servicioElegido = (Servicio)dgvServiciosImpagos.Rows[indiceFila].DataBoundItem;
+                DataGridViewCheckBoxCell celdaCheckBox = dgvServiciosImpagos.Rows[indiceFila].Cells[indiceColumna] as DataGridViewCheckBoxCell;
+                bool isChecked = (bool)celdaCheckBox.EditedFormattedValue;
+                if (isChecked)
+                {
+                    if (servicioElegido.CuotasImpagas == 1)
+                    {
+                        serviciosSeleccionados.Add(servicioElegido);
+                        ActualizarCuotasYMontoServicio(indiceFila, servicioElegido, 1, servicioElegido.PrecioCuota, true);
+                        MessageBox.Show("SOLO QUEDA UNA CUOTA", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        FrmSeleccionCuotas seleccionCuotas = new FrmSeleccionCuotas(servicioElegido);
+                        if (seleccionCuotas.ShowDialog() == DialogResult.OK)
+                        {
+                            serviciosSeleccionados.Add(servicioElegido);
+                            ActualizarCuotasYMontoServicio(indiceFila, servicioElegido, seleccionCuotas.CuotasElegidas, seleccionCuotas.MontoTotal, true);
+                            MessageBox.Show($"Se eligio {servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.MontoTotalAPagar:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            celdaCheckBox.EditingCellFormattedValue = false;
+                            ActualizarCuotasYMontoServicio(indiceFila, servicioElegido, 0, 0, false);
+                            MessageBox.Show($"canelado 1 SERVICIO FINAL{servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.MontoTotalAPagar:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    serviciosSeleccionados.Remove(servicioElegido);
+                    ActualizarCuotasYMontoServicio(indiceFila, servicioElegido, 0, 0, false);
+                    MessageBox.Show($"cancelo 2 {servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.MontoTotalAPagar:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
             }
         }
 
+        private void ActualizarCuotasYMontoServicio(int indiceFila, Servicio servicioElegido, byte cuotas, decimal monto, bool aumenta)
+        {
+            ActualizarMontoTotalGeneral(servicioElegido, monto, aumenta);
+            //ActualDatos(servicioElegido, cuotas, monto);
+            servicioElegido.ActulizarCuotasYMontoElegidos(cuotas, monto);
+            dgvServiciosImpagos.Rows[indiceFila].Cells[7].Value = cuotas;
+            dgvServiciosImpagos.Rows[indiceFila].Cells[8].Value = $"{monto:C2}";
+        }
+
+        private static void ActualDatos(Servicio servicioElegido, byte cuotas, decimal monto)
+        {
+            servicioElegido.CuotasElegidasAPagar = cuotas;
+            servicioElegido.MontoTotalAPagar = monto;
+        }
+
+        private void ActualizarMontoTotalGeneral(Servicio servicioElegido, decimal monto, bool aumenta)
+        {
+            if (aumenta)
+            {
+                montoTotalAPagar += monto;
+            }
+            else
+            {
+                montoTotalAPagar -= servicioElegido.MontoTotalAPagar;
+            }
+            lblMontoTotal.Text = $"{montoTotalAPagar:C2}";
+        }
 
         public void ActualizarDataGridView()
         {
             dgvServiciosImpagos.DataSource = null;
             dgvServiciosImpagos.DataSource = estudianteLogueado.ServiciosImpagos;
         }
-
-
-        private void dgvServiciosImpagos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvServiciosImpagos.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
-            {
-                Servicio servicioElegido = (Servicio)dgvServiciosImpagos.Rows[e.RowIndex].DataBoundItem;
-                DataGridViewCheckBoxCell celdaCheckBox = dgvServiciosImpagos.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewCheckBoxCell;
-                bool isChecked = (bool)celdaCheckBox.EditedFormattedValue;
-                if (isChecked)
-                {
-                    FrmSeleccionCuotas seleccionCuotas = new FrmSeleccionCuotas(servicioElegido);
-                    if (seleccionCuotas.ShowDialog() == DialogResult.OK)
-                    {
-                        serviciosSeleccionados.Add(servicioElegido);
-                        servicioElegido.CuotasElegidasAPagar = seleccionCuotas.CuotasElegidas;
-                        servicioElegido.MontoTotalAPagar = seleccionCuotas.MontoTotal;
-                        dgvServiciosImpagos.Rows[e.RowIndex].Cells[7].Value = servicioElegido.CuotasElegidasAPagar;
-                        dgvServiciosImpagos.Rows[e.RowIndex].Cells[8].Value = $"{servicioElegido.MontoTotalAPagar:C2}";
-
-                        MessageBox.Show($"Se eligio {servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.MontoTotalAPagar:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        celdaCheckBox.EditingCellFormattedValue = false;
-                        servicioElegido.CuotasElegidasAPagar = 0;
-                        servicioElegido.MontoTotalAPagar = 0;
-                        MessageBox.Show($"canelado 1 SERVICIO FINAL{servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.MontoTotalAPagar:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-
-                    // USAR PROPIEDAD CANTELEGIDAS Y MONTOTOTAL
-                    // AJUSTAR= CUOTASAPAGAR = CANTELEGIDAS         MONTOTOTAL.TEXT = MONTOTTAL
-                    //
-
-
-                }
-                else
-                {
-                    serviciosSeleccionados.Remove(servicioElegido);
-                    servicioElegido.CuotasElegidasAPagar = 0;
-                    servicioElegido.MontoTotalAPagar = 0; 
-                    dgvServiciosImpagos.Rows[e.RowIndex].Cells[7].Value = servicioElegido.CuotasElegidasAPagar;
-                    dgvServiciosImpagos.Rows[e.RowIndex].Cells[8].Value = $"{servicioElegido.MontoTotalAPagar:C2}";
-                    MessageBox.Show($"cancelo 2 {servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.MontoTotalAPagar:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //servicioElegido.CuotasImpagas = cuotasImpagasOriginales;
-                    //servicioElegido.CuotasImpagas = cuotasImpagasOriginales;
-
-
-                }
-            }
-        }
-
 
 
     }

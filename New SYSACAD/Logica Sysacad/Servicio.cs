@@ -16,6 +16,7 @@ namespace Logica_Sysacad
         private byte cuotasAbonadas;
         private byte cuotasTotales;
         private byte cuotasSeleccionadasAPagar;
+        private bool estaPagadoTotalmente;
 
         public Servicio(string nombre, decimal precioTotal, byte cuotasTotales)
         {
@@ -26,6 +27,7 @@ namespace Logica_Sysacad
             cuotasImpagas = cuotasTotales;
             cuotasSeleccionadasAPagar = 0;
             montoTotalAPagar = 0;
+            estaPagadoTotalmente = false;
         }
 
 
@@ -58,7 +60,7 @@ namespace Logica_Sysacad
         {
             get { return cuotasTotales; }
         }
-        
+
         public byte CuotasElegidasAPagar
         {
             get { return cuotasSeleccionadasAPagar; }
@@ -71,21 +73,26 @@ namespace Logica_Sysacad
             set { montoTotalAPagar = value; }
         }
 
-        
+        public bool EstaPagadoTotalmente
+        {
+            get { return estaPagadoTotalmente; }
+        }
+
+
 
         public void ActualizarCuotas(byte cuotasPagadas)
         {
             cuotasAbonadas += cuotasPagadas;
             cuotasImpagas -= cuotasPagadas;
+            if (cuotasImpagas == 0 && cuotasAbonadas == cuotasTotales)
+            {
+                estaPagadoTotalmente = true;    //  ya estaban completas, no va a pagar de nuevo!
+            }
         }
 
         public bool VerificarEsServicioImpago()
         {
-            if (cuotasImpagas > 0 && cuotasAbonadas < cuotasTotales)
-            {
-                return true;
-            }
-            return false; //  ya estaban completas, no va a pagar de nuevo!
+            return !estaPagadoTotalmente;
         }
 
         public decimal CalcularMontoAPagar(byte cuotasPagadas)
@@ -93,6 +100,13 @@ namespace Logica_Sysacad
             return precioCuota * cuotasPagadas;
         }
 
+
+
+        public void ActulizarCuotasYMontoElegidos(byte cuotas, decimal monto)
+        {
+            cuotasSeleccionadasAPagar = cuotas;
+            montoTotalAPagar = monto;
+        }
 
     }
 }

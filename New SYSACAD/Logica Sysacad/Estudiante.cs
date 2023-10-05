@@ -105,27 +105,27 @@ namespace Logica_Sysacad
 
         public bool PagarServicios(Servicio servicioElegido, byte cantidadCuotas, out string mensaje)
         {
-            if (servicioElegido.VerificarEsServicioImpago())
+            //if (servicioElegido.VerificarEsServicioImpago())
+            //{
+            serviciosAbonados?.Add(servicioElegido);
+            servicioElegido.ActualizarCuotas(cantidadCuotas);
+            if (!servicioElegido.EstaPagadoTotalmente)
             {
-                serviciosAbonados?.Add(servicioElegido);
-                servicioElegido.ActualizarCuotas(cantidadCuotas);
-                if (servicioElegido.VerificarEsServicioImpago())
-                {
-                    mensaje = $"¡{servicioElegido.Nombre} - Se pagarón {cantidadCuotas} cuotas por un monto de {servicioElegido.CalcularMontoAPagar(cantidadCuotas):C2}!";
-                    return true;
-                }
-                else
-                {
-                    serviciosImpagos?.Remove(servicioElegido);
-                    mensaje = $"¡Se pagó el total de {servicioElegido.Nombre}, se canceló el total de la deuda!";
-                    return false;
-                }
+                mensaje = $"{servicioElegido.Nombre} - ¡Se pagaron {cantidadCuotas} cuotas por un monto de {servicioElegido.CalcularMontoAPagar(cantidadCuotas):C2}!";
+                return true;
             }
             else
             {
-                mensaje = $"¡El servicio {servicioElegido.Nombre} ya fue pagado!";
+                serviciosImpagos?.Remove(servicioElegido);
+                mensaje = $"¡Se pagó el total de {servicioElegido.Nombre}, se canceló el total de la deuda!";
                 return false;
             }
+            //}
+            //else
+            //{
+            //    mensaje = $"¡El servicio {servicioElegido.Nombre} ya fue pagado!";
+            //    return false;
+            //}
         }
 
 
@@ -165,7 +165,7 @@ namespace Logica_Sysacad
             text.AppendLine($"{NombreCompletoOrdenApellido} pago:{Environment.NewLine}");
             foreach (Servicio servicio in serviciosImpagos)
             {
-                text.AppendLine($"{servicio.Nombre}   -   {servicio.PrecioTotal.ToString("C2")}  -  {servicio.CuotasImpagas}*** {servicio.CuotasAbonadas}/{servicio.CuotasTotales})");
+                text.AppendLine($"{servicio.Nombre} - {servicio.PrecioTotal.ToString("C2")}  -  Imp: {servicio.CuotasImpagas}/{servicio.CuotasTotales}, Abon: {servicio.CuotasAbonadas}/{servicio.CuotasTotales})");
             }
             return text.ToString();
         }

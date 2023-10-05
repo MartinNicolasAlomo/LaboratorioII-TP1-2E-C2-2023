@@ -31,20 +31,25 @@ namespace Vista_App
 
         public decimal MontoTotal
         {
-            get { return montoTotal;  }
+            get { return montoTotal; }
         }
 
         private void dgvProductoElegido_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvProductoElegido.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
             {
-                Servicio servicioElegido = (Servicio)dgvProductoElegido.Rows[e.RowIndex].DataBoundItem;
+                //Servicio servicioElegido = (Servicio)dgvProductoElegido.Rows[e.RowIndex].DataBoundItem;
                 DataGridViewCheckBoxCell celdaCheckBox = dgvProductoElegido.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewCheckBoxCell;
                 bool isChecked = (bool)celdaCheckBox.EditedFormattedValue;
                 if (isChecked)
                 {
                     cantidadCuotasElegidas++;
                     montoTotal += servicioEelgido.PrecioCuota;
+
+                    //     REVISAR CUANTAS CUOTAS ELEIGIO
+                    // SI ELIGIO 0, NO SE PUEDE PAGAR
+
+
                     //serviciosSeleccionados.Add(servicioElegido);
                     // ABRIR FRMSELECCIONCUOTAS     SHOWDIALOG()
                     // MANDARLE EL SERVICIO ELEGIDO TAL CUAL
@@ -59,12 +64,23 @@ namespace Vista_App
                 {
                     cantidadCuotasElegidas--;
                     montoTotal -= servicioEelgido.PrecioCuota;
-                    //serviciosSeleccionados.Remove(servicioElegido);
                 }
+                //HabilitarBotonConfirmar();
                 lblCuotasElegidas.Text = $"Cuotas elegidas:{Environment.NewLine}{cantidadCuotasElegidas}";
                 lblMontoTotal.Text = $"Monto total:{Environment.NewLine}{montoTotal:C2}";
             }
+        }
 
+        private void HabilitarBotonConfirmar()
+        {
+            if (cantidadCuotasElegidas > 0)
+            {
+                btnConfirmar.Enabled = true;
+            }
+            else
+            {
+                btnConfirmar.Enabled = false;
+            }
         }
 
         private void FrmSeleccionCuotas_Load(object sender, EventArgs e)
@@ -76,11 +92,17 @@ namespace Vista_App
             }
             lblCuotasElegidas.Text = $"Cuotas elegidas:{Environment.NewLine}{0}";
             lblMontoTotal.Text = $"Monto total:{Environment.NewLine}{0:C2}";
+            //btnConfirmar.Enabled = false;
+
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
+            //if (cantidadCuotasElegidas > 0)
+            //{
+            //}
+            //DialogResult = DialogResult.Cancel;
+                DialogResult = DialogResult.OK;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

@@ -214,10 +214,10 @@
             // 
             // CuotasElegidas
             // 
-            CuotasElegidas.HeaderText = "Cantidad de Cuotas Elegidas";
+            CuotasElegidas.HeaderText = "Cuotas Elegidas";
             CuotasElegidas.Name = "CuotasElegidas";
             CuotasElegidas.Resizable = DataGridViewTriState.False;
-            CuotasElegidas.Width = 120;
+            CuotasElegidas.Width = 85;
             // 
             // PrecioPago
             // 
