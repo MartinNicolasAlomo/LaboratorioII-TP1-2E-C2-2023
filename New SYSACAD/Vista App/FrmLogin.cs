@@ -20,24 +20,13 @@ namespace Vista_App
         public FrmLogin()
         {
             InitializeComponent();
+            usuarioValido = "ma@gmail.com";
+            claveValida = "40916734";
+            tbxUsuario.Text = usuarioValido;
+            tbxClave.Text = claveValida;
         }
         #endregion
 
-
-
-        /*
-        if  estudiante
-            usuarioValido = "ma@gmail.com";
-            claveValida = "40916734";
-
-        else admin        
-            usuarioValido = "jdiaz@utn.com";
-            claveValida = "30303030";
-
-                     tbxUsuario.Text = usuarioValido;
-            tbxClave.Text = claveValida;
-         
-         */
 
 
         #region METODOS

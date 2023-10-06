@@ -103,29 +103,19 @@ namespace Logica_Sysacad
 
         #region METODOS
 
-        public bool PagarServicios(Servicio servicioElegido, byte cantidadCuotas, out string mensaje)
+        public void PagarServicios(Servicio servicioElegido, byte cantidadCuotas, out string mensaje)
         {
-            //if (servicioElegido.VerificarEsServicioImpago())
-            //{
             serviciosAbonados?.Add(servicioElegido);
             servicioElegido.ActualizarCuotas(cantidadCuotas);
             if (!servicioElegido.EstaPagadoTotalmente)
             {
                 mensaje = $"{servicioElegido.Nombre} - ¡Se pagaron {cantidadCuotas} cuotas por un monto de {servicioElegido.CalcularMontoAPagar(cantidadCuotas):C2}!";
-                return true;
             }
             else
             {
                 serviciosImpagos?.Remove(servicioElegido);
                 mensaje = $"¡Se pagó el total de {servicioElegido.Nombre}, se canceló el total de la deuda!";
-                return false;
             }
-            //}
-            //else
-            //{
-            //    mensaje = $"¡El servicio {servicioElegido.Nombre} ya fue pagado!";
-            //    return false;
-            //}
         }
 
 

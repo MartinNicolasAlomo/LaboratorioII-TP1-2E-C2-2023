@@ -15,7 +15,6 @@ namespace Vista_App
     {
         private Estudiante estudianteLogueado;
         private List<Servicio> serviciosSeleccionados;
-        private byte cuotasImpagasOriginales;
         private static decimal montoTotalAPagar;
 
         public FrmRealizarPagos(Estudiante estudianteLogueado)
@@ -53,26 +52,16 @@ namespace Vista_App
                     string mensaje;
                     foreach (Servicio servicio in serviciosSeleccionados)
                     {
-                        if (servicio.EstaPagadoTotalmente)
-                        {
-                            mensaje = $"¡El servicio {servicio.Nombre} ya fue pagado!";
-                            continue;
-                        }
-                        else
-                        {
-                            if (estudianteLogueado.PagarServicios(servicio, servicio.CuotasElegidasAPagar, out mensaje))
-                            {
+                        estudianteLogueado.PagarServicios(servicio, servicio.CuotasElegidasAPagar, out mensaje);
+                        servicio.ActulizarCuotasYMontoElegidos(0, 0);
 
-                            }
-                            servicio.ActulizarCuotasYMontoElegidos(0, 0);
-                        }
+                        VerificarFormaDePago();
                         MessageBox.Show(mensaje);
                     }
-                    serviciosSeleccionados.Clear();
-                    RestaurarMontoGeneral();
+                    RestaurarValoresOriginales();
                     ActualizarDataGridView();
 
-                    //MessageBox.Show(estudianteLogueado.MostrarServiciosAPagar(), "EN BASE DE DATOS");
+                    MessageBox.Show(estudianteLogueado.MostrarServiciosAPagar(), "EN BASE DE DATOS");
                     // si ya fue pagado en total    - remover de serviciosSeleccionados;
                     //  if estudianteLogueado.Servicios.contains(servicio)      continue;
                     //serviciosSeleccionados.Remove(servicio);
@@ -83,14 +72,44 @@ namespace Vista_App
                     //    MessageBox.Show("¡Se pagaron todos los servicios. No hay pagos pendientes!");
                     //    Close();
                     //}
+
+                    //if (isChecked)
+                    //{
+                    //    if (!serviciosSeleccionados.Contains(servicioElegido))
+                    //    {
+                    //        serviciosSeleccionados.Add(servicioElegido);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    serviciosSeleccionados.Remove(servicioElegido);
+                    //}
+
                 }
 
             }
 
         }
 
-        private void RestaurarMontoGeneral()
+        private void VerificarFormaDePago()
         {
+            if (rbnTransferencia.Checked == true)
+            {
+
+            }
+            else if (rbnTarjetaDebito.Checked == true)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void RestaurarValoresOriginales()
+        {
+            serviciosSeleccionados.Clear();
             montoTotalAPagar = 0;
             lblMontoTotal.Text = $"{0:C2}";
         }
@@ -102,7 +121,7 @@ namespace Vista_App
             if (indiceFila >= 0 && dgvServiciosImpagos.Columns[indiceColumna] is DataGridViewCheckBoxColumn)
             {
                 Servicio servicioElegido = (Servicio)dgvServiciosImpagos.Rows[indiceFila].DataBoundItem;
-                DataGridViewCheckBoxCell celdaCheckBox = dgvServiciosImpagos.Rows[indiceFila].Cells[indiceColumna] as DataGridViewCheckBoxCell;
+                DataGridViewCheckBoxCell? celdaCheckBox = dgvServiciosImpagos.Rows[indiceFila].Cells[indiceColumna] as DataGridViewCheckBoxCell;
                 bool isChecked = (bool)celdaCheckBox.EditedFormattedValue;
                 if (isChecked)
                 {
@@ -142,7 +161,6 @@ namespace Vista_App
         private void ActualizarCuotasYMontoServicio(int indiceFila, Servicio servicioElegido, byte cuotas, decimal monto, bool aumenta)
         {
             ActualizarMontoTotalGeneral(servicioElegido, monto, aumenta);
-            //ActualDatos(servicioElegido, cuotas, monto);
             servicioElegido.ActulizarCuotasYMontoElegidos(cuotas, monto);
             dgvServiciosImpagos.Rows[indiceFila].Cells[7].Value = cuotas;
             dgvServiciosImpagos.Rows[indiceFila].Cells[8].Value = $"{monto:C2}";

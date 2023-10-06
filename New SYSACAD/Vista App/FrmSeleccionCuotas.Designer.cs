@@ -39,6 +39,7 @@
             lblMontoTotal = new Label();
             btnConfirmar = new Button();
             btnCancelar = new Button();
+            cbxSeleccionarTodo = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dgvProductoElegido).BeginInit();
             ((System.ComponentModel.ISupportInitialize)servicioBindingSource).BeginInit();
             SuspendLayout();
@@ -117,17 +118,30 @@
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // cbxSeleccionarTodo
+            // 
+            cbxSeleccionarTodo.AutoSize = true;
+            cbxSeleccionarTodo.Location = new Point(406, 234);
+            cbxSeleccionarTodo.Name = "cbxSeleccionarTodo";
+            cbxSeleccionarTodo.Size = new Size(115, 19);
+            cbxSeleccionarTodo.TabIndex = 5;
+            cbxSeleccionarTodo.Text = "Seleccionar Todo";
+            cbxSeleccionarTodo.UseVisualStyleBackColor = true;
+            //cbxSeleccionarTodo.Click += cbxSeleccionarTodo_Click;
+            // 
             // FrmSeleccionCuotas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(cbxSeleccionarTodo);
             Controls.Add(btnCancelar);
             Controls.Add(btnConfirmar);
             Controls.Add(lblMontoTotal);
             Controls.Add(lblCuotasElegidas);
             Controls.Add(dgvProductoElegido);
             Name = "FrmSeleccionCuotas";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmSeleccionCuotas";
             Load += FrmSeleccionCuotas_Load;
             ((System.ComponentModel.ISupportInitialize)dgvProductoElegido).EndInit();
@@ -148,5 +162,6 @@
         private DataGridViewCheckBoxColumn CuotaSeleccionada;
         private Button btnConfirmar;
         private Button btnCancelar;
+        private CheckBox cbxSeleccionarTodo;
     }
 }
