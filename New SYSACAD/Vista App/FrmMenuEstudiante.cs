@@ -15,9 +15,6 @@ namespace Vista_App
     {
         private Estudiante estudianteLogueado;
         private FrmLogin login;
-        //private FrmInscripcionCursos? inscripcionCursos;
-        //private FrmConsultaHorario? consultaHorarios;
-        //private FrmRealizarPagos? pagoCuotas;
 
         public FrmMenuEstudiante(Estudiante estudianteLogueado, FrmLogin login)
         {
@@ -34,12 +31,7 @@ namespace Vista_App
             Hide();
             inscripcionCursos1.ShowDialog();
             Show();
-            //if (inscripcionCursos is null)
-            //{
-            //    inscripcionCursos = new FrmInscripcionCursos(this, estudianteLogueado);
-            //    inscripcionCursos.Show();
-            //    Hide();
-            //}
+
         }
 
         private void btnConsultarHorario_Click(object sender, EventArgs e)
@@ -54,13 +46,6 @@ namespace Vista_App
                 Hide();
                 consultaHorarios1.ShowDialog();
                 Show();
-
-                //if (consultaHorarios is null)
-                //{
-                //    consultaHorarios = new FrmConsultaHorario(this, estudianteLogueado);
-                //    Hide();
-                //    consultaHorarios.Show();
-                //}
             }
         }
 
@@ -77,35 +62,21 @@ namespace Vista_App
                 pagoServicios.ShowDialog();
                 Show();
             }
-            //MessageBox.Show($"{estudianteLogueado.MostrarServiciosAPagar()}");
-
-            //StringBuilder text = new StringBuilder();
-            //foreach (Servicio item in estudianteLogueado.ServiciosAPagar)
-            //{
-            //    text.AppendLine(item);
-            //}
-
-
         }
 
-        public void MostrarMenu()
-        {
-            Show();
-            //inscripcionCursos = null;
-            //consultaHorarios = null;
-            //pagoCuotas = null;
-        }
-
-
+        //public void MostrarMenu()
+        //{
+        //    Show();
+        //}
 
 
         #region CERRAR MENU
-
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             Close();
             login.MostrarLogin();
         }
+
         private void FrmMenuEstudiante_FormClosing(object sender, FormClosingEventArgs e)
         {
             login.MostrarLogin();
@@ -114,13 +85,6 @@ namespace Vista_App
 
         #endregion
 
-
-
-        //public void MostrarMenuDesdePagoCuotas(FrmRealizarPagos? frmPagoCuotas)
-        //{
-        //    Show();
-        //    frmPagoCuotas = null;
-        //}
 
     }
 }

@@ -33,6 +33,7 @@
             btnConfirmar = new Button();
             cbxCuatrimestre = new ComboBox();
             cbxMaterias = new ComboBox();
+            btnFiltrar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
             SuspendLayout();
             // 
@@ -82,19 +83,31 @@
             cbxMaterias.Name = "cbxMaterias";
             cbxMaterias.Size = new Size(121, 23);
             cbxMaterias.TabIndex = 3;
+            cbxMaterias.SelectedIndexChanged += cbxMaterias_SelectedIndexChanged;
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.Location = new Point(353, 42);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(75, 23);
+            btnFiltrar.TabIndex = 4;
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = true;
+            btnFiltrar.Click += btnFiltrar_Click;
             // 
             // FrmInscripcionCursos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 361);
+            Controls.Add(btnFiltrar);
             Controls.Add(cbxMaterias);
             Controls.Add(cbxCuatrimestre);
             Controls.Add(btnConfirmar);
             Controls.Add(dgvListaCursos);
             Name = "FrmInscripcionCursos";
             Text = "FrmInscripcionCursos";
-            FormClosing += FrmInscripcionCursos_FormClosing;
+            //FormClosing += FrmInscripcionCursos_FormClosing;
             Load += FrmInscripcionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);
@@ -107,5 +120,6 @@
         private DataGridViewCheckBoxColumn CursoSeleccionado;
         private ComboBox cbxCuatrimestre;
         private ComboBox cbxMaterias;
+        private Button btnFiltrar;
     }
 }

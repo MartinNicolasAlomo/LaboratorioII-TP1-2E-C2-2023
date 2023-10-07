@@ -47,6 +47,7 @@ namespace Vista_App
             }
             else
             {
+                VerificarFormaDePago();
                 if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma??") == DialogResult.OK)
                 {
                     string mensaje;
@@ -55,7 +56,6 @@ namespace Vista_App
                         estudianteLogueado.PagarServicios(servicio, servicio.CuotasElegidasAPagar, out mensaje);
                         servicio.ActulizarCuotasYMontoElegidos(0, 0);
 
-                        VerificarFormaDePago();
                         MessageBox.Show(mensaje);
                     }
                     RestaurarValoresOriginales();
@@ -86,25 +86,31 @@ namespace Vista_App
                     //}
 
                 }
-
             }
-
         }
 
         private void VerificarFormaDePago()
         {
             if (rbnTransferencia.Checked == true)
             {
-
+                InstanciarFrmDatosBancarios(estudianteLogueado, '1');
             }
             else if (rbnTarjetaDebito.Checked == true)
             {
-
+                InstanciarFrmDatosBancarios(estudianteLogueado, '2');
             }
-            else
+            else if (rbnTarjetaCredito.Checked == true)
             {
-
+                InstanciarFrmDatosBancarios(estudianteLogueado, '3');
             }
+        }
+
+        private void InstanciarFrmDatosBancarios(Estudiante estudianteLogueado, char formaPago)
+        {
+            FrmDatosBancarios datosBancarios = new FrmDatosBancarios(estudianteLogueado, formaPago);
+            Hide();
+            datosBancarios.ShowDialog();
+            Show();
         }
 
         private void RestaurarValoresOriginales()
