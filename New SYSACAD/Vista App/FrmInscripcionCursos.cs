@@ -55,7 +55,7 @@ namespace Vista_App
             text.AppendLine("VISTA PREVIA: se seleccionaron estos cursos para solicitar inscripcion!!!!!!");
             foreach (Curso cursito in cursosSeleccionados)
             {
-                text.AppendLine(cursito.Descripcion);
+                text.AppendLine(cursito.Materia);
             }
             MessageBox.Show(text.ToString());
 
@@ -64,23 +64,26 @@ namespace Vista_App
             estudianteLogueado.CursosInscriptos?.Clear();
             foreach (Curso curso in cursosSeleccionados)
             {
-                if (curso.CupoDisponible > 0)
+                if ((curso.Nombre != "A" && curso.Materia != "B"))
                 {
-                    estudianteLogueado.CursosInscriptos?.Add(curso);
-                    curso.CupoDisponible--;
-                }
-                else
-                {
-                    //  BLOQUEAR EL CURSO DE SER SELECCIONADO   - NUNCA ELIMINAR    -   NO SE ELIMINA
-                    //        MessageBox.Show("Este curso está completo, no tiene mas cupos.");
+                    if (curso.CupoDisponible > 0)
+                    {
+                        estudianteLogueado.CursosInscriptos?.Add(curso);
+                        curso.CupoDisponible--;
+                        //if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma") == DialogResult.OK)
+                        //{ }
+                    }
+                    else
+                    {
+                        //  BLOQUEAR EL CURSO DE SER SELECCIONADO   - NUNCA ELIMINAR    -   NO SE ELIMINA
+                        //        MessageBox.Show("Este curso está completo, no tiene mas cupos.");
+                    }
                 }
             }
             // ORDENARLOS POR CUATRI O CODIGO - PROG = 1 / LABO = 2 / MATEMATICA = 3 / INGLES = 4 / SPD = 5, ETC.
             MessageBox.Show(estudianteLogueado.MostrarCursosSubscritos());
 
 
-            if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma") == DialogResult.OK)
-            { }
         }
 
 
@@ -97,7 +100,7 @@ namespace Vista_App
 
             // Filter the listCourses based on the selected criteria
             List<Curso>? cursosFiltrados = SistemaUTN.BaseDatosCursos?.Where(curso => curso.Cuatrimentre == cuatrimestreElegido
-                                           && curso.Descripcion == materiaElegida).ToList();
+                                           && curso.Materia == materiaElegida).ToList();
             // Use ToList to convert the IEnumerable to a List
 
             // Bind the filtered result to the DataGridView
@@ -164,9 +167,31 @@ namespace Vista_App
         public void ActualizarDataGridView()
         {
             dgvListaCursos.DataSource = null;
-            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
+            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos; // CREAR CAMPO CURSOS SELECCIONADOS Y BIND A ESO
         }
 
+
+        private void dgvListaCursos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && dgvListaCursos.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
+            {
+                DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dgvListaCursos.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                // Check if the cell is checked (value is true)
+                if (cell.Value != null && (bool)cell.Value)
+                {
+                    // Change the background color to indicate checked state
+                    e.CellStyle.BackColor = Color.Green; // You can choose any color you prefer
+                    e.CellStyle.SelectionBackColor = Color.Green;
+                }
+                else
+                {
+                    // Optionally, reset the background color for unchecked cells
+                    e.CellStyle.BackColor = dgvListaCursos.DefaultCellStyle.BackColor;
+                    e.CellStyle.SelectionBackColor = dgvListaCursos.DefaultCellStyle.SelectionBackColor;
+                }
+            }
+        }
 
         private void dgvListaCursos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -177,10 +202,12 @@ namespace Vista_App
                 bool isChecked = (bool)checkboxCell.EditedFormattedValue;
                 if (isChecked)
                 {
+                    checkboxCell.EditingCellFormattedValue = true;
                     cursosSeleccionados.Add(rowData);
                 }
                 else
                 {
+                    checkboxCell.EditingCellFormattedValue = false;
                     cursosSeleccionados.Remove(rowData);
                 }
             }

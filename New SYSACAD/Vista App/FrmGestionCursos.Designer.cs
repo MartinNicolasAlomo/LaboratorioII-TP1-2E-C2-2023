@@ -86,7 +86,7 @@
             Name = "FrmGestionCursos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión de Cursos";
-            FormClosing += FrmGestionCursos_FormClosing;
+            //FormClosing += FrmGestionCursos_FormClosing;
             Load += FrmGestionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);

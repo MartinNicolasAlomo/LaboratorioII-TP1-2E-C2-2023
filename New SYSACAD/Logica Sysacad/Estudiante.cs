@@ -142,7 +142,7 @@ namespace Logica_Sysacad
             text.AppendLine("MI ESTUDIANTE ELIGIO ESTO:");
             foreach (Curso curso in cursosInscriptos)
             {
-                text.AppendLine(curso.Descripcion);
+                text.AppendLine(curso.Materia);
             }
             text.AppendLine("CONFIRMAS????????????????????:");
             return text.ToString();

@@ -81,7 +81,7 @@ namespace Vista_App
                 }
                 if (SistemaUTN.EncontrarEstudianteRegistrado(nuevoEstudiante))
                 {
-                    MessageBox.Show($"Ya existe este/a estudiante registrado en el sistema.");
+                    MessageBox.Show($"¡Ya existe este/a estudiante registrado en el sistema!", $"¡Usuario ya existente!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -96,16 +96,13 @@ namespace Vista_App
             }
             else
             {
-                MessageBox.Show($"Los datos ingresados no son válidos, reviselos y vuelva a intentarlo.");
+                MessageBox.Show($"¡Los datos ingresados no son válidos o estan incompletos!{Environment.NewLine}¡Reviselos y vuelva a intentarlo!", $"¡Datos inválidos o incompletos!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
-
-
     }
 }

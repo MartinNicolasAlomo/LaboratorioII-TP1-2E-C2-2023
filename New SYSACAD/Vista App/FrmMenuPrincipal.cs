@@ -53,7 +53,6 @@ namespace Vista_App
             StringBuilder text = new StringBuilder();
             text.AppendLine($"¡Se guardaron los datos del Estudante {nuevoEstudiante.NombreCompletoOrdenApellido}!").AppendLine()
                 .AppendLine(EnviarEmailConfirmacion(nuevoEstudiante.Email))
-                //.AppendLine($"¡Se envió un email a {nuevoEstudiante.Email} notificando la confirmación de ingreso!")
                 ;
             return text.ToString();
         }
@@ -75,7 +74,6 @@ namespace Vista_App
             Hide();
             auxGestion.ShowDialog();
             Show();
-
         }
 
 
@@ -95,22 +93,6 @@ namespace Vista_App
             login.MostrarLogin();
         }
 
-        public void MostrarMenu()
-        {
-            //Show();
-            //gestionCursos = null;
-        }
-
         #endregion
-
-
-
-
-
-
     }
-
-
-
-
 }

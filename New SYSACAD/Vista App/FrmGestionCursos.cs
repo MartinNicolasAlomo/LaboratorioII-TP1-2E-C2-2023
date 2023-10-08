@@ -7,13 +7,11 @@ namespace Vista_App
     public partial class FrmGestionCursos : Form
     {
         #region CAMPOS Y CONSTRUCTORES
-        //private FrmMenuPrincipal? menuPrincipal;
         private DataGridViewCellEventArgs? seleccion;
 
         public FrmGestionCursos()
         {
             InitializeComponent();
-            //this.menuPrincipal = menuPrincipal;
         }
 
         private void FrmGestionCursos_Load(object sender, EventArgs e)
@@ -21,7 +19,7 @@ namespace Vista_App
             dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
             dgvListaCursos.Columns[0].HeaderText = "Código";
             dgvListaCursos.Columns[3].HeaderText = "División";
-            dgvListaCursos.Columns[4].HeaderText = "Descripción";
+            dgvListaCursos.Columns[4].HeaderText = "Materia";
             dgvListaCursos.Columns[6].HeaderText = "Día";
             dgvListaCursos.Columns[9].HeaderText = "Cupo Máx.";
             dgvListaCursos.Columns[10].HeaderText = "Cupo Disp.";
@@ -37,7 +35,6 @@ namespace Vista_App
 
 
 
-        #region A) AGREGAR CURSO
         private void btnAgregarCurso_Click(object sender, EventArgs e)
         {
             FrmAltaCurso? altaCurso = new FrmAltaCurso("Registrar nuevo curso");
@@ -49,7 +46,7 @@ namespace Vista_App
             }
             else
             {
-                MessageBox.Show($"¡Se canceló el agregado!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"¡Se canceló el registro del curso!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -62,12 +59,6 @@ namespace Vista_App
             return text.ToString();
         }
 
-
-
-        #endregion
-
-
-        #region B) MODIFICAR CURSO
         private void btnEditarCurso_Click(object sender, EventArgs e)
         {
             Curso? auxCurso = ObtenerCursoDesdeDataGridView();
@@ -91,26 +82,24 @@ namespace Vista_App
         }
 
 
-        #endregion
 
 
-        #region C) ELIMINAR CURSO
         private void btnEliminarCurso_Click(object sender, EventArgs e)
         {
             Curso? auxCurso = ObtenerCursoDesdeDataGridView();
             if (auxCurso is not null)
             {
                 //MessageBox.Show(auxCurso.MostrarDatos());
-                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.Descripcion} - {auxCurso.Nombre}?";
+                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.Materia} - {auxCurso.Nombre}?";
                 if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                 {
-                    MessageBox.Show($"¡Se eliminó el curso {auxCurso.Descripcion} - {auxCurso.Nombre}!", $"¡Hecho!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"¡Se eliminó el curso {auxCurso.Materia} - {auxCurso.Nombre}!", $"¡Eliminado finalizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
                     ActualizarDataGridView();
                 }
                 else
                 {
-                    MessageBox.Show($"¡Se canceló el eliminado!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"¡Se canceló la eliminación del curso!", $"¡Cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -118,10 +107,6 @@ namespace Vista_App
                 MessageBox.Show($"¡No se pudo recuperar la informacion del curso seleccionado!", $"¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        #endregion
-
 
 
         private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -133,7 +118,8 @@ namespace Vista_App
 
         private Curso? ObtenerCursoDesdeDataGridView()
         {
-            int indice = seleccion.RowIndex;
+            int indiceFila = seleccion.RowIndex;
+            int indiceColumna = seleccion.ColumnIndex;
             //  USAR  EXCEPCIONES   TRY CATCH
             //try
             //{
@@ -144,10 +130,14 @@ namespace Vista_App
 
             //    throw;
             //}
-
-            if (indice != -1 && indice >= 0)
+            if (indiceColumna == 0)
             {
-                return SistemaUTN.BaseDatosCursos?[indice];
+                indiceColumna = 1;
+                if (indiceFila != -1 || indiceFila >= 0 && (indiceFila != -1 && indiceFila >= 0))
+                {
+
+                    return SistemaUTN.BaseDatosCursos?[indiceFila];
+                }
             }
             return null;
         }
@@ -157,11 +147,5 @@ namespace Vista_App
             dgvListaCursos.DataSource = null;
             dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
         }
-
-        private void FrmGestionCursos_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //menuPrincipal?.MostrarMenu();
-        }
-
     }
 }

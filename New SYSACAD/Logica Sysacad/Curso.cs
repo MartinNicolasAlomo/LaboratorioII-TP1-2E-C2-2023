@@ -37,6 +37,31 @@ namespace Logica_Sysacad
     public class Curso
     {
         #region CAMPOS
+        public const string ProgramacionI = "Programación I";
+        public const string LaboratorioI = "Laboratorio I";
+        public const string Matematica = "Matématica";
+        public const string SistemaProcesamientoDatos = "Sistema de Procesamiento de Datos";
+        public const string InglesI = "Inglés I";
+
+        public const string ProgramacionII = "Programación II";
+        public const string LaboratorioII = "Laboratorio II";
+        public const string Estadistica = "Estadística";
+        public const string ArquitecturaYSistemasOperativos = "Arquitectura Y Sistemas Operativos";
+        public const string InglesII = "Inglés II";
+        public const string MetodologiaInvestigación = "Metódologia de la Investigación";
+
+        public const string ProgramacionIII = "Programación III";
+        public const string LaboratorioIII = "Laboratorio III";
+        public const string OrganizacionContable = "Organización Contable";
+        public const string OrganizacionEmpresarial = "Organización Empresarial";
+        public const string ElementosInvestigacionOperativa = "Elementos de Investigación Operativa";
+
+        public const string LaboratorioIV = "Laboratorio IV";
+        public const string DisenioAdministracionBaseDatos = "Diseño de Administración de Bases de Datos";
+        public const string MetodologiaSistemas = "Metod. de Sistemas I";
+        public const string Legislacion = "Legislación";
+
+
         private static string[]? cuatrimestresDisponibles;
         private static string[]? divisionesDisponibles;
         private static Dictionary<string, List<string>>? materiasDisponibles;
@@ -47,19 +72,19 @@ namespace Logica_Sysacad
 
 
         private static byte ultimoCodigo;
-        private ushort codigo;
-        private string nombre;
-        //  AGREGAR LISTA DE ESTUDIANTES QUE ESTAN INSCRIPTOS A ESTE CURSO
-        //  AGREGAR char carga horariA   DEPUES METODO  calcular carga horaria semanal (convertir de char a byte/int)
+        private string codigo;
+        private string nombre;          //  materia
         private string cuatrimestre;
         private string division;
-        private string descripcion;
+        private string materia;     // ???
         private string turno;
         private string dia;
         private string horario;
         private string aula;
         private byte cupoMaximo;
         private byte cupoDisponible;
+        //  AGREGAR LISTA DE ESTUDIANTES QUE ESTAN INSCRIPTOS A ESTE CURSO
+        //  AGREGAR char carga horariA   DEPUES METODO  calcular carga horaria semanal (convertir de char a byte/int)
 
         public const sbyte ESP_COLM_1 = -30;
         public const sbyte ESP_COLM_2 = -15;
@@ -86,13 +111,13 @@ namespace Logica_Sysacad
             HardcodearAulas();
         }
 
-        public Curso(string cuatrimestre, string division, string descripcion, string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
+        public Curso(string codigo, string cuatrimestre, string division, string descripcion, string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
         {
-            codigo = 0;
+            this.codigo = codigo;
             this.cuatrimestre = cuatrimestre;
             this.division = division;
             nombre = $"{cuatrimestre}{division}";
-            this.descripcion = descripcion;
+            this.materia = descripcion;
             this.turno = turno;
             this.dia = dia;
             this.horario = horario;
@@ -101,19 +126,12 @@ namespace Logica_Sysacad
             this.cupoDisponible = cupoDisponible;
         }
 
-        public void AsignarCodigo()
-        {
-            codigo = ultimoCodigo;
-            ultimoCodigo++;
-        }
-
-
         #endregion
 
 
 
         #region PROPIEDADES
-        public ushort Codigo
+        public string Codigo
         {
             get { return codigo; }
         }
@@ -133,9 +151,9 @@ namespace Logica_Sysacad
             get { return division; }
         }
 
-        public string Descripcion
+        public string Materia
         {
-            get { return descripcion; }
+            get { return materia; }
         }
 
         public string Turno
@@ -199,7 +217,7 @@ namespace Logica_Sysacad
         {
             get { return horariosDisponibles; }
         }
-        
+
         public static string[]? AulasDisponibles
         {
             get { return aulasDisponibles; }
@@ -237,12 +255,16 @@ namespace Logica_Sysacad
         {
             materiasDisponibles = new Dictionary<string, List<string>>
             {
-                {"1°", new List<string> { "Programación I", "Laboratorio I", "Matématica", "Sist. de Proc. de Datos", "Inglés I" } },
-                {"2°", new List<string> { "Programación II", "Laboratorio II", "Estadística", "Arq. y Sist. Oper.", "Inglés II", "Metod. de la Inv." } },
-                {"3°", new List<string> { "Programación III", "Laboratorio III", "Org. Contable", "Org. Empresarial", "Elem. de Inv. Oper." } },
-                {"4°", new List<string> { "Laboratorio IV", "Diseño de Admin. de Bases de Datos", "Metod. de Sistemas I", "Legislación" } }
+                {"1°", new List<string> { ProgramacionI, LaboratorioI, Matematica, SistemaProcesamientoDatos, InglesI } },
+                {"2°", new List<string> { ProgramacionII, LaboratorioII, Estadistica, ArquitecturaYSistemasOperativos, InglesII, MetodologiaInvestigación } },
+                {"3°", new List<string> { ProgramacionIII, LaboratorioIII, OrganizacionContable, OrganizacionEmpresarial, ElementosInvestigacionOperativa } },
+                {"4°", new List<string> { LaboratorioIV, DisenioAdministracionBaseDatos, MetodologiaSistemas, Legislacion } }
             };
         }
+
+
+
+
 
         private static void HardcodearTurnos()
         {
@@ -269,7 +291,7 @@ namespace Logica_Sysacad
                 {"Mañana", new List<string> { "08:00 - 10:00", "10:00 - 12:00", "08:00 - 12:00" } },
                 {"Tarde", new List<string> { "13:00 - 15:00", "15:00 - 17:00", "13:00 - 17:00" } },
                 {"Noche", new List<string> { "18:30 - 20:30", "20:30 - 22:30", "18:30 - 22:30" } }
-            };     
+            };
             //horarioPorTurno = new Dictionary<Turno, List<string>>
             //{
             //    {Logica_Sysacad.Turno.Mañana, new List<string> { "08:00 - 10:00", "10:00 - 12:00", "08:00 - 12:00" } },
@@ -302,7 +324,7 @@ namespace Logica_Sysacad
                 .AppendLine($"Informacion ingresada del Curso:")
                 .AppendLine($"{"Código:",ESP_COLM_1}{codigo,ESP_COLM_2}")
                 .AppendLine($"{"Nombre:",ESP_COLM_1}{nombre,ESP_COLM_2}")
-                .AppendLine($"{"Descripción:",ESP_COLM_1}{descripcion,ESP_COLM_2}")
+                .AppendLine($"{"Descripción:",ESP_COLM_1}{materia,ESP_COLM_2}")
                 .AppendLine($"{"Turno:",ESP_COLM_1}{turno,ESP_COLM_2}")
                 .AppendLine($"{"Horario:",ESP_COLM_1}{horario,ESP_COLM_2}")
                 .AppendLine($"{"Día:",ESP_COLM_1}{dia,ESP_COLM_2}")
@@ -320,7 +342,7 @@ namespace Logica_Sysacad
             this.cuatrimestre = cuatrimestre;
             this.division = division;
             nombre = $"{cuatrimestre}{division}";
-            this.descripcion = descripcion;
+            this.materia = descripcion;
             this.turno = turno;
             this.dia = dia;
             this.horario = horario;

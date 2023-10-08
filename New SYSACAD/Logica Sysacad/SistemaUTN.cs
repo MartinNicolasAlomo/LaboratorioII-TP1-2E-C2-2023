@@ -72,11 +72,14 @@ namespace Logica_Sysacad
         {
             baseDatosCursos = new List<Curso>
             {
-                new Curso("3°","D", "Programación III", "Noche", "Lunes", "18:30 - 22:30", "215", 50, 50),
-                new Curso("3°","D","Laboratorio III", "Noche", "Martes", "18:30 - 22:30", "212", 50, 50),
-                new Curso("3°","D", "Org. Contable", "Noche", "Miércoles", "18:30 - 22:30", "201", 50, 50),
-                new Curso("3°","D", "Org. Empresarial", "Noche", "Jueves", "18:30 - 22:30", "207", 50, 50),
-                new Curso("3°","D", "Elem. de Invest. Operativa", "Noche", "Viernes", "18:30 - 22:30", "210", 50, 50),
+                new Curso("185","1°","H", Curso.SistemaProcesamientoDatos, "Noche", "Lunes", "18:30 - 22:30", "215", 50, 50),
+                new Curso("213","2°","A", Curso.Estadistica, "Mañana", "Lunes", "18:30 - 22:30", "215", 50, 50),
+                new Curso("434","4°","C", Curso.Legislacion, "Tarde", "Lunes", "18:30 - 22:30", "215", 50, 50),
+                new Curso("341","3°","D", Curso.ProgramacionIII, "Noche", "Lunes", "18:30 - 22:30", "203", 50, 50),
+                new Curso("342","3°","D", Curso.LaboratorioIII, "Noche", "Martes", "18:30 - 22:30", "212", 50, 50),
+                new Curso("343","3°","D", Curso.OrganizacionContable, "Noche", "Miércoles", "18:30 - 22:30", "201", 50, 50),
+                new Curso("344","3°","D", Curso.OrganizacionEmpresarial, "Noche", "Jueves", "18:30 - 22:30", "207", 50, 50),
+                new Curso("345","3°","D", Curso.ElementosInvestigacionOperativa, "Noche", "Viernes", "18:30 - 22:30", "210", 50, 50),
             };
         }
 

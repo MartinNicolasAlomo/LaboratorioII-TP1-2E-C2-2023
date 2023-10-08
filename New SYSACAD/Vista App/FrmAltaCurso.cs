@@ -8,9 +8,10 @@ namespace Vista_App
     {
         Curso? cursoIngresado;
         private bool esModificacion;
+        private string? codigoIngresado;
         private string? cuatrimestreIngresado;
         private string? divisionIngresada;
-        private string? descripcionIngresada;
+        private string? materiaIngresada;
         private string? turnoIngresado;
         private string? diaIngresado;
         private string? horarioIngresado;
@@ -65,57 +66,55 @@ namespace Vista_App
 
         private void PrecargarComboboxesCursoExistente()
         {
-            // Populate the Name ComboBox with data
             cbxCuatrimestre.DataSource = Curso.CuatrimestresDisponibles;
             cbxDivision.DataSource = Curso.DivisionesDisponibles;
             cbxTurno.DataSource = Curso.TurnosDisponibles;
             cbxDia.DataSource = Curso.DiasDisponibles;
             cbxAula.DataSource = Curso.AulasDisponibles;
-            // Set the selected value based on the course object
             cbxCuatrimestre.SelectedItem = cursoIngresado.Cuatrimentre;
             cbxDivision.SelectedItem = cursoIngresado.Division;
-            cbxDescripcion.SelectedItem = cursoIngresado.Descripcion;
+            cbxMateria.SelectedItem = cursoIngresado.Materia;
             cbxTurno.SelectedItem = cursoIngresado.Turno;
             cbxDia.SelectedItem = cursoIngresado.Dia;
             cbxHorario.SelectedItem = cursoIngresado.Horario;
             cbxAula.SelectedItem = cursoIngresado.Aula;
             tbxCupoMaximo.Text = cursoIngresado.CupoMaximo.ToString();
+            tbxCodigo.Text = cursoIngresado.Codigo.ToString();
+            tbxCodigo.Enabled = false;
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
+            codigoIngresado = tbxCodigo.Text;
             cupoIngresado = tbxCupoMaximo.Text;
-            if (Validador.ValidarNumeroIngresado(out byte cupoMaximo, cupoIngresado, 15, 120))
+            if (Validador.ValidarTextoNumerico(codigoIngresado, 3) &&
+                Validador.ValidarNumeroIngresado(out byte cupoMaximo, cupoIngresado, 15, 120))
             {
                 if (esModificacion)
                 {
-                    cursoIngresado.ModificarCursoExistente(cuatrimestreIngresado, divisionIngresada, descripcionIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
-                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la modificación del curso {cursoIngresado.Nombre}?";
+                    cursoIngresado.ModificarCursoExistente(cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
+                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la modificación del curso {cursoIngresado.Materia} - {cursoIngresado.Nombre}?";
                 }
                 else
                 {
-                    cursoIngresado = new Curso(cuatrimestreIngresado, divisionIngresada, descripcionIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
-                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {cursoIngresado.Nombre}?";
+                    cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
+                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {cursoIngresado.Materia} - {cursoIngresado.Nombre}?";
                 }
                 if (SistemaUTN.EncontrarCursoRegistrado(cursoIngresado))
                 {
-                    MessageBox.Show($"Ya existe este curso registrado en el sistema.");
+                    MessageBox.Show($"¡Ya existe este/a curso registrado en el sistema!", $"¡Curso ya existente!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                     {
-                        if (!esModificacion)
-                        {
-                            cursoIngresado.AsignarCodigo();
-                        }
                         DialogResult = DialogResult.OK;
                     }
                 }
             }
             else
             {
-                MessageBox.Show($"Los datos ingresados no son válidos, reviselos y vuelva a intentarlo.");
+                MessageBox.Show($"¡Los datos ingresados no son válidos o estan incompletos!{Environment.NewLine}¡Reviselos y vuelva a intentarlo!", $"¡Datos inválidos o incompletos!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -124,13 +123,14 @@ namespace Vista_App
             cuatrimestreIngresado = cbxCuatrimestre.Items[cbxCuatrimestre.SelectedIndex].ToString();
             if (Curso.MateriasDisponibles.ContainsKey(cuatrimestreIngresado.ToString()))
             {
-                cbxDescripcion.Items.Clear();
-                cbxDescripcion.Items.AddRange(Curso.MateriasDisponibles[cuatrimestreIngresado].ToArray());
-                cbxDescripcion.SelectedIndex = 0;
+                cbxMateria.Items.Clear();
+                cbxMateria.Items.AddRange(Curso.MateriasDisponibles[cuatrimestreIngresado].ToArray());
+                cbxMateria.SelectedIndex = 0;
+                //materiaIngresada = cbxMateria.Items[cbxMateria.SelectedIndex].ToString();
             }
             else
             {
-                cbxDescripcion.Enabled = false;
+                cbxMateria.Enabled = false;
             }
         }
 
@@ -143,6 +143,7 @@ namespace Vista_App
                 cbxHorario.Items.Clear();
                 cbxHorario.Items.AddRange(Curso.HorariosDisponibles[turnoIngresado].ToArray());
                 cbxHorario.SelectedIndex = 0;
+                //horarioIngresado = cbxHorario.Items[cbxHorario.SelectedIndex].ToString();
             }
             else
             {
@@ -157,7 +158,7 @@ namespace Vista_App
 
         private void cbxDescripcion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            descripcionIngresada = cbxDescripcion.Items[cbxDescripcion.SelectedIndex].ToString();
+            materiaIngresada = cbxMateria.Items[cbxMateria.SelectedIndex].ToString();
         }
 
         private void cbxHorario_SelectedIndexChanged(object sender, EventArgs e)

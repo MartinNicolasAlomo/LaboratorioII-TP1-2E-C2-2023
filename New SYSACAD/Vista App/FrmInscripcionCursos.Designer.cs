@@ -51,6 +51,7 @@
             dgvListaCursos.Size = new Size(760, 176);
             dgvListaCursos.TabIndex = 0;
             dgvListaCursos.CellContentClick += dgvListaCursos_CellContentClick;
+            dgvListaCursos.CellFormatting += dgvListaCursos_CellFormatting;
             // 
             // CursoSeleccionado
             // 
@@ -107,7 +108,6 @@
             Controls.Add(dgvListaCursos);
             Name = "FrmInscripcionCursos";
             Text = "FrmInscripcionCursos";
-            //FormClosing += FrmInscripcionCursos_FormClosing;
             Load += FrmInscripcionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ResumeLayout(false);

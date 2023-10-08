@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dgvListaCursos = new DataGridView();
+            cursoBindingSource = new BindingSource(components);
             lblHorariosSemanales = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cursoBindingSource).BeginInit();
             SuspendLayout();
             // 
             // dgvListaCursos
@@ -45,6 +48,10 @@
             dgvListaCursos.RowTemplate.Height = 25;
             dgvListaCursos.Size = new Size(749, 263);
             dgvListaCursos.TabIndex = 1;
+            // 
+            // cursoBindingSource
+            // 
+            cursoBindingSource.DataSource = typeof(Logica_Sysacad.Curso);
             // 
             // lblHorariosSemanales
             // 
@@ -66,6 +73,7 @@
             FormClosing += FrmConsultaHorario_FormClosing;
             Load += FrmConsultaHorario_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cursoBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -73,5 +81,6 @@
         #endregion
         private DataGridView dgvListaCursos;
         private Label lblHorariosSemanales;
+        private BindingSource cursoBindingSource;
     }
 }
