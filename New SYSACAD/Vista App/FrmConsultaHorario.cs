@@ -42,6 +42,8 @@ namespace Vista_App
             dgvListaCursos.Rows.Add("Horario", "", "", "", "", "");
             dgvListaCursos.Rows.Add("Aula", "", "", "", "", "");
 
+
+            StringBuilder text = new StringBuilder();
             byte columnaDia;
             foreach (Curso curso in estudianteLogueado.CursosInscriptos)
             {
@@ -66,12 +68,14 @@ namespace Vista_App
                         columnaDia = 0;
                         break;
                 }
+
                 dgvListaCursos.Rows[0].Cells[columnaDia].Value = curso.Materia.ToString();
                 dgvListaCursos.Rows[1].Cells[columnaDia].Value = curso.Division.ToString();
                 dgvListaCursos.Rows[2].Cells[columnaDia].Value = curso.Turno.ToString();
                 dgvListaCursos.Rows[3].Cells[columnaDia].Value = curso.Horario.ToString();
                 dgvListaCursos.Rows[4].Cells[columnaDia].Value = curso.Aula.ToString();
             }
+            dgvListaCursos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
     }
 }

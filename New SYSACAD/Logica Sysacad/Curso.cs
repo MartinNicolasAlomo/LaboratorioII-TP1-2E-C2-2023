@@ -22,7 +22,7 @@ namespace Logica_Sysacad
     //    Viernes
     //}
 
-    //public enum Division
+    //public enum LetraClase
     //{
     //    A,
     //    B,
@@ -60,7 +60,6 @@ namespace Logica_Sysacad
         public const string MetodologiaSistemas = "Metod. de Sistemas I";
         public const string Legislacion = "Legislación";
 
-
         private static string[]? cuatrimestresDisponibles;
         private static string[]? clasesDisponibles;
         private static Dictionary<string, List<string>>? materiasDisponibles;
@@ -69,12 +68,9 @@ namespace Logica_Sysacad
         private static Dictionary<string, List<string>>? horariosDisponibles;
         private static string[]? aulasDisponibles;
 
-
-
-
         private string codigo;
         private string cuatrimestre;
-        private string materia;          //  materia
+        private string materia;
         private string letraClase;
         private string division;
         private string turno;
@@ -83,27 +79,13 @@ namespace Logica_Sysacad
         private string aula;
         private byte cupoMaximo;
         private byte cupoDisponible;
-
-
-        //  private List<Estudiante> listaEstudiantes;
-        //  AGREGAR LISTA DE ESTUDIANTES QUE ESTAN INSCRIPTOS A ESTE CURSO
-        //  private string cargaHoraria;    hardcodeada segun el horarioFijo
-        //  AGREGAR char carga horariA   DEPUES METODO  calcular carga horaria semanal (convertir de char a byte/int)
+        //  private List<Estudiante> listaEstudiantesInscriptos;
 
         public const sbyte ESP_COLM_1 = -30;
         public const sbyte ESP_COLM_2 = -15;
 
-        //private Turno turno;
-        //private Dia dia;     
-        //public static Dictionary<Turno, List<string>>? horarioPorTurno;
-
-
-
-
-
         static Curso()
         {
-            //ultimoCodigo = 153; //  EL ULTIMO LEGAJO ESTA EN LA BASE DE DATOS
             HardcodearCuartimestres();
             HardcodearDivisiones();
             HardcodearMaterias();
@@ -112,21 +94,6 @@ namespace Logica_Sysacad
             HardcodearHorarios();
             HardcodearAulas();
         }
-
-        //public Curso(string codigo, string cuatrimestre, string division, string descripcion, string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
-        //{
-        //    this.codigo = codigo;
-        //    this.cuatrimestre = cuatrimestre;
-        //    this.division = division;
-        //    nombre = $"{cuatrimestre}{division}";
-        //    this.materia = descripcion;
-        //    this.turno = turno;
-        //    this.dia = dia;
-        //    this.horario = horario;
-        //    this.aula = aula;
-        //    this.cupoMaximo = cupoMaximo;
-        //    this.cupoDisponible = cupoDisponible;
-        //}
 
         public Curso(string codigo, string cuatrimestre, string letraClase, string materia,
                      string turno, string dia, string horario, string aula, byte cupoMaximo)
@@ -143,8 +110,6 @@ namespace Logica_Sysacad
             this.cupoMaximo = cupoMaximo;
             cupoDisponible = cupoMaximo;
         }
-        
-
 
         public string Codigo
         {
@@ -160,7 +125,6 @@ namespace Logica_Sysacad
         {
             get { return division; }
         }
-
 
         public string Turno
         {
@@ -208,7 +172,6 @@ namespace Logica_Sysacad
         }
 
 
-
         public static string[]? CuatrimestresDisponibles
         {
             get { return cuatrimestresDisponibles; }
@@ -243,7 +206,6 @@ namespace Logica_Sysacad
         {
             get { return aulasDisponibles; }
         }
-
 
 
         private static void HardcodearCuartimestres()
@@ -347,43 +309,43 @@ namespace Logica_Sysacad
             return text.ToString();
         }
 
-        //public void ModificarCursoExistente(string codigo, string cuatrimestre, string division, string descripcion,
-        //                                    string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
+        //public void ModificarCursoExistente(string codigo, string cuatrimestre, string letraClase, string materia,
+        //                                    string turno, string dia, string horario, string aula, byte cupoMaximo)
         //{
         //    this.codigo = codigo;
         //    this.cuatrimestre = cuatrimestre;
-        //    this.division = division;
-        //    nombre = $"{cuatrimestre}{division}";
-        //    this.materia = descripcion;
+        //    this.materia = materia;
+        //    this.letraClase = letraClase;
+        //    division = $"{cuatrimestre}{letraClase}";
         //    this.turno = turno;
         //    this.dia = dia;
         //    this.horario = horario;
         //    this.aula = aula;
         //    this.cupoMaximo = cupoMaximo;
-        //    this.cupoDisponible = cupoDisponible;
+        //    if (cupoDisponible > cupoMaximo)
+        //    {
+        //        cupoDisponible = cupoMaximo;
+        //    }
         //}
 
-        public void ModificarCursoExistente(string codigo, string cuatrimestre, string letraClase, string materia,
-                                            string turno, string dia, string horario, string aula, byte cupoMaximo)
+        public void ModificarCursoExistente(Curso cursoEditado)
         {
-            this.codigo = codigo;
-            this.cuatrimestre = cuatrimestre;
-            this.materia = materia;
-            this.letraClase = letraClase;
-            division = $"{cuatrimestre}{letraClase}";
-            this.turno = turno;
-            this.dia = dia;
-            this.horario = horario;
-            this.aula = aula;
-            this.cupoMaximo = cupoMaximo;
-            if (cupoDisponible > cupoMaximo)
+            codigo = cursoEditado.codigo;
+            cuatrimestre = cursoEditado.cuatrimestre;
+            materia = cursoEditado.materia;
+            letraClase = cursoEditado.letraClase;
+            division = $"{cursoEditado.cuatrimestre}{cursoEditado.letraClase}";
+            turno = cursoEditado.turno;
+            dia = cursoEditado.dia;
+            horario = cursoEditado.horario;
+            aula = cursoEditado.aula;
+            if (cupoDisponible > cursoEditado.cupoMaximo)
             {
-                cupoDisponible = cupoMaximo;
+                SistemaUTN.BaseDatosCursos?.RemoveRange(cursoEditado.cupoMaximo - 1, cupoMaximo - 1);
+                cupoDisponible = cursoEditado.cupoMaximo;
             }
+            cupoMaximo = cursoEditado.cupoMaximo;
         }
-
-
-
 
         public void ActualizarCupoDisponible(bool aumenta)
         {
@@ -397,8 +359,23 @@ namespace Logica_Sysacad
             }
         }
 
+        public static bool operator ==(Curso curso1, Curso curso2)
+        {
+            if (curso1 is not null && curso2 is not null)
+            {
+                return curso1.codigo.Equals(curso2.codigo, StringComparison.Ordinal) ||
+                       (curso1.materia.Equals(curso2.materia, StringComparison.Ordinal) &&
+                       curso1.division == curso2.division) ||
+                       (curso1.turno == curso2.turno && curso1.dia == curso2.dia && curso1.horario == curso2.horario && curso1.aula == curso2.aula)
+                       ;
+            }
+            return false;
+        }
 
-
+        public static bool operator !=(Curso curso1, Curso curso2)
+        {
+            return !(curso1 == curso2);
+        }
 
 
 

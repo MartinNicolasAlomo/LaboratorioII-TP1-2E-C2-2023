@@ -7,10 +7,12 @@ namespace Vista_App
     public partial class FrmGestionCursos : Form
     {
         private DataGridViewCellEventArgs? seleccion;
+        private Administrador administradorLogueado;
 
-        public FrmGestionCursos()
+        public FrmGestionCursos(Administrador administradorLogueado)
         {
             InitializeComponent();
+            this.administradorLogueado = administradorLogueado;
         }
 
         private void FrmGestionCursos_Load(object sender, EventArgs e)
@@ -41,7 +43,7 @@ namespace Vista_App
             dgvListaCursos.Columns[8].Width = 60;
             foreach (DataGridViewColumn column in dgvListaCursos.Columns)
             {
-                if (column.Index != 1) // Skip the column with index 2
+                if (column.Index != 1)
                 {
                     column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -54,7 +56,7 @@ namespace Vista_App
             FrmAltaCurso? altaCurso = new FrmAltaCurso("Registrar nuevo curso");
             if (altaCurso.ShowDialog() == DialogResult.OK)
             {
-                SistemaUTN.BaseDatosCursos?.Add(altaCurso.CursoIngresado);
+                administradorLogueado.RegistrarCurso(altaCurso.CursoIngresado);
                 MessageBox.Show(CrearMensajeConfirmacionRegistroCurso(altaCurso.CursoIngresado), $"¡Curso registrado corréctamente!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ActualizarDataGridView();
             }
@@ -67,7 +69,8 @@ namespace Vista_App
         private static string CrearMensajeConfirmacionRegistroCurso(Curso nuevoCurso)
         {
             StringBuilder text = new StringBuilder();
-            text.AppendLine($"¡Se guardaron los datos del Curso {nuevoCurso.Materia}!").AppendLine()
+            text.AppendLine($"¡Se guardaron los datos del Curso {nuevoCurso.NombreMateriaDivision}!")
+                .AppendLine(nuevoCurso.MostrarDatos());
                 ;
             return text.ToString();
         }
@@ -80,6 +83,7 @@ namespace Vista_App
                 FrmAltaCurso? edicionCurso = new FrmAltaCurso(auxCurso, "Modificar curso existente");
                 if (edicionCurso.ShowDialog() == DialogResult.OK)
                 {
+                    administradorLogueado.ModificarCurso(auxCurso, edicionCurso.CursoIngresado);
                     MessageBox.Show(CrearMensajeConfirmacionRegistroCurso(edicionCurso.CursoIngresado), $"¡Curso modificado corréctamente!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ActualizarDataGridView();
                 }
@@ -99,11 +103,11 @@ namespace Vista_App
             Curso? auxCurso = ObtenerCursoDesdeDataGridView();
             if (auxCurso is not null)
             {
-                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.Materia} - {auxCurso.NombreMateriaDivision}?";
+                string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la eliminación del curso {auxCurso.NombreMateriaDivision}?";
                 if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                 {
-                    MessageBox.Show($"¡Se eliminó el curso {auxCurso.Materia} - {auxCurso.NombreMateriaDivision}!", $"¡Curso eliminado corréctamente!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    SistemaUTN.BaseDatosCursos?.Remove(auxCurso);
+                    MessageBox.Show($"¡Se eliminó el curso {auxCurso.NombreMateriaDivision}!", $"¡Curso eliminado corréctamente!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    administradorLogueado.EliminarCurso(auxCurso);
                     ActualizarDataGridView();
                 }
                 else
@@ -133,16 +137,6 @@ namespace Vista_App
                 return SistemaUTN.BaseDatosCursos?[indiceFila];
             }
             return null;
-            //  USAR  EXCEPCIONES   TRY CATCH
-            //try
-            //{
-
-            //}
-            //catch (Exception)
-            //{
-
-            //    throw;
-            //}
         }
 
         public void ActualizarDataGridView()

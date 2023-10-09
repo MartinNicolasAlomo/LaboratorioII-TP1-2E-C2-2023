@@ -42,7 +42,7 @@
             pnlPagoTransferencia = new Panel();
             btnCancelarTransferencia = new Button();
             btnConfirmarTransferencia = new Button();
-            lblTitular = new Label();
+            lblTitularTransferencia = new Label();
             tbxCUIT = new TextBox();
             cbxTipoCuenta = new ComboBox();
             tbxAlias = new TextBox();
@@ -69,21 +69,21 @@
             pnlPagoTarjeta.Dock = DockStyle.Left;
             pnlPagoTarjeta.Location = new Point(0, 0);
             pnlPagoTarjeta.Name = "pnlPagoTarjeta";
-            pnlPagoTarjeta.Size = new Size(79, 461);
+            pnlPagoTarjeta.Size = new Size(173, 411);
             pnlPagoTarjeta.TabIndex = 0;
             // 
             // lblTarjetaTitular
             // 
             lblTarjetaTitular.AutoSize = true;
-            lblTarjetaTitular.Location = new Point(23, 19);
+            lblTarjetaTitular.Location = new Point(80, 20);
             lblTarjetaTitular.Name = "lblTarjetaTitular";
-            lblTarjetaTitular.Size = new Size(22, 15);
+            lblTarjetaTitular.Size = new Size(40, 15);
             lblTarjetaTitular.TabIndex = 10;
-            lblTarjetaTitular.Text = "***";
+            lblTarjetaTitular.Text = "Titular";
             // 
             // btnTarjetaCancelar
             // 
-            btnTarjetaCancelar.Location = new Point(155, 284);
+            btnTarjetaCancelar.Location = new Point(200, 350);
             btnTarjetaCancelar.Name = "btnTarjetaCancelar";
             btnTarjetaCancelar.Size = new Size(75, 23);
             btnTarjetaCancelar.TabIndex = 9;
@@ -93,7 +93,7 @@
             // 
             // btnTarjetaConfirmar
             // 
-            btnTarjetaConfirmar.Location = new Point(21, 284);
+            btnTarjetaConfirmar.Location = new Point(75, 350);
             btnTarjetaConfirmar.Name = "btnTarjetaConfirmar";
             btnTarjetaConfirmar.Size = new Size(75, 23);
             btnTarjetaConfirmar.TabIndex = 8;
@@ -104,7 +104,7 @@
             // lblClaveSeguridad
             // 
             lblClaveSeguridad.AutoSize = true;
-            lblClaveSeguridad.Location = new Point(21, 172);
+            lblClaveSeguridad.Location = new Point(80, 172);
             lblClaveSeguridad.Name = "lblClaveSeguridad";
             lblClaveSeguridad.Size = new Size(39, 15);
             lblClaveSeguridad.TabIndex = 7;
@@ -113,7 +113,7 @@
             // lblFechaVencimiento
             // 
             lblFechaVencimiento.AutoSize = true;
-            lblFechaVencimiento.Location = new Point(21, 112);
+            lblFechaVencimiento.Location = new Point(80, 112);
             lblFechaVencimiento.Name = "lblFechaVencimiento";
             lblFechaVencimiento.Size = new Size(126, 15);
             lblFechaVencimiento.TabIndex = 6;
@@ -122,7 +122,7 @@
             // lblNumeroTarjeta
             // 
             lblNumeroTarjeta.AutoSize = true;
-            lblNumeroTarjeta.Location = new Point(21, 52);
+            lblNumeroTarjeta.Location = new Point(80, 52);
             lblNumeroTarjeta.Name = "lblNumeroTarjeta";
             lblNumeroTarjeta.Size = new Size(91, 15);
             lblNumeroTarjeta.TabIndex = 5;
@@ -130,7 +130,7 @@
             // 
             // tbxClaveSeguridad
             // 
-            tbxClaveSeguridad.Location = new Point(21, 190);
+            tbxClaveSeguridad.Location = new Point(80, 190);
             tbxClaveSeguridad.Name = "tbxClaveSeguridad";
             tbxClaveSeguridad.PlaceholderText = "Clave";
             tbxClaveSeguridad.Size = new Size(100, 23);
@@ -138,7 +138,7 @@
             // 
             // tbxAnioVencimiento
             // 
-            tbxAnioVencimiento.Location = new Point(79, 130);
+            tbxAnioVencimiento.Location = new Point(136, 130);
             tbxAnioVencimiento.Name = "tbxAnioVencimiento";
             tbxAnioVencimiento.PlaceholderText = "Año";
             tbxAnioVencimiento.Size = new Size(70, 23);
@@ -146,7 +146,7 @@
             // 
             // tbxMesVencimiento
             // 
-            tbxMesVencimiento.Location = new Point(23, 130);
+            tbxMesVencimiento.Location = new Point(80, 130);
             tbxMesVencimiento.Name = "tbxMesVencimiento";
             tbxMesVencimiento.PlaceholderText = "Mes";
             tbxMesVencimiento.Size = new Size(50, 23);
@@ -154,33 +154,33 @@
             // 
             // tbxNumeroTarjeta
             // 
-            tbxNumeroTarjeta.Location = new Point(21, 70);
+            tbxNumeroTarjeta.Location = new Point(80, 70);
             tbxNumeroTarjeta.Name = "tbxNumeroTarjeta";
             tbxNumeroTarjeta.PlaceholderText = "Nro. de Tarjeta";
-            tbxNumeroTarjeta.Size = new Size(100, 23);
+            tbxNumeroTarjeta.Size = new Size(190, 23);
             tbxNumeroTarjeta.TabIndex = 0;
             // 
             // pnlPagoTransferencia
             // 
             pnlPagoTransferencia.Controls.Add(btnCancelarTransferencia);
             pnlPagoTransferencia.Controls.Add(btnConfirmarTransferencia);
-            pnlPagoTransferencia.Controls.Add(lblTitular);
+            pnlPagoTransferencia.Controls.Add(lblTitularTransferencia);
             pnlPagoTransferencia.Controls.Add(tbxCUIT);
             pnlPagoTransferencia.Controls.Add(cbxTipoCuenta);
             pnlPagoTransferencia.Controls.Add(tbxAlias);
             pnlPagoTransferencia.Controls.Add(tbxCBU);
             pnlPagoTransferencia.Controls.Add(tbxNumeroCuenta);
             pnlPagoTransferencia.Controls.Add(tbxBanco);
-            pnlPagoTransferencia.Dock = DockStyle.Fill;
-            pnlPagoTransferencia.Location = new Point(79, 0);
+            pnlPagoTransferencia.Dock = DockStyle.Left;
+            pnlPagoTransferencia.Location = new Point(173, 0);
             pnlPagoTransferencia.Name = "pnlPagoTransferencia";
-            pnlPagoTransferencia.Size = new Size(355, 461);
+            pnlPagoTransferencia.Size = new Size(256, 411);
             pnlPagoTransferencia.TabIndex = 1;
             pnlPagoTransferencia.Visible = false;
             // 
             // btnCancelarTransferencia
             // 
-            btnCancelarTransferencia.Location = new Point(204, 348);
+            btnCancelarTransferencia.Location = new Point(200, 350);
             btnCancelarTransferencia.Name = "btnCancelarTransferencia";
             btnCancelarTransferencia.Size = new Size(75, 23);
             btnCancelarTransferencia.TabIndex = 10;
@@ -190,7 +190,7 @@
             // 
             // btnConfirmarTransferencia
             // 
-            btnConfirmarTransferencia.Location = new Point(61, 348);
+            btnConfirmarTransferencia.Location = new Point(75, 350);
             btnConfirmarTransferencia.Name = "btnConfirmarTransferencia";
             btnConfirmarTransferencia.Size = new Size(75, 23);
             btnConfirmarTransferencia.TabIndex = 9;
@@ -198,69 +198,69 @@
             btnConfirmarTransferencia.UseVisualStyleBackColor = true;
             btnConfirmarTransferencia.Click += btnConfirmarTransferencia_Click;
             // 
-            // lblTitular
+            // lblTitularTransferencia
             // 
-            lblTitular.AutoSize = true;
-            lblTitular.Location = new Point(23, 17);
-            lblTitular.Name = "lblTitular";
-            lblTitular.Size = new Size(40, 15);
-            lblTitular.TabIndex = 8;
-            lblTitular.Text = "Titular";
+            lblTitularTransferencia.AutoSize = true;
+            lblTitularTransferencia.Location = new Point(35, 20);
+            lblTitularTransferencia.Name = "lblTitularTransferencia";
+            lblTitularTransferencia.Size = new Size(40, 15);
+            lblTitularTransferencia.TabIndex = 8;
+            lblTitularTransferencia.Text = "Titular";
             // 
             // tbxCUIT
             // 
-            tbxCUIT.Location = new Point(26, 167);
+            tbxCUIT.Location = new Point(35, 175);
             tbxCUIT.Name = "tbxCUIT";
             tbxCUIT.PlaceholderText = "C.U.I.T.";
-            tbxCUIT.Size = new Size(100, 23);
+            tbxCUIT.Size = new Size(190, 23);
             tbxCUIT.TabIndex = 7;
             // 
             // cbxTipoCuenta
             // 
             cbxTipoCuenta.FormattingEnabled = true;
-            cbxTipoCuenta.Location = new Point(25, 93);
+            cbxTipoCuenta.Location = new Point(35, 95);
             cbxTipoCuenta.Name = "cbxTipoCuenta";
-            cbxTipoCuenta.Size = new Size(121, 23);
+            cbxTipoCuenta.Size = new Size(190, 23);
             cbxTipoCuenta.TabIndex = 5;
             cbxTipoCuenta.SelectedIndexChanged += cbxTipoCuenta_SelectedIndexChanged;
             // 
             // tbxAlias
             // 
-            tbxAlias.Location = new Point(25, 255);
+            tbxAlias.Location = new Point(35, 255);
             tbxAlias.Name = "tbxAlias";
             tbxAlias.PlaceholderText = "Alias";
-            tbxAlias.Size = new Size(100, 23);
+            tbxAlias.Size = new Size(190, 23);
             tbxAlias.TabIndex = 4;
             // 
             // tbxCBU
             // 
-            tbxCBU.Location = new Point(25, 214);
+            tbxCBU.Location = new Point(35, 215);
             tbxCBU.Name = "tbxCBU";
             tbxCBU.PlaceholderText = "CBU";
-            tbxCBU.Size = new Size(100, 23);
+            tbxCBU.Size = new Size(190, 23);
             tbxCBU.TabIndex = 3;
             // 
             // tbxNumeroCuenta
             // 
-            tbxNumeroCuenta.Location = new Point(25, 130);
+            tbxNumeroCuenta.Location = new Point(35, 135);
             tbxNumeroCuenta.Name = "tbxNumeroCuenta";
             tbxNumeroCuenta.PlaceholderText = "Nro. de Cuenta";
-            tbxNumeroCuenta.Size = new Size(100, 23);
+            tbxNumeroCuenta.Size = new Size(190, 23);
             tbxNumeroCuenta.TabIndex = 2;
             // 
             // tbxBanco
             // 
-            tbxBanco.Location = new Point(25, 52);
+            tbxBanco.Location = new Point(35, 55);
             tbxBanco.Name = "tbxBanco";
             tbxBanco.PlaceholderText = "Banco";
-            tbxBanco.Size = new Size(100, 23);
+            tbxBanco.Size = new Size(190, 23);
             tbxBanco.TabIndex = 0;
             // 
             // FrmDatosBancarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(434, 461);
+            ClientSize = new Size(334, 411);
             Controls.Add(pnlPagoTransferencia);
             Controls.Add(pnlPagoTarjeta);
             Name = "FrmDatosBancarios";
@@ -293,7 +293,7 @@
         private TextBox tbxBanco;
         private ComboBox cbxTipoCuenta;
         private TextBox tbxCUIT;
-        private Label lblTitular;
+        private Label lblTitularTransferencia;
         private Button btnCancelarTransferencia;
         private Button btnConfirmarTransferencia;
     }

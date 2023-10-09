@@ -66,24 +66,25 @@ namespace Vista_App
             if (formaPago == '1')
             {
                 pnlPagoTransferencia.Visible = true;
-                lblTitular.Text = $"{estudianteLogueado.NombreCompletoOrdenApellido}";
-                Text = "Pago de cuotas por Transferencia";
+                pnlPagoTransferencia.Dock = DockStyle.Fill;
+
+                lblTitularTransferencia.Text = $"{estudianteLogueado.NombreCompletoOrdenApellido}";
+                Text = "Pago por Transferencia";
             }
             else
             {
                 pnlPagoTarjeta.Visible = true;
+                pnlPagoTarjeta.Dock = DockStyle.Fill;
                 lblTarjetaTitular.Text = $"{estudianteLogueado.NombreCompletoOrdenApellido}";
-                //********              MISMO PARA DEB Y CRED
                 if (formaPago == '2')
                 {
-                    Text = "Pago de cuotas con Tarjeta de Débito";
+                    Text = "Pago con Tarjeta de Débito";
                 }
                 else
                 {
-                    Text = "Pago de cuotas con Tarjeta de Crédito";
+                    Text = "Pago Tarjeta de Crédito";
                 }
             }
-
         }
 
         private void btnTarjetaConfirmar_Click(object sender, EventArgs e)

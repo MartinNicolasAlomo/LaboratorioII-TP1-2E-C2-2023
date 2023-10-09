@@ -8,14 +8,21 @@ namespace Logica_Sysacad
 {
     public static class SistemaUTN
     {
-        #region CAMPOS
         private static string? nombre;
-
         private static List<Administrador>? listaAdministradores;
         private static List<Usuario>? baseDatosUsuarios;
         private static List<Estudiante>? listaEstudiantes;
         private static List<Servicio>? listaServicios;
         private static List<Curso>? baseDatosCursos;
+
+
+        static SistemaUTN()
+        {
+            HardcodearUsuarios();
+            HardcodearCursos();
+            HardcodearAdministradores();
+            HardcodearEstudiantes();
+        }
 
 
         public static List<Curso>? BaseDatosCursos
@@ -42,19 +49,6 @@ namespace Logica_Sysacad
             set { listaAdministradores = value; }
         }
 
-
-        #endregion
-
-
-
-        #region CONSTRUCTOR
-        static SistemaUTN()
-        {
-            HardcodearUsuarios();
-            HardcodearCursos();
-            HardcodearAdministradores();
-            //HardcodearServicios();
-        }
 
         private static void HardcodearUsuarios()
         {
@@ -83,18 +77,6 @@ namespace Logica_Sysacad
             };
         }
 
-        //private static void HardcodearServicios()
-        //{
-        //    listaServicios = new List<Servicio>
-        //    {
-        //        new Servicio("Matrícula",7000,1),
-        //        new Servicio("Cuotas Mensuales", 18000, 12),
-        //        new Servicio("Cargos Administrativos",1500, 12),
-        //        new Servicio("Libros de Texto",2000,6)
-        //    };
-        //}
-
-
         private static void HardcodearAdministradores()
         {
             listaAdministradores = new List<Administrador>();
@@ -108,7 +90,6 @@ namespace Logica_Sysacad
 
         }
 
-
         private static void HardcodearEstudiantes()
         {
             listaEstudiantes = new List<Estudiante>();
@@ -119,116 +100,25 @@ namespace Logica_Sysacad
                     listaEstudiantes.Add((Estudiante)usuario);
                 }
             }
+            foreach (Estudiante estudiante in listaEstudiantes)
+            {
+                estudiante.AsignarNumeroLegajo();
+            }
         }
 
-
-
-        #endregion
-
-
-
-        #region PROPIEDADES
         public static List<Usuario>? BaseDatosUsuarios
         {
             get { return baseDatosUsuarios; }
         }
 
 
-
-        #endregion
-
-
-
-        #region METODOS
-
-
-        //public static bool operator ==(SistemaUTN sistema, Estudiante estudianteRecibido)
-        //{
-        //    if (sistema.listaEstudiantes.Count > 0 && estudianteRecibido is not null)
-        //    {
-        //        // Determinamos si este estudiante ya pertenece al sistema
-        //        foreach (Estudiante estudianteAnalizado in sistema.listaEstudiantes)
-        //        {
-        //            if (estudianteRecibido == estudianteAnalizado)
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        //public static bool operator !=(SistemaUTN sistema, Estudiante estudiante)
-        //{
-        //    return !(sistema == estudiante);
-        //}
-
-
-
-
-
-        //public static bool operator +(SistemaUTN sistema, Estudiante estudianteRecibido)
-        //{
-        //    // Agrega el estudiante al registro, si este no existe
-        //    // Evaluamos que el registro tenga espacios, y ademas, que el nuevo estudiante no exista en el registro
-        //    if (sistema != estudianteRecibido)
-        //    {
-        //        sistema.listaEstudiantes.Add(estudianteRecibido);
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-
-
-        //public static bool operator -(SistemaUTN sistema, Estudiante estudianteRecibido)
-        //{
-        //    // Elimina el estudiante del registro, si este ya existe
-        //    // Evaluamos que el registro tenga estudiantes, y ademas, que el estudiante ya exista dentro del registro
-        //    if (sistema == estudianteRecibido)
-        //    {
-        //        sistema.listaEstudiantes.Remove(estudianteRecibido);
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-        //public static bool BuscarSiExisteEstudiante(Estudiante estudianteRecibido)
-        //{
-        //    if (this == estudianteRecibido)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-
-        //public static bool AgregarEstudiante(Estudiante estudianteRecibido)
-        //{
-        //    if (this + estudianteRecibido)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-
-        //public static bool EliminarEstudiante(Estudiante estudianteRecibido)
-        //{
-        //    if (this - estudianteRecibido)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
         public static bool EncontrarEstudianteRegistrado(Estudiante estudianteRecibido)
         {
             if (baseDatosUsuarios?.Count > 0 && estudianteRecibido is not null)
             {
-                foreach (Usuario usuarioAnalizado in baseDatosUsuarios)
+                foreach (Estudiante estudianteAnalizado in listaEstudiantes)
                 {
-                    if (usuarioAnalizado.GetType() == typeof(Estudiante) && (usuarioAnalizado.DNI == estudianteRecibido.DNI || usuarioAnalizado.Email == estudianteRecibido.Email))
+                    if (estudianteAnalizado == estudianteRecibido)
                     {
                         return true;
                     }
@@ -237,11 +127,11 @@ namespace Logica_Sysacad
             return false;
         }
 
-        public static Usuario? ObtenerUsuario(string usuarioIngresado, string claveIngresada)
+        public static Usuario? ObtenerUsuario(string emailIngresado, string claveIngresada)
         {
             foreach (Usuario usuarioEncontrado in baseDatosUsuarios)
             {
-                if (usuarioEncontrado.ComprobarUsuario(usuarioIngresado, claveIngresada))
+                if (usuarioEncontrado.ComprobarUsuario(emailIngresado, claveIngresada))
                 {
                     return usuarioEncontrado;
                 }
@@ -255,8 +145,7 @@ namespace Logica_Sysacad
             {
                 foreach (Curso cursoAnalizado in baseDatosCursos)
                 {
-                    if (cursoAnalizado.Codigo == cursoRecibido.Codigo ||
-                           (cursoAnalizado.Materia == cursoRecibido.Materia && cursoAnalizado.Division == cursoRecibido.Division))
+                    if (cursoAnalizado == cursoRecibido)
                     {
                         return true;
                     }
@@ -264,28 +153,6 @@ namespace Logica_Sysacad
             }
             return false;
         }
-
-
-
-        public static string MostrarCursos()
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (Curso item in baseDatosCursos)
-            {
-                if (item is not null)
-                {
-                    sb.AppendLine(item.MostrarDatos());
-                }
-            }
-
-            return sb.ToString();
-        }
-
-
-
-        #endregion
-
-
 
 
     }

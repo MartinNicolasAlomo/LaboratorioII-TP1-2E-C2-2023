@@ -3,11 +3,6 @@ using Logica_Sysacad;
 
 namespace Vista_App
 {
-    #region AAAA
-
-
-    #endregion
-
     public partial class FrmLogin : Form
     {
         private string? usuarioValido;
@@ -57,14 +52,14 @@ namespace Vista_App
         {
             if (Validador.VerificarEsDatoVacio(emailIngresado) || Validador.VerificarEsDatoVacio(claveIngresada))
             {
-                MessageBox.Show($"¡Faltan completar datos!", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"¡Faltan completar datos!", $"¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 usuarioIngresado = null;
                 return false;
             }
             usuarioIngresado = SistemaUTN.ObtenerUsuario(emailIngresado, claveIngresada);
             if (usuarioIngresado is null)
             {
-                MessageBox.Show($"¡El usuario o la contraseña son inválidos!", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"¡El usuario o la contraseña son inválidos!", $"¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;

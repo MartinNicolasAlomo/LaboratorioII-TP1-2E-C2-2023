@@ -39,9 +39,5 @@ namespace Vista_App
         }
 
 
-        //private void FrmMensajeConfirmacion_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    DialogResult = DialogResult.Cancel;
-        //}
     }
 }

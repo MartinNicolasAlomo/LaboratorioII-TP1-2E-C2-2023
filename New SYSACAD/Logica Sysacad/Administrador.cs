@@ -8,18 +8,11 @@ namespace Logica_Sysacad
 {
     public sealed class Administrador : Usuario
     {
-        #region CAMPOS
         protected static ushort ultimoLegajo;
 
-
-        #endregion
-
-
-
-        #region CONSTRUCTOR
         static Administrador()
         {
-            ultimoLegajo = 1;       //Este codigo se ejecuta SOLO UNA VEZ y nos sirve de punto de partida
+            ultimoLegajo = 1;
         }
 
         public Administrador(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string telefono, string direccion)
@@ -29,46 +22,25 @@ namespace Logica_Sysacad
             ultimoLegajo++;
         }
 
-
-
-        #endregion
-
-
-
-        #region PROPIEDADES
-
-
-
-
-        #endregion
-
-
-
-        #region METODOS
-        public void IngresarEstudiante(Estudiante estudiante)
+        public void EliminarCurso(Curso cursoElegido)
         {
-            if (estudiante is not null //   &&  todos los datos estan bien
-                )
-            {
-                //                .AppendLine($"Informacion Usuario:")
-
-                //   crear clase SISTEMAUTN
-
-                // si admin, acepta datos, los guarda
-                //  SistemaUTN.ListaEstudiantes.add(estudiante)
-
-                // luego, envia mail al estudiante con la confirmacion
-
-
-            }
+            SistemaUTN.BaseDatosCursos?.Remove(cursoElegido);
         }
 
-        //                .AppendLine($"Informacion Usuario:")
+        public void ModificarCurso(Curso cursoElegido, Curso cursoEditado)
+        {
+            cursoElegido.ModificarCursoExistente(cursoEditado);
+        }
 
+        public void RegistrarCurso(Curso cursoIngresado)
+        {
+            SistemaUTN.BaseDatosCursos?.Add(cursoIngresado);
+        }
 
-
-
-        #endregion
-
+        public void RegistrarEstudiante(Estudiante nuevoEstudiante)
+        {
+            SistemaUTN.ListaEstudiantes?.Add(nuevoEstudiante);
+            nuevoEstudiante.AsignarNumeroLegajo();
+        }
     }
 }

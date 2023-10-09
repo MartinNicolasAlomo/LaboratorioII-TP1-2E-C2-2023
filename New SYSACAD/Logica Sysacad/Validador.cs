@@ -8,45 +8,11 @@ namespace Logica_Sysacad
 {
     public class Validador
     {
-
-        //public static bool VerificarEsNumeroValido(out byte numeroFinal, string textoIngresado, byte minimo, byte maximo)
-        //{
-        //    if (!string.IsNullOrEmpty(textoIngresado) && !string.IsNullOrWhiteSpace(textoIngresado) &&
-        //        byte.TryParse(textoIngresado, out numeroFinal) && ValidarRangoNumero(numeroFinal, minimo, maximo))
-        //    {
-        //        return true;
-        //    }
-        //    numeroFinal = 0;
-        //    return false;
-        //}
-
-
-        //public static bool IngresarRespuesta(string mensajeIngreso, string mensajeInvalido, int minimo, int maximo, int respuestaAfirmativaEsperada)
-        //{
-        //    if (IngresarNumero(out int confirmacion, mensajeIngreso, mensajeInvalido, minimo, maximo) && confirmacion == respuestaAfirmativaEsperada)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-        //public static bool IngresarRespuesta(string mensajeIngreso, string mensajeInvalido, char respuestaAfirmativaEsperada)
-        //{
-        //    if (IngresarCaracter(out char confirmacion, mensajeIngreso, mensajeInvalido) && confirmacion == respuestaAfirmativaEsperada)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-
-
-        public static bool VerificarEsDatoVacio(string datonIngresado)
+        public static bool VerificarEsDatoVacio(string datoIngresado)
         {
-            datonIngresado = datonIngresado.Trim();
-            return string.IsNullOrEmpty(datonIngresado) || string.IsNullOrWhiteSpace(datonIngresado);
+            datoIngresado = datoIngresado.Trim();
+            return string.IsNullOrEmpty(datoIngresado) || string.IsNullOrWhiteSpace(datoIngresado);
         }
-
 
 
         public static bool ValidarTextoNumerico(string datoIngresado, byte cantidadCaracteresPermitidos)
@@ -67,8 +33,6 @@ namespace Logica_Sysacad
         }
 
 
-
-        #region VALIDAR NUMEROS
         public static bool ValidarNumeroIngresado(out decimal numero, string datoIngresado, decimal minimo, decimal maximo)
         {
             numero = 0;
@@ -132,11 +96,6 @@ namespace Logica_Sysacad
         }
 
 
-
-        #endregion
-
-
-        #region VALIDAR NOMBRES
         public static bool ValidarNombreIngresado(ref string datoIngresado, byte cantidadCaracteresPermitidos)
         {
             return !VerificarEsDatoVacio(datoIngresado) && datoIngresado.Length <= cantidadCaracteresPermitidos && VerificarEsNombre(ref datoIngresado);
@@ -206,8 +165,6 @@ namespace Logica_Sysacad
             }
             return true;
         }
-
-
 
 
         public static string PasarInicialesNombreAMayusculas(string auxNombre)
@@ -294,14 +251,11 @@ namespace Logica_Sysacad
         }
 
 
-        #endregion
-
-
-        #region VALIDAR EMAILS
         public static bool ValidarEmailIngresado(string datoIngresado)
         {
             return !VerificarEsDatoVacio(datoIngresado) && VerificarEsEmailValido(ref datoIngresado);
         }
+
         public static bool VerificarEsEmailValido(ref string email)
         {
             for (int i = 0; i < email.Length && email[i] != '\0'; i++)
@@ -349,11 +303,6 @@ namespace Logica_Sysacad
         }
 
 
-
-        #endregion
-
-
-        #region VALIDAR FECHAS
         public static bool ValidarFechaIngresada(out DateTime fechaFinal, string anioIngresado, string mesIngresado, string diaIgresado)
         {
             if (ValidarNumeroIngresado(out ushort anioFinal, anioIngresado, 1905, 2005))
@@ -393,18 +342,12 @@ namespace Logica_Sysacad
             return DateTime.Now - fechaNacimiento;
         }
 
-        //public static TimeSpan CalcularAnioLegal(DateTime fechaNacimiento)
-        //{
-        //    return DateTime.Now - fechaNacimiento;
-        //}
-
         public static byte CalcularAniosTotales(DateTime fechaNacimiento)
         {
             TimeSpan edadActual = CalcularAniosDiferencia(fechaNacimiento);
             double aniosConvertidos = (double)edadActual.TotalDays / 365.2425;
             return (byte)aniosConvertidos;
         }
-
 
         public static bool ValidarFechaNacimiento(out DateTime fechaFinal, out byte edadActual, string anioIngresado, string mesIngresado, string diaIgresado)
         {
@@ -423,12 +366,6 @@ namespace Logica_Sysacad
         }
 
 
-        #endregion
-
-
-        #region CALCULADORA
-
-
         public static decimal CalcularDescuento(decimal precio, decimal descuento)
         {
             return precio - (precio * descuento / 100);
@@ -440,93 +377,16 @@ namespace Logica_Sysacad
             return precio - descuentoAplicado;
         }
 
-
         public static decimal CalcularInteres(decimal precio, decimal interes)
         {
             return precio + (precio * interes / 100);
         }
-
 
         public static decimal CalcularInteres(decimal precio, decimal interes, out decimal interesAplicado)
         {
             interesAplicado = (precio * interes / 100);
             return precio + interesAplicado;
         }
-
-
-        public static bool Calcular(out decimal resultadoOperacion, decimal primerOperando, decimal segundoOperando, char operadorAritmetico)
-        {
-            resultadoOperacion = 0;
-            switch (operadorAritmetico)
-            {
-                case '+':
-                    resultadoOperacion = SumarDosNumeros(primerOperando, segundoOperando);
-                    return true;
-                case '-':
-                    resultadoOperacion = RestarDosNumeros(primerOperando, segundoOperando);
-                    return true;
-                case '*':
-                    resultadoOperacion = MultiplicarDosNumeros(primerOperando, segundoOperando);
-                    return true;
-                case '/':
-                    return DividirDosNumeros(out resultadoOperacion, primerOperando, segundoOperando);
-                default:
-                    return true;
-            }
-        }
-
-        public static decimal SumarDosNumeros(decimal primerNumero, decimal segundoNumero)
-        {
-            return primerNumero + segundoNumero;
-        }
-
-        public static decimal RestarDosNumeros(decimal primerNumero, decimal segundoNumero)
-        {
-            return primerNumero - segundoNumero;
-        }
-
-        public static decimal MultiplicarDosNumeros(decimal primerNumero, decimal segundoNumero)
-        {
-            return primerNumero * segundoNumero;
-        }
-
-        public static bool DividirDosNumeros(out decimal resultado, decimal primerNumero, decimal segundoNumero)
-        {
-            resultado = 0;
-            if (segundoNumero == 0)
-            {
-                return false;
-            }
-            else
-            {
-                resultado = primerNumero / segundoNumero;
-            }
-            return true;
-        }
-
-        public static decimal DividirDosNumeros(decimal primerNumero, decimal segundoNumero)
-        {
-            if (segundoNumero == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return primerNumero / segundoNumero;
-            }
-        }
-
-        public static double ElevarPotenciaNumero(double numero, double potencia)
-        {
-            return Math.Pow(numero, potencia);
-        }
-        #endregion
-
-
-
-
-
-
 
     }
 }

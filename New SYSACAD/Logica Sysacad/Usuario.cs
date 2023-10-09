@@ -4,7 +4,6 @@ namespace Logica_Sysacad
 {
     public abstract class Usuario
     {
-        #region CAMPOS
         protected ushort legajo;
         protected string nombres;
         protected string apellidos;
@@ -12,7 +11,7 @@ namespace Logica_Sysacad
         protected DateTime fechaNacimiento;
         protected byte edad;
         protected string email;
-        protected string clave;         // en el constructor pone como contraseña inicial el DNI
+        protected string clave;
         protected string telefono;
         protected string direccion;
 
@@ -20,11 +19,7 @@ namespace Logica_Sysacad
         protected const sbyte ESP_COLM_2 = -5;
 
 
-        #endregion
-
-
-        #region CONSTRUCTOR
-        protected Usuario(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad,string email, string telefono, string direccion)
+        protected Usuario(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string telefono, string direccion)
         {
             this.nombres = nombres;
             this.apellidos = apellidos;
@@ -38,14 +33,10 @@ namespace Logica_Sysacad
         }
 
 
-        #endregion
-
-
-        #region PROPIEDADES
         public ushort Legajo
         {
             get { return legajo; }
-        }        
+        }
 
         public string Nombres
         {
@@ -103,12 +94,6 @@ namespace Logica_Sysacad
             get { return direccion; }
         }
 
-
-
-        #endregion
-
-
-        #region METODOS
         public virtual string MostrarDatos()
         {
             StringBuilder text = new StringBuilder();
@@ -116,13 +101,12 @@ namespace Logica_Sysacad
                 .AppendLine($"{"Legajo:",ESP_COLM_1} {legajo.ToString("000000"),ESP_COLM_2}")
                 .AppendLine($"{"Nombre:",ESP_COLM_1} {nombres,ESP_COLM_2}")
                 .AppendLine($"{"Apellido:",ESP_COLM_1} {apellidos,ESP_COLM_2}")
-                .AppendLine($"{"DNI:",ESP_COLM_1} {dni,ESP_COLM_2}")    // Mostrar el DNI con los puntos 40.356.981
-                .AppendLine($"{"Fecha de Nacimiento:",ESP_COLM_1} {fechaNacimiento.ToString("dd/MM/yyyy"),ESP_COLM_2}")
+                .AppendLine($"{"DNI:",ESP_COLM_1} {dni,ESP_COLM_2}")
+                .AppendLine($"{"Fecha de Nacimiento:",ESP_COLM_1} {fechaNacimiento.ToString("dd/MMM/yyyy"),ESP_COLM_2}")
                 .AppendLine($"{"Edad:",ESP_COLM_1} {edad.ToString(),ESP_COLM_2}")
-                //Edad, calcular edad - QUE FORMATO MOSTRAR 1 ENE 98??
                 .AppendLine($"{"Email:",ESP_COLM_1} {email,ESP_COLM_2}")
                 .AppendLine($"{"Clave:",ESP_COLM_1} {clave,ESP_COLM_2}")
-                .AppendLine($"{"Telefono:",ESP_COLM_1} {telefono,ESP_COLM_2}")      // Mostrar el telefono con los giuiones 4045-9191
+                .AppendLine($"{"Telefono:",ESP_COLM_1} {telefono,ESP_COLM_2}")
                 .AppendLine($"{"Dirección:",ESP_COLM_1} {direccion,ESP_COLM_2}")
                 ;
             return text.ToString();
@@ -134,16 +118,22 @@ namespace Logica_Sysacad
         }
 
 
-        //public string FormaterDNI()
-        //{
-        //    string dniFormateado = "40916734";
-        //    dniFormateado.Insert(2,".");
-        //    dniFormateado.Insert(6,".");
-        //    return dniFormateado;
-        //}
 
+        public static bool operator ==(Usuario usuario1, Usuario usuario2)
+        {
+            if (usuario1 is not null && usuario2 is not null)
+            {
+                return usuario1.email.Equals(usuario2.email, StringComparison.Ordinal) && usuario1.clave.Equals(usuario2.clave, StringComparison.Ordinal)
+                       ;
+            }
+            return false;
+        }
 
-        #endregion
+        public static bool operator !=(Usuario estudiante1, Usuario estudiante2)
+        {
+            return !(estudiante1 == estudiante2);
+        }
+
 
     }
 }

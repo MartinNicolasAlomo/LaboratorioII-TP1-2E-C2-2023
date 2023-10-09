@@ -31,7 +31,7 @@ namespace Vista_App
             if (altaEstudiate.ShowDialog() == DialogResult.OK)
             {
                 Show();
-                SistemaUTN.ListaEstudiantes?.Add(altaEstudiate.NuevoEstudiante);
+                administradorLogueado.RegistrarEstudiante(altaEstudiate.NuevoEstudiante);
                 MessageBox.Show(CrearMensajeConfirmacionRegistroEstudiante(altaEstudiate.NuevoEstudiante), $"¡Registro realizado con éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -44,7 +44,8 @@ namespace Vista_App
         private static string CrearMensajeConfirmacionRegistroEstudiante(Estudiante nuevoEstudiante)
         {
             StringBuilder text = new StringBuilder();
-            text.AppendLine($"¡Se guardaron los datos del Estudante {nuevoEstudiante.NombreCompletoOrdenApellido}!").AppendLine()
+            text.AppendLine($"¡Se guardaron los datos del Estudante {nuevoEstudiante.NombreCompletoOrdenApellido}!")
+                .AppendLine(nuevoEstudiante.MostrarDatos()).AppendLine().AppendLine()
                 .AppendLine(EnviarEmailConfirmacion(nuevoEstudiante.Email))
                 ;
             return text.ToString();
@@ -57,7 +58,7 @@ namespace Vista_App
 
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
-            FrmGestionCursos? auxGestion = new FrmGestionCursos();
+            FrmGestionCursos? auxGestion = new FrmGestionCursos(administradorLogueado);
             Hide();
             auxGestion.ShowDialog();
             Show();

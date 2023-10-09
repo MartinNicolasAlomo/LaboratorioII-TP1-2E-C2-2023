@@ -61,7 +61,7 @@ namespace Vista_App
             dgvListaCursos.Columns[9].Width = 60;
             foreach (DataGridViewColumn column in dgvListaCursos.Columns)
             {
-                if (column.Index != 2) // Skip the column with index 2
+                if (column.Index != 2)
                 {
                     column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -69,52 +69,41 @@ namespace Vista_App
             }
         }
 
-
-
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            cursosSeleccionados.Clear();
-            foreach (Curso curso in cursosSeleccionados)
+            MostrarCursosSeleccionados();
+            StringBuilder text = new StringBuilder();
+
+            string mensajeError = string.Empty;
+            if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma?") == DialogResult.OK)
             {
-                if (curso.CupoDisponible > 0)
+                foreach (Curso curso in cursosSeleccionados)
                 {
-                    estudianteLogueado.CursosInscriptos?.Add(curso);
-                    curso.ActualizarCupoDisponible(false);
-                }
-                else
-                {
+                    if (estudianteLogueado.InscribirCurso(curso, ref mensajeError))
+                    {
+                        text.AppendLine(curso.NombreMateriaDivision);
+                    }
+                    else
+                    {
+                        MessageBox.Show(mensajeError, "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
             }
-                    //if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma") == DialogResult.OK)
-                    //{ }
-                    //estudianteLogueado.CursosInscriptos?.Sort();
-                //if ((bool)(estudianteLogueado.CursosInscriptos?.Contains(curso)))
-                //{
-                //    MessageBox.Show("YA EXISTE");
-                //}
-                //else
-                //{
-                    //  BLOQUEAR EL CURSO DE SER SELECCIONADO   - NUNCA ELIMINAR    -   NO SE ELIMINA
-                    //        MessageBox.Show("Este curso está completo, no tiene mas cupos.");
-                //}
-            //StringBuilder text = new StringBuilder();
-            //text.AppendLine("VISTA PREVIA: se seleccionaron estos cursos para solicitar inscripcion!!!!!!");
-            //foreach (Curso cursito in cursosSeleccionados)
-            //{
-            //    text.AppendLine(cursito.Materia);
-            //}
-            //MessageBox.Show(text.ToString());
-
-            //CREAR METOOD PARA AGREGAR Y ACTUALZIAR LAS BASES DE DATOS DE ESTUDIANTE Y CURSOS
-            // VERIFICAR QUE HAYA CUPOS
-            //estudianteLogueado.CursosInscriptos?.Clear();
-            //ORDENARLOS POR CUATRI O CODIGO - PROG = 1 / LABO = 2 / MATEMATICA = 3 / INGLES = 4 / SPD = 5, ETC.
-            MessageBox.Show(estudianteLogueado.MostrarCursosSubscritos());
-
-
+            MessageBox.Show($"Se inscribieron los siguientes cursos correctamente:{Environment.NewLine}{Environment.NewLine}{text}", "¡Cursos inscriptos corréctamente!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cursosSeleccionados.Clear();
         }
 
-
+        private void MostrarCursosSeleccionados()
+        {
+            StringBuilder text = new StringBuilder();
+            text.AppendLine($"Vista Previa: Se seleccionaron estos cursos para solicitar inscripción{Environment.NewLine}");
+            foreach (Curso curso in cursosSeleccionados)
+            {
+                text.AppendLine(curso.NombreMateriaDivision);
+            }
+            MessageBox.Show(text.ToString(),"Cursos solicitados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         public void FiltrarYMostrarCursosDisponibles()
         {
@@ -135,7 +124,6 @@ namespace Vista_App
             dgvListaCursos.DataSource = cursosFiltrados;
         }
 
-
         private void cbxCuatrimestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             cuatrimestreIngresado = cbxCuatrimestre.Items[cbxCuatrimestre.SelectedIndex].ToString();
@@ -151,51 +139,10 @@ namespace Vista_App
             }
         }
 
-
-
-
-
-
-        //private static string CrearMensajeConfirmacionRegistroCurso(Curso nuevoCurso)
-        //{
-        //    StringBuilder text = new StringBuilder();
-        //    text.AppendLine($"¡Se guardaron los datos del Curso {nuevoCurso.Nombre}!").AppendLine()
-        //        .AppendLine(nuevoCurso.MostrarDatos())
-        //        ;
-        //    return text.ToString();
-        //}
-
-        ////private void dgvListaCursos_CellClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    seleccion = e;
-        //}
-
-
-        //private Curso? ObtenerCursoDesdeDataGridView()
-        //{
-        //    int indice = seleccion.RowIndex;
-        //    //  USAR  EXCEPCIONES   TRY CATCH
-        //    //try
-        //    //{
-
-        //    //}
-        //    //catch (Exception)
-        //    //{
-
-        //    //    throw;
-        //    //}
-
-        //    if (indice != -1 && indice >= 0)
-        //    {
-        //        return SistemaUTN.BaseDatosCursos?[indice];
-        //    }
-        //    return null;
-        //}
-
         public void ActualizarDataGridView()
         {
             dgvListaCursos.DataSource = null;
-            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos; // CREAR CAMPO CURSOS SELECCIONADOS Y BIND A ESO
+            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
         }
 
 
@@ -205,16 +152,13 @@ namespace Vista_App
             {
                 DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dgvListaCursos.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                // Check if the cell is checked (value is true)
                 if (cell.Value != null && (bool)cell.Value)
                 {
-                    // Change the background color to indicate checked state
-                    e.CellStyle.BackColor = Color.Green; // You can choose any color you prefer
+                    e.CellStyle.BackColor = Color.Green;
                     e.CellStyle.SelectionBackColor = Color.Green;
                 }
                 else
                 {
-                    // Optionally, reset the background color for unchecked cells
                     e.CellStyle.BackColor = dgvListaCursos.DefaultCellStyle.BackColor;
                     e.CellStyle.SelectionBackColor = dgvListaCursos.DefaultCellStyle.SelectionBackColor;
                 }

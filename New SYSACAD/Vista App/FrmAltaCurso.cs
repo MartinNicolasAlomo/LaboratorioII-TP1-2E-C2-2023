@@ -88,16 +88,13 @@ namespace Vista_App
             if (Validador.ValidarTextoNumerico(codigoIngresado, 3) &&
                 Validador.ValidarNumeroIngresado(out byte cupoMaximo, cupoIngresado, 15, 120))
             {
+                cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, letraClaseIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo);
                 if (esModificacion)
                 {
-                    //cursoIngresado.ModificarCursoExistente(codigoIngresado, cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
-                    cursoIngresado.ModificarCursoExistente(codigoIngresado, cuatrimestreIngresado, letraClaseIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo);
                     preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la modificación del curso {cursoIngresado.NombreMateriaDivision}?";
                 }
                 else
                 {
-                    //cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
-                    cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, letraClaseIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo);
                     preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {cursoIngresado.NombreMateriaDivision}?";
                 }
                 if (SistemaUTN.EncontrarCursoRegistrado(cursoIngresado))

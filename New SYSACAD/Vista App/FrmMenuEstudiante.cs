@@ -27,9 +27,9 @@ namespace Vista_App
 
         private void btnInscripcionCursos_Click(object sender, EventArgs e)
         {
-            FrmInscripcionCursos? inscripcionCursos1 = new FrmInscripcionCursos(estudianteLogueado);
+            FrmInscripcionCursos? inscripcionCursos = new FrmInscripcionCursos(estudianteLogueado);
             Hide();
-            inscripcionCursos1.ShowDialog();
+            inscripcionCursos.ShowDialog();
             Show();
 
         }
@@ -42,9 +42,9 @@ namespace Vista_App
             }
             else
             {
-                FrmConsultaHorario? consultaHorarios1 = new FrmConsultaHorario(estudianteLogueado);
+                FrmConsultaHorario? consultaHorarios = new FrmConsultaHorario(estudianteLogueado);
                 Hide();
-                consultaHorarios1.ShowDialog();
+                consultaHorarios.ShowDialog();
                 Show();
             }
         }
@@ -64,13 +64,8 @@ namespace Vista_App
             }
         }
 
-        //public void MostrarMenu()
-        //{
-        //    Show();
-        //}
 
 
-        #region CERRAR MENU
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             Close();
@@ -81,10 +76,5 @@ namespace Vista_App
         {
             login.MostrarLogin();
         }
-
-
-        #endregion
-
-
     }
 }

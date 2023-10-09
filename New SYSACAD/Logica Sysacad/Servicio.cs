@@ -36,14 +36,14 @@ namespace Logica_Sysacad
             get { return nombre; }
         }
 
-        public decimal PrecioTotal
-        {
-            get { return precioTotal; }
-        }
-
         public decimal PrecioCuota
         {
             get { return precioCuota; }
+        }
+
+        public decimal PrecioTotal
+        {
+            get { return precioTotal; }
         }
 
         public byte CuotasImpagas
@@ -64,13 +64,11 @@ namespace Logica_Sysacad
         public byte CuotasElegidasAPagar
         {
             get { return cuotasSeleccionadasAPagar; }
-            set { cuotasSeleccionadasAPagar = value; }
         }
 
         public decimal MontoTotalAPagar
         {
             get { return montoTotalAPagar; }
-            set { montoTotalAPagar = value; }
         }
 
         public bool EstaPagadoTotalmente
@@ -78,15 +76,13 @@ namespace Logica_Sysacad
             get { return estaPagadoTotalmente; }
         }
 
-
-
         public void ActualizarCuotas(byte cuotasPagadas)
         {
             cuotasAbonadas += cuotasPagadas;
             cuotasImpagas -= cuotasPagadas;
             if (cuotasImpagas == 0 && cuotasAbonadas == cuotasTotales)
             {
-                estaPagadoTotalmente = true;    //  ya estaban completas, no va a pagar de nuevo!
+                estaPagadoTotalmente = true;
             }
         }
 
@@ -100,13 +96,10 @@ namespace Logica_Sysacad
             return precioCuota * cuotasPagadas;
         }
 
-
-
         public void ActulizarCuotasYMontoElegidos(byte cuotas, decimal monto)
         {
             cuotasSeleccionadasAPagar = cuotas;
             montoTotalAPagar = monto;
         }
-
     }
 }

@@ -42,10 +42,11 @@ namespace Vista_App
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            nombresIngresados = "martín nicolas";
-            apellidosIngresados = "alomo";
-            dniIngresado = "40916777";
-            emailIngresado = "lll@outlook.com";
+            nombresIngresados = "gonzalo nicolas";
+            apellidosIngresados = "alaaaamo";
+            dniIngresado = "40933777";
+            //emailIngresado = "lll@outlook.com";
+            emailIngresado = "lalal@gmail.com";
             claveIngresada = "lallaslal";
             telefonoIngresado = "40901613";
             direccionIngresada = "corvalan 435";
@@ -69,7 +70,8 @@ namespace Vista_App
                 Validador.ValidarClaveIngresada(claveIngresada) &&
                 Validador.ValidarTextoNumerico(telefonoIngresado, 8) &&
                 Validador.ValidarDireccionIngresada(ref direccionIngresada, 90) &&
-                Validador.ValidarFechaNacimiento(out fechaNacimiento, out edad, anioIngresado, mesIngresado, diaIngresado))
+                Validador.ValidarFechaNacimiento(out fechaNacimiento, out edad, anioIngresado, mesIngresado, diaIngresado)
+                )
             {
                 if (chxPermitirCambioClave.Checked == true)
                 {
@@ -88,8 +90,6 @@ namespace Vista_App
                     string preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del/la estudiante {nuevoEstudiante.NombreCompletoOrdenApellido}?";
                     if (FrmMensajeConfirmacion.PreguntarConfirmacion(preguntaConfirmacion) == DialogResult.OK)
                     {
-                        nuevoEstudiante.AsignarNumeroLegajo();
-                        MessageBox.Show(nuevoEstudiante.MostrarDatos());
                         DialogResult = DialogResult.OK;
                     }
                 }

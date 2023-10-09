@@ -8,17 +8,8 @@ namespace Logica_Sysacad
 {
     public sealed class Profesor : Usuario
     {
-        #region CAMPOS
-        protected static ushort ultimoLegajo;
-
-
-
-
-        #endregion
-
-
-
-        #region CONSTRUCTOR
+        private static ushort ultimoLegajo;
+  
         static Profesor()
         {
             ultimoLegajo = 1;
@@ -30,26 +21,5 @@ namespace Logica_Sysacad
             legajo = ultimoLegajo;
             ultimoLegajo++;
         }
-
-
-        #endregion
-
-
-
-        #region PROPIEDADES
-
-
-
-
-        #endregion
-
-
-
-        #region METODOS
-
-
-
-
-        #endregion
     }
 }

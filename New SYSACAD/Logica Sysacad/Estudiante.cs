@@ -8,28 +8,14 @@ namespace Logica_Sysacad
 {
     public sealed class Estudiante : Usuario
     {
-        public enum CarrerasUTN
-        {
-            TecnicaturaProgramacion,
-            TecnicaturaIngenieroSistemas
-        }
-
-        #region CAMPOS
         protected static ushort ultimoLegajo;
-        //        protected CarrerasUTN carrera;
         public List<Curso>? cursosInscriptos;
         private List<Servicio>? serviciosImpagos;
         private List<Servicio>? serviciosAbonados;
 
-
-        #endregion
-
-
-
-        #region CONSTRUCTOR
         static Estudiante()
         {
-            ultimoLegajo = 3;//      1;           //  EL ULTIMO LEGAJO ESTA EN LA BASE DE DATOS
+            ultimoLegajo = 1;
         }
 
         public Estudiante(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string telefono, string direccion)
@@ -45,25 +31,12 @@ namespace Logica_Sysacad
                 new Servicio("Libros de Texto",2000,6)
             };
             serviciosAbonados = new List<Servicio>();
-            //CargarServiciosAPagar();
-            //, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion
-            //this.carrera = carrera;
         }
-
-        //private void CargarServiciosAPagar()
-        //{
-        //    serviciosAPagar = new List<Servicio>();
-        //    foreach (Servicio servicio in SistemaUTN.ListaServicios)
-        //    {
-        //        serviciosAPagar.Add(servicio);
-        //    }
-        //}
 
         public Estudiante(string nombres, string apellidos, string dni, DateTime fechaNacimiento, byte edad, string email, string clave, string telefono, string direccion)
                   : this(nombres, apellidos, dni, fechaNacimiento, edad, email, telefono, direccion)
         {
             this.clave = clave;
-            //, CarrerasUTN carrera = CarrerasUTN.TecnicaturaProgramacion
         }
 
         public void AsignarNumeroLegajo()
@@ -72,12 +45,6 @@ namespace Logica_Sysacad
             ultimoLegajo++;
         }
 
-
-        #endregion
-
-
-
-        #region PROPIEDADES
         public List<Curso>? CursosInscriptos
         {
             get { return cursosInscriptos; }
@@ -92,16 +59,6 @@ namespace Logica_Sysacad
         {
             get { return serviciosAbonados; }
         }
-
-
-
-
-
-        #endregion
-
-
-
-        #region METODOS
 
         public void PagarServicios(Servicio servicioElegido, byte cantidadCuotas, out string mensaje)
         {
@@ -118,41 +75,29 @@ namespace Logica_Sysacad
             }
         }
 
-
-
-        //public static bool operator ==(Estudiante estudiante1, Estudiante estudiante2)
-        //{
-        //    if (estudiante1 is not null && estudiante2 is not null)
-        //    {
-        //        return estudiante1.legajo == estudiante2.legajo && estudiante1.dni == estudiante2.dni && estudiante1.email == estudiante2.email;
-        //    }
-        //    return false;
-        //}
-
-        //public static bool operator !=(Estudiante estudiante1, Estudiante estudiante2)
-        //{
-        //    return !(estudiante1 == estudiante2);
-        //}
-
-
-
-        public string MostrarCursosSubscritos()
+        public static bool operator ==(Estudiante estudiante1, Estudiante estudiante2)
         {
-            StringBuilder text = new StringBuilder();
-            text.AppendLine("MI ESTUDIANTE ELIGIO ESTO:");
-            foreach (Curso curso in cursosInscriptos)
+            if (estudiante1 is not null && estudiante2 is not null)
             {
-                text.AppendLine(curso.Materia);
+                return estudiante1.dni.Equals(estudiante2.dni, StringComparison.Ordinal) ||
+                       estudiante1.email.Equals(estudiante2.email, StringComparison.Ordinal) ||
+                       estudiante1.legajo == estudiante2.legajo ||
+                       (estudiante1.nombres.Equals(estudiante2.nombres, StringComparison.Ordinal) &&
+                       estudiante1.apellidos.Equals(estudiante2.apellidos, StringComparison.Ordinal))
+                       ;
             }
-            text.AppendLine("CONFIRMAS????????????????????:");
-            return text.ToString();
+            return false;
         }
 
+        public static bool operator !=(Estudiante estudiante1, Estudiante estudiante2)
+        {
+            return !(estudiante1 == estudiante2);
+        }
 
         public string MostrarServiciosAPagar()
         {
             StringBuilder text = new StringBuilder();
-            text.AppendLine($"{NombreCompletoOrdenApellido} pago:{Environment.NewLine}");
+            text.AppendLine($"El/la estudiante {NombreCompletoOrdenApellido} pagó los siguientes servicios:{Environment.NewLine}");
             foreach (Servicio servicio in serviciosImpagos)
             {
                 text.AppendLine($"{servicio.Nombre} - {servicio.PrecioTotal.ToString("C2")}  -  Imp: {servicio.CuotasImpagas}/{servicio.CuotasTotales}, Abon: {servicio.CuotasAbonadas}/{servicio.CuotasTotales})");
@@ -160,21 +105,36 @@ namespace Logica_Sysacad
             return text.ToString();
         }
 
-
-        #endregion
-
-        public void AgregarCursoIncripto(Curso nuevoCurso)
+        public bool InscribirCurso(Curso cursoIngresado, ref string mensajeError)
         {
-            cursosInscriptos?.Add(nuevoCurso);
-            cursosInscriptos?.Sort();
+            foreach (Curso cursoAnalizado in cursosInscriptos)
+            {
+                if (cursoAnalizado.Dia == cursoIngresado.Dia &&
+                    cursoAnalizado.Turno == cursoIngresado.Turno &&
+                    cursoAnalizado.Horario == cursoIngresado.Horario)
+                {
+                    mensajeError = "Este curso se cruza con otro curso en el mismo día y horario";
+                    return false;
+                }
+            }
+            if (cursosInscriptos.Contains(cursoIngresado))
+            {
+                mensajeError = "Este curso ya esta registrado en la lista";
+                return false;
+            }
+
+
+            else if (cursoIngresado.CupoDisponible == 0)
+            {
+                mensajeError = "Este curso esta completo, no hay mas lugar";
+                return false;
+            }
+            else
+            {
+                cursosInscriptos?.Add(cursoIngresado);
+                cursoIngresado.ActualizarCupoDisponible(false);
+                return true;
+            }
         }
-
-
-        //private static int CompararDiaCurso(string primerDia, string segundoDia)
-        //{
-        //    return primerDia - segundoDia;
-        //}
-
     }
-
 }

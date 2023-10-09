@@ -27,17 +27,49 @@ namespace Vista_App
 
         private void FrmRealizarPagos_Load(object sender, EventArgs e)
         {
-            dgvServiciosImpagos.Columns[1].DefaultCellStyle.Format = "C2";
-            dgvServiciosImpagos.Columns[2].DefaultCellStyle.Format = "C2";
-            dgvServiciosImpagos.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvServiciosImpagos.DataSource = estudianteLogueado.ServiciosImpagos;
+            DataGridViewCheckBoxColumn columnaCheckBox = new DataGridViewCheckBoxColumn();
+            columnaCheckBox.Name = "ServicioSeleccionado";
+            columnaCheckBox.HeaderText = "Seleccionado";
+            columnaCheckBox.Width = 100;
+            columnaCheckBox.ReadOnly = false;
+            dgvServiciosImpagos.Columns.Add(columnaCheckBox);
+            EstablecerConfiguracionDataGrid();
         }
+
+        private void EstablecerConfiguracionDataGrid()
+        {
+            dgvServiciosImpagos.DataSource = estudianteLogueado.ServiciosImpagos;
+            dgvServiciosImpagos.Columns[9].Visible = false;
+            dgvServiciosImpagos.Columns[2].DefaultCellStyle.Format = "C2";
+            dgvServiciosImpagos.Columns[3].DefaultCellStyle.Format = "C2";
+            dgvServiciosImpagos.Columns[8].DefaultCellStyle.Format = "C2";
+            dgvServiciosImpagos.Columns[2].HeaderText = "Precio por Cuota";
+            dgvServiciosImpagos.Columns[3].HeaderText = "Precio Total";
+            dgvServiciosImpagos.Columns[4].HeaderText = "Cuotas Impagas";
+            dgvServiciosImpagos.Columns[5].HeaderText = "Cuotas Abonadas";
+            dgvServiciosImpagos.Columns[6].HeaderText = "Cuotas Totales";
+            dgvServiciosImpagos.Columns[7].HeaderText = "Cuotas Elegidas";
+            dgvServiciosImpagos.Columns[8].HeaderText = "Monto Total";
+            dgvServiciosImpagos.Columns[1].Width = 185;
+            dgvServiciosImpagos.Columns[2].Width = 90;
+            dgvServiciosImpagos.Columns[3].Width = 90;
+            dgvServiciosImpagos.Columns[4].Width = 75;
+            dgvServiciosImpagos.Columns[5].Width = 75;
+            dgvServiciosImpagos.Columns[6].Width = 75;
+            dgvServiciosImpagos.Columns[7].Width = 75;
+            dgvServiciosImpagos.Columns[8].Width = 75;
+            foreach (DataGridViewColumn column in dgvServiciosImpagos.Columns)
+            {
+                if (column.Index > 1)
+                {
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
+        }
+
+
+
 
         private void btnPagarServicio_Click(object sender, EventArgs e)
         {
@@ -135,7 +167,7 @@ namespace Vista_App
                     {
                         serviciosSeleccionados.Add(servicioElegido);
                         ActualizarCuotasYMontoServicio(indiceFila, servicioElegido, 1, servicioElegido.PrecioCuota, true);
-                        MessageBox.Show("SOLO QUEDA UNA CUOTA", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Se eligio {servicioElegido.CuotasElegidasAPagar} por un total de {servicioElegido.PrecioCuota:C2}", $"¡Cuotas seleccionadas!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -169,13 +201,7 @@ namespace Vista_App
             ActualizarMontoTotalGeneral(servicioElegido, monto, aumenta);
             servicioElegido.ActulizarCuotasYMontoElegidos(cuotas, monto);
             dgvServiciosImpagos.Rows[indiceFila].Cells[7].Value = cuotas;
-            dgvServiciosImpagos.Rows[indiceFila].Cells[8].Value = $"{monto:C2}";
-        }
-
-        private static void ActualDatos(Servicio servicioElegido, byte cuotas, decimal monto)
-        {
-            servicioElegido.CuotasElegidasAPagar = cuotas;
-            servicioElegido.MontoTotalAPagar = monto;
+            dgvServiciosImpagos.Rows[indiceFila].Cells[8].Value = monto;
         }
 
         private void ActualizarMontoTotalGeneral(Servicio servicioElegido, decimal monto, bool aumenta)
@@ -196,7 +222,5 @@ namespace Vista_App
             dgvServiciosImpagos.DataSource = null;
             dgvServiciosImpagos.DataSource = estudianteLogueado.ServiciosImpagos;
         }
-
-
     }
 }
