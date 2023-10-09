@@ -10,7 +10,7 @@ namespace Vista_App
         private bool esModificacion;
         private string? codigoIngresado;
         private string? cuatrimestreIngresado;
-        private string? divisionIngresada;
+        private string? letraClaseIngresada;
         private string? materiaIngresada;
         private string? turnoIngresado;
         private string? diaIngresado;
@@ -18,7 +18,6 @@ namespace Vista_App
         private string? aulaIngresada;
         private string? cupoIngresado;
         private string? preguntaConfirmacion;
-
 
         public FrmAltaCurso(string titulo)
         {
@@ -40,25 +39,21 @@ namespace Vista_App
 
         private void FrmAltaCurso_Load(object sender, EventArgs e)
         {
-            if (cursoIngresado is not null)
+            PrecargarOpcionesComboboxes();
+            if (cursoIngresado is null)
             {
-                PrecargarComboboxesCursoExistente();
+                PrecargarComboboxesDesdeCero();
             }
             else
             {
-                PrecargarComboboxesDesdeCero();
+                PrecargarComboboxesCursoExistente();
             }
         }
 
         private void PrecargarComboboxesDesdeCero()
         {
-            cbxCuatrimestre.DataSource = Curso.CuatrimestresDisponibles;
-            cbxDivision.DataSource = Curso.DivisionesDisponibles;
-            cbxTurno.DataSource = Curso.TurnosDisponibles;
-            cbxDia.DataSource = Curso.DiasDisponibles;
-            cbxAula.DataSource = Curso.AulasDisponibles;   // se va  completar al final con las aulas disponiblles segun turno, dia y horario
             cbxCuatrimestre.SelectedIndex = 0;
-            cbxDivision.SelectedIndex = 0;
+            cbxLetraClase.SelectedIndex = 0;
             cbxTurno.SelectedIndex = 0;
             cbxDia.SelectedIndex = 0;
             cbxAula.SelectedIndex = 0;
@@ -66,13 +61,8 @@ namespace Vista_App
 
         private void PrecargarComboboxesCursoExistente()
         {
-            cbxCuatrimestre.DataSource = Curso.CuatrimestresDisponibles;
-            cbxDivision.DataSource = Curso.DivisionesDisponibles;
-            cbxTurno.DataSource = Curso.TurnosDisponibles;
-            cbxDia.DataSource = Curso.DiasDisponibles;
-            cbxAula.DataSource = Curso.AulasDisponibles;
             cbxCuatrimestre.SelectedItem = cursoIngresado.Cuatrimentre;
-            cbxDivision.SelectedItem = cursoIngresado.Division;
+            cbxLetraClase.SelectedItem = cursoIngresado.LetraClase;
             cbxMateria.SelectedItem = cursoIngresado.Materia;
             cbxTurno.SelectedItem = cursoIngresado.Turno;
             cbxDia.SelectedItem = cursoIngresado.Dia;
@@ -80,7 +70,15 @@ namespace Vista_App
             cbxAula.SelectedItem = cursoIngresado.Aula;
             tbxCupoMaximo.Text = cursoIngresado.CupoMaximo.ToString();
             tbxCodigo.Text = cursoIngresado.Codigo.ToString();
-            tbxCodigo.Enabled = false;
+        }
+
+        private void PrecargarOpcionesComboboxes()
+        {
+            cbxCuatrimestre.DataSource = Curso.CuatrimestresDisponibles;
+            cbxLetraClase.DataSource = Curso.ClasesDisponibles;
+            cbxTurno.DataSource = Curso.TurnosDisponibles;
+            cbxDia.DataSource = Curso.DiasDisponibles;
+            cbxAula.DataSource = Curso.AulasDisponibles;
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -92,13 +90,15 @@ namespace Vista_App
             {
                 if (esModificacion)
                 {
-                    cursoIngresado.ModificarCursoExistente(cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
-                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la modificación del curso {cursoIngresado.Materia} - {cursoIngresado.Nombre}?";
+                    //cursoIngresado.ModificarCursoExistente(codigoIngresado, cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
+                    cursoIngresado.ModificarCursoExistente(codigoIngresado, cuatrimestreIngresado, letraClaseIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo);
+                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar la modificación del curso {cursoIngresado.NombreMateriaDivision}?";
                 }
                 else
                 {
-                    cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
-                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {cursoIngresado.Materia} - {cursoIngresado.Nombre}?";
+                    //cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, divisionIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo, cupoMaximo);
+                    cursoIngresado = new Curso(codigoIngresado, cuatrimestreIngresado, letraClaseIngresada, materiaIngresada, turnoIngresado, diaIngresado, horarioIngresado, aulaIngresada, cupoMaximo);
+                    preguntaConfirmacion = $"¿Está seguro/a que desea confirmar el registro del curso {cursoIngresado.NombreMateriaDivision}?";
                 }
                 if (SistemaUTN.EncontrarCursoRegistrado(cursoIngresado))
                 {
@@ -126,7 +126,6 @@ namespace Vista_App
                 cbxMateria.Items.Clear();
                 cbxMateria.Items.AddRange(Curso.MateriasDisponibles[cuatrimestreIngresado].ToArray());
                 cbxMateria.SelectedIndex = 0;
-                //materiaIngresada = cbxMateria.Items[cbxMateria.SelectedIndex].ToString();
             }
             else
             {
@@ -143,7 +142,6 @@ namespace Vista_App
                 cbxHorario.Items.Clear();
                 cbxHorario.Items.AddRange(Curso.HorariosDisponibles[turnoIngresado].ToArray());
                 cbxHorario.SelectedIndex = 0;
-                //horarioIngresado = cbxHorario.Items[cbxHorario.SelectedIndex].ToString();
             }
             else
             {
@@ -151,12 +149,12 @@ namespace Vista_App
             }
         }
 
-        private void cbxDivision_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbxLetraClase_SelectedIndexChanged(object sender, EventArgs e)
         {
-            divisionIngresada = cbxDivision.Items[cbxDivision.SelectedIndex].ToString();
+            letraClaseIngresada = cbxLetraClase.Items[cbxLetraClase.SelectedIndex].ToString();
         }
 
-        private void cbxDescripcion_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbxMateria_SelectedIndexChanged(object sender, EventArgs e)
         {
             materiaIngresada = cbxMateria.Items[cbxMateria.SelectedIndex].ToString();
         }

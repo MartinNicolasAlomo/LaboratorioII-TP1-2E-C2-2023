@@ -36,10 +36,9 @@ namespace Vista_App
 
         private void btnConsultarHorario_Click(object sender, EventArgs e)
         {
-            if (false//estudianteLogueado.CursosInscriptos?.Count == 0
-                )
+            if (estudianteLogueado.CursosInscriptos?.Count == 0)
             {
-                MessageBox.Show("¡El estudiante no esta inscripto a ningún curso!", $"¡Lista de cursos vacia!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("¡El estudiante no esta inscripto en ningún curso!", $"¡Lista de cursos vacía!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

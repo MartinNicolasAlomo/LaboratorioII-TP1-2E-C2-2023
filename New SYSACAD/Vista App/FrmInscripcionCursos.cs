@@ -13,9 +13,7 @@ namespace Vista_App
 {
     public partial class FrmInscripcionCursos : Form
     {
-        #region CAMPOS Y CONSTRUCTORES
         private Estudiante estudianteLogueado;
-        //private DataGridViewCellEventArgs? seleccion;
         private List<Curso> cursosSeleccionados;
         private string? cuatrimestreIngresado;
         private string? materiaIngresada;
@@ -32,55 +30,85 @@ namespace Vista_App
         {
             cbxCuatrimestre.DataSource = Curso.CuatrimestresDisponibles;
             cbxCuatrimestre.SelectedIndex = 0;
-
-            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
-            //FiltrarYMostrarCursosDisponibles();
-            dgvListaCursos.Columns[0].HeaderText = "Código";
-            dgvListaCursos.Columns[3].HeaderText = "División";
-            dgvListaCursos.Columns[4].HeaderText = "Descripción";
-            dgvListaCursos.Columns[6].HeaderText = "Día";
-            dgvListaCursos.Columns[9].HeaderText = "Cupo Máx.";
-            dgvListaCursos.Columns[10].HeaderText = "Cupo Disp.";
+            DataGridViewCheckBoxColumn columnaCheckBox = new DataGridViewCheckBoxColumn();
+            columnaCheckBox.Name = "CursoSeleccionado";
+            columnaCheckBox.HeaderText = "Seleccionado";
+            columnaCheckBox.Width = 100;
+            columnaCheckBox.ReadOnly = false;
+            dgvListaCursos.Columns.Add(columnaCheckBox);
+            EstablecerConfiguracionDataGrid();
         }
 
 
-        #endregion
-
+        private void EstablecerConfiguracionDataGrid()
+        {
+            dgvListaCursos.DataSource = SistemaUTN.BaseDatosCursos;
+            dgvListaCursos.Columns[10].Visible = false;
+            dgvListaCursos.Columns[11].Visible = false;
+            dgvListaCursos.Columns[12].Visible = false;
+            dgvListaCursos.Columns[1].HeaderText = "Código";
+            dgvListaCursos.Columns[3].HeaderText = "División";
+            dgvListaCursos.Columns[5].HeaderText = "Día";
+            dgvListaCursos.Columns[8].HeaderText = "Cupo Máx.";
+            dgvListaCursos.Columns[9].HeaderText = "Cupo Disp.";
+            dgvListaCursos.Columns[1].Width = 65;
+            dgvListaCursos.Columns[2].Width = 225;
+            dgvListaCursos.Columns[3].Width = 65;
+            dgvListaCursos.Columns[4].Width = 80;
+            dgvListaCursos.Columns[5].Width = 80;
+            dgvListaCursos.Columns[7].Width = 60;
+            dgvListaCursos.Columns[8].Width = 60;
+            dgvListaCursos.Columns[9].Width = 60;
+            foreach (DataGridViewColumn column in dgvListaCursos.Columns)
+            {
+                if (column.Index != 2) // Skip the column with index 2
+                {
+                    column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+            }
+        }
 
 
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            StringBuilder text = new StringBuilder();
-            text.AppendLine("VISTA PREVIA: se seleccionaron estos cursos para solicitar inscripcion!!!!!!");
-            foreach (Curso cursito in cursosSeleccionados)
+            cursosSeleccionados.Clear();
+            foreach (Curso curso in cursosSeleccionados)
             {
-                text.AppendLine(cursito.Materia);
+                if (curso.CupoDisponible > 0)
+                {
+                    estudianteLogueado.CursosInscriptos?.Add(curso);
+                    curso.ActualizarCupoDisponible(false);
+                }
+                else
+                {
+                }
             }
-            MessageBox.Show(text.ToString());
+                    //if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma") == DialogResult.OK)
+                    //{ }
+                    //estudianteLogueado.CursosInscriptos?.Sort();
+                //if ((bool)(estudianteLogueado.CursosInscriptos?.Contains(curso)))
+                //{
+                //    MessageBox.Show("YA EXISTE");
+                //}
+                //else
+                //{
+                    //  BLOQUEAR EL CURSO DE SER SELECCIONADO   - NUNCA ELIMINAR    -   NO SE ELIMINA
+                    //        MessageBox.Show("Este curso está completo, no tiene mas cupos.");
+                //}
+            //StringBuilder text = new StringBuilder();
+            //text.AppendLine("VISTA PREVIA: se seleccionaron estos cursos para solicitar inscripcion!!!!!!");
+            //foreach (Curso cursito in cursosSeleccionados)
+            //{
+            //    text.AppendLine(cursito.Materia);
+            //}
+            //MessageBox.Show(text.ToString());
 
             //CREAR METOOD PARA AGREGAR Y ACTUALZIAR LAS BASES DE DATOS DE ESTUDIANTE Y CURSOS
             // VERIFICAR QUE HAYA CUPOS
-            estudianteLogueado.CursosInscriptos?.Clear();
-            foreach (Curso curso in cursosSeleccionados)
-            {
-                if ((curso.Nombre != "A" && curso.Materia != "B"))
-                {
-                    if (curso.CupoDisponible > 0)
-                    {
-                        estudianteLogueado.CursosInscriptos?.Add(curso);
-                        curso.CupoDisponible--;
-                        //if (FrmMensajeConfirmacion.PreguntarConfirmacion("Confirma") == DialogResult.OK)
-                        //{ }
-                    }
-                    else
-                    {
-                        //  BLOQUEAR EL CURSO DE SER SELECCIONADO   - NUNCA ELIMINAR    -   NO SE ELIMINA
-                        //        MessageBox.Show("Este curso está completo, no tiene mas cupos.");
-                    }
-                }
-            }
-            // ORDENARLOS POR CUATRI O CODIGO - PROG = 1 / LABO = 2 / MATEMATICA = 3 / INGLES = 4 / SPD = 5, ETC.
+            //estudianteLogueado.CursosInscriptos?.Clear();
+            //ORDENARLOS POR CUATRI O CODIGO - PROG = 1 / LABO = 2 / MATEMATICA = 3 / INGLES = 4 / SPD = 5, ETC.
             MessageBox.Show(estudianteLogueado.MostrarCursosSubscritos());
 
 
@@ -215,7 +243,6 @@ namespace Vista_App
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            //ActualizarDataGridView();
             dgvListaCursos.DataSource = null;
             FiltrarYMostrarCursosDisponibles();
         }
@@ -224,16 +251,6 @@ namespace Vista_App
         {
             materiaIngresada = cbxMaterias.Items[cbxMaterias.SelectedIndex].ToString();
         }
-
-
-        //private void ShowSelectedDataButton_Click(object sender, EventArgs e)
-        //{
-        //    // Show the data of selected rows using MessageBox or any other UI element
-        //    foreach (YourDataType rowData in selectedRows)
-        //    {
-        //        MessageBox.Show($"Selected Data: {rowData.Property1}, {rowData.Property2}, ...");
-        //    }
-        //}
 
     }
 }

@@ -86,7 +86,7 @@
             btnCompletarDatosAdministrador.Name = "btnCompletarDatosAdministrador";
             btnCompletarDatosAdministrador.Size = new Size(250, 30);
             btnCompletarDatosAdministrador.TabIndex = 5;
-            btnCompletarDatosAdministrador.Text = "Completar datos como Administrador";
+            btnCompletarDatosAdministrador.Text = "&Completar datos como Administrador";
             btnCompletarDatosAdministrador.UseVisualStyleBackColor = true;
             btnCompletarDatosAdministrador.Click += btnCompletarDatosAdministrador_Click;
             // 
@@ -96,7 +96,7 @@
             btnCompletarDatosEstudiante.Name = "btnCompletarDatosEstudiante";
             btnCompletarDatosEstudiante.Size = new Size(250, 30);
             btnCompletarDatosEstudiante.TabIndex = 6;
-            btnCompletarDatosEstudiante.Text = "Completar datos como Estudiante";
+            btnCompletarDatosEstudiante.Text = "&Completar datos como Estudiante";
             btnCompletarDatosEstudiante.UseVisualStyleBackColor = true;
             btnCompletarDatosEstudiante.Click += btnCompletarDatosEstudiante_Click;
             // 

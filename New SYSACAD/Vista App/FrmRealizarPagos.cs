@@ -27,8 +27,8 @@ namespace Vista_App
 
         private void FrmRealizarPagos_Load(object sender, EventArgs e)
         {
-            dgvServiciosImpagos.Columns[1].DefaultCellStyle.Format = "C2"; // C2 format represents currency with 2 decimal places
-            dgvServiciosImpagos.Columns[2].DefaultCellStyle.Format = "C2"; // C2 format represents currency with 2 decimal places
+            dgvServiciosImpagos.Columns[1].DefaultCellStyle.Format = "C2";
+            dgvServiciosImpagos.Columns[2].DefaultCellStyle.Format = "C2";
             dgvServiciosImpagos.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvServiciosImpagos.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvServiciosImpagos.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;

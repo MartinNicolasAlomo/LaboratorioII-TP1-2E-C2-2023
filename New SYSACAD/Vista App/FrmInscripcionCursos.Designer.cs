@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dgvListaCursos = new DataGridView();
-            CursoSeleccionado = new DataGridViewCheckBoxColumn();
             btnConfirmar = new Button();
             cbxCuatrimestre = new ComboBox();
             cbxMaterias = new ComboBox();
             btnFiltrar = new Button();
+            cursoBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cursoBindingSource).BeginInit();
             SuspendLayout();
             // 
             // dgvListaCursos
@@ -44,7 +46,6 @@
             dgvListaCursos.AllowUserToResizeColumns = false;
             dgvListaCursos.AllowUserToResizeRows = false;
             dgvListaCursos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListaCursos.Columns.AddRange(new DataGridViewColumn[] { CursoSeleccionado });
             dgvListaCursos.Location = new Point(12, 113);
             dgvListaCursos.Name = "dgvListaCursos";
             dgvListaCursos.RowTemplate.Height = 25;
@@ -52,11 +53,6 @@
             dgvListaCursos.TabIndex = 0;
             dgvListaCursos.CellContentClick += dgvListaCursos_CellContentClick;
             dgvListaCursos.CellFormatting += dgvListaCursos_CellFormatting;
-            // 
-            // CursoSeleccionado
-            // 
-            CursoSeleccionado.HeaderText = "Selecciondo";
-            CursoSeleccionado.Name = "CursoSeleccionado";
             // 
             // btnConfirmar
             // 
@@ -96,6 +92,10 @@
             btnFiltrar.UseVisualStyleBackColor = true;
             btnFiltrar.Click += btnFiltrar_Click;
             // 
+            // cursoBindingSource
+            // 
+            cursoBindingSource.DataSource = typeof(Logica_Sysacad.Curso);
+            // 
             // FrmInscripcionCursos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -110,6 +110,7 @@
             Text = "FrmInscripcionCursos";
             Load += FrmInscripcionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cursoBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -117,9 +118,9 @@
 
         private DataGridView dgvListaCursos;
         private Button btnConfirmar;
-        private DataGridViewCheckBoxColumn CursoSeleccionado;
         private ComboBox cbxCuatrimestre;
         private ComboBox cbxMaterias;
         private Button btnFiltrar;
+        private BindingSource cursoBindingSource;
     }
 }

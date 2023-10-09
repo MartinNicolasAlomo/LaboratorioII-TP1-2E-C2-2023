@@ -56,6 +56,7 @@
             // dgvServiciosImpagos
             // 
             dgvServiciosImpagos.AllowUserToAddRows = false;
+            dgvServiciosImpagos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvServiciosImpagos.AutoGenerateColumns = false;
             dgvServiciosImpagos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvServiciosImpagos.Columns.AddRange(new DataGridViewColumn[] { nombreDataGridViewTextBoxColumn, precioCuotaDataGridViewTextBoxColumn, precioTotalDataGridViewTextBoxColumn, cuotasImpagasDataGridViewTextBoxColumn, cuotasAbonadasDataGridViewTextBoxColumn, cuotasTotalesDataGridViewTextBoxColumn, Seleccion, CuotasElegidas, PrecioPago });

@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dgvListaCursos = new DataGridView();
+            cursoBindingSource = new BindingSource(components);
             btnAgregarCurso = new Button();
             btnEditarCurso = new Button();
             btnEliminarCurso = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cursoBindingSource).BeginInit();
             SuspendLayout();
             // 
             // dgvListaCursos
@@ -43,6 +46,10 @@
             dgvListaCursos.Size = new Size(941, 232);
             dgvListaCursos.TabIndex = 0;
             dgvListaCursos.CellClick += dgvListaCursos_CellClick;
+            // 
+            // cursoBindingSource
+            // 
+            cursoBindingSource.DataSource = typeof(Logica_Sysacad.Curso);
             // 
             // btnAgregarCurso
             // 
@@ -86,9 +93,9 @@
             Name = "FrmGestionCursos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión de Cursos";
-            //FormClosing += FrmGestionCursos_FormClosing;
             Load += FrmGestionCursos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cursoBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -98,5 +105,6 @@
         private Button btnAgregarCurso;
         private Button btnEditarCurso;
         private Button btnEliminarCurso;
+        private BindingSource cursoBindingSource;
     }
 }

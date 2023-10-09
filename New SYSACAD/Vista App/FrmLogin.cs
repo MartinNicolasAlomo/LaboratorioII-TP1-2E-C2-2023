@@ -10,7 +10,6 @@ namespace Vista_App
 
     public partial class FrmLogin : Form
     {
-        #region CAMPOS Y CONSTRUCTORES
         private string? usuarioValido;
         private string? claveValida;
         private FrmMenuPrincipal? menuPrincipal;
@@ -25,14 +24,9 @@ namespace Vista_App
             tbxUsuario.Text = usuarioValido;
             tbxClave.Text = claveValida;
         }
-        #endregion
 
-
-
-        #region METODOS
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            //  REVISAR MENUS SON NULOS ???
             if (menuPrincipal == null && menuEstudiante == null && ValidarUsuarioIngresado(out usuarioLogueado, tbxUsuario.Text, tbxClave.Text))
             {
                 if (usuarioLogueado?.GetType() == typeof(Administrador))
@@ -61,10 +55,10 @@ namespace Vista_App
 
         private bool ValidarUsuarioIngresado(out Usuario? usuarioIngresado, string emailIngresado, string claveIngresada)
         {
-            usuarioIngresado = null;
             if (Validador.VerificarEsDatoVacio(emailIngresado) || Validador.VerificarEsDatoVacio(claveIngresada))
             {
                 MessageBox.Show($"¡Faltan completar datos!", $"¡ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                usuarioIngresado = null;
                 return false;
             }
             usuarioIngresado = SistemaUTN.ObtenerUsuario(emailIngresado, claveIngresada);
@@ -75,9 +69,6 @@ namespace Vista_App
             }
             return true;
         }
-
-
-        #endregion
 
 
         private void btnCompletarDatosAdministrador_Click(object sender, EventArgs e)

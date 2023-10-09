@@ -27,47 +27,51 @@ namespace Vista_App
 
         private void FrmConsultaHorario_Load(object sender, EventArgs e)
         {
-            dgvListaCursos.Columns.Add("Dia", "Día");
-            dgvListaCursos.Columns.Add("Materia", "Materia");
-            dgvListaCursos.Columns.Add("Curso", "Curso");
-            dgvListaCursos.Columns.Add("Turno", "Turno");
-            dgvListaCursos.Columns.Add("Horario", "Horario");
-            dgvListaCursos.Columns.Add("Aula", "Aula");
+            dgvListaCursos.ReadOnly = true;
 
-            //byte i = 0;
-            dgvListaCursos.Rows.Clear();
-            //foreach (Curso curso in estudianteLogueado.CursosInscriptos)
-            //{
-            //    if (curso is null)
-            //    {
-            //        dgvListaCursos.Rows.Add(Curso.DiasDisponibles[i], "---", "---", "---", "---", "---"); // Modify fee amount as needed
-            //    }
-            //    dgvListaCursos.Rows.Add(Curso.DiasDisponibles[i], curso.Materia, curso.Nombre, curso.Turno, curso.Horario, curso.Aula); // Modify fee amount as needed
-            //    i++;
-            //}
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    //if (estudianteLogueado.CursosInscriptos[i] is null)
-            //    if (i >= estudianteLogueado.CursosInscriptos.Count)
-            //    {
-            //        dgvListaCursos.Rows.Add(Curso.DiasDisponibles[i], "---", "---", "---", "---", "---"); // Modify fee amount as needed
-            //    }
-            //    dgvListaCursos.Rows.Add(Curso.DiasDisponibles[i], estudianteLogueado.CursosInscriptos[i].Materia, estudianteLogueado.CursosInscriptos[i].Nombre, estudianteLogueado.CursosInscriptos[i].Turno, estudianteLogueado.CursosInscriptos[i].Horario, estudianteLogueado.CursosInscriptos[i].Aula); // Modify fee amount as needed
-            //    i++;
-            //}
+            dgvListaCursos.Columns.Add("Cronograma", "Cronograma");
+            dgvListaCursos.Columns.Add("Lunes", "Lunes");
+            dgvListaCursos.Columns.Add("Martes", "Martes");
+            dgvListaCursos.Columns.Add("Miercoles", "Miércoles");
+            dgvListaCursos.Columns.Add("Jueves", "Jueves");
+            dgvListaCursos.Columns.Add("Viernes", "Viernes");
 
+            dgvListaCursos.Rows.Add("Materia", "", "", "", "", "");
+            dgvListaCursos.Rows.Add("Division", "", "", "", "", "");
+            dgvListaCursos.Rows.Add("Turno", "", "", "", "", "");
+            dgvListaCursos.Rows.Add("Horario", "", "", "", "", "");
+            dgvListaCursos.Rows.Add("Aula", "", "", "", "", "");
 
-
-        }
-
-        //private void btnMostrarHorarios_Click(object sender, EventArgs e)
-        //{
-        //    MessageBox.Show("consulte horarios");
-
-
-        private void FrmConsultaHorario_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //menuEstudiante?.MostrarMenu();
+            byte columnaDia;
+            foreach (Curso curso in estudianteLogueado.CursosInscriptos)
+            {
+                switch (curso.Dia)
+                {
+                    case "Lunes":
+                        columnaDia = 1;
+                        break;
+                    case "Martes":
+                        columnaDia = 2;
+                        break;
+                    case "Miércoles":
+                        columnaDia = 3;
+                        break;
+                    case "Jueves":
+                        columnaDia = 4;
+                        break;
+                    case "Viernes":
+                        columnaDia = 5;
+                        break;
+                    default:
+                        columnaDia = 0;
+                        break;
+                }
+                dgvListaCursos.Rows[0].Cells[columnaDia].Value = curso.Materia.ToString();
+                dgvListaCursos.Rows[1].Cells[columnaDia].Value = curso.Division.ToString();
+                dgvListaCursos.Rows[2].Cells[columnaDia].Value = curso.Turno.ToString();
+                dgvListaCursos.Rows[3].Cells[columnaDia].Value = curso.Horario.ToString();
+                dgvListaCursos.Rows[4].Cells[columnaDia].Value = curso.Aula.ToString();
+            }
         }
     }
 }

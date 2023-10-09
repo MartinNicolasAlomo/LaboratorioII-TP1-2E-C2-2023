@@ -13,8 +13,6 @@ namespace Vista_App
 {
     public partial class FrmMenuPrincipal : Form
     {
-
-        #region CAMPOS Y CONSTRUCTORES
         private Administrador administradorLogueado;
         private FrmLogin login;
 
@@ -26,11 +24,6 @@ namespace Vista_App
             Text = $"Bienvenido a SYSACAD - {administradorLogueado.NombreCompletoOrdenApellido}";
         }
 
-
-        #endregion
-
-
-        #region CASO 1 - REGISTRAR ESTUDIANTE
         private void btnRegistrarEstudiante_Click(object sender, EventArgs e)
         {
             FrmAltaEstudiante? altaEstudiate = new FrmAltaEstudiante();
@@ -62,12 +55,6 @@ namespace Vista_App
             return $"¡Se envió un email a {emailIngresado} notificando la confirmacion de ingreso!";
         }
 
-
-        #endregion
-
-
-
-        #region CASO 2 - GESTIONAR CURSOS
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
             FrmGestionCursos? auxGestion = new FrmGestionCursos();
@@ -76,12 +63,6 @@ namespace Vista_App
             Show();
         }
 
-
-        #endregion
-
-
-
-        #region CERRAR MENU
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             Close();
@@ -92,7 +73,5 @@ namespace Vista_App
         {
             login.MostrarLogin();
         }
-
-        #endregion
     }
 }

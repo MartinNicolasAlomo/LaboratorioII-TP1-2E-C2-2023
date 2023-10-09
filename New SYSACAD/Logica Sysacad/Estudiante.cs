@@ -163,8 +163,17 @@ namespace Logica_Sysacad
 
         #endregion
 
+        public void AgregarCursoIncripto(Curso nuevoCurso)
+        {
+            cursosInscriptos?.Add(nuevoCurso);
+            cursosInscriptos?.Sort();
+        }
 
 
+        //private static int CompararDiaCurso(string primerDia, string segundoDia)
+        //{
+        //    return primerDia - segundoDia;
+        //}
 
     }
 

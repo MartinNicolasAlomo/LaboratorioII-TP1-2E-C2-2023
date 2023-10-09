@@ -36,7 +36,6 @@ namespace Logica_Sysacad
 
     public class Curso
     {
-        #region CAMPOS
         public const string ProgramacionI = "Programación I";
         public const string LaboratorioI = "Laboratorio I";
         public const string Matematica = "Matématica";
@@ -63,7 +62,7 @@ namespace Logica_Sysacad
 
 
         private static string[]? cuatrimestresDisponibles;
-        private static string[]? divisionesDisponibles;
+        private static string[]? clasesDisponibles;
         private static Dictionary<string, List<string>>? materiasDisponibles;
         private static string[]? turnosDisponibles;
         private static string[]? diasDisponibles;
@@ -71,19 +70,24 @@ namespace Logica_Sysacad
         private static string[]? aulasDisponibles;
 
 
-        private static byte ultimoCodigo;
+
+
         private string codigo;
-        private string nombre;          //  materia
         private string cuatrimestre;
+        private string materia;          //  materia
+        private string letraClase;
         private string division;
-        private string materia;     // ???
         private string turno;
         private string dia;
         private string horario;
         private string aula;
         private byte cupoMaximo;
         private byte cupoDisponible;
+
+
+        //  private List<Estudiante> listaEstudiantes;
         //  AGREGAR LISTA DE ESTUDIANTES QUE ESTAN INSCRIPTOS A ESTE CURSO
+        //  private string cargaHoraria;    hardcodeada segun el horarioFijo
         //  AGREGAR char carga horariA   DEPUES METODO  calcular carga horaria semanal (convertir de char a byte/int)
 
         public const sbyte ESP_COLM_1 = -30;
@@ -94,14 +98,12 @@ namespace Logica_Sysacad
         //public static Dictionary<Turno, List<string>>? horarioPorTurno;
 
 
-        #endregion
 
 
 
-        #region CONSTRUCTOR
         static Curso()
         {
-            ultimoCodigo = 153; //  EL ULTIMO LEGAJO ESTA EN LA BASE DE DATOS
+            //ultimoCodigo = 153; //  EL ULTIMO LEGAJO ESTA EN LA BASE DE DATOS
             HardcodearCuartimestres();
             HardcodearDivisiones();
             HardcodearMaterias();
@@ -111,39 +113,47 @@ namespace Logica_Sysacad
             HardcodearAulas();
         }
 
-        public Curso(string codigo, string cuatrimestre, string division, string descripcion, string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
+        //public Curso(string codigo, string cuatrimestre, string division, string descripcion, string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
+        //{
+        //    this.codigo = codigo;
+        //    this.cuatrimestre = cuatrimestre;
+        //    this.division = division;
+        //    nombre = $"{cuatrimestre}{division}";
+        //    this.materia = descripcion;
+        //    this.turno = turno;
+        //    this.dia = dia;
+        //    this.horario = horario;
+        //    this.aula = aula;
+        //    this.cupoMaximo = cupoMaximo;
+        //    this.cupoDisponible = cupoDisponible;
+        //}
+
+        public Curso(string codigo, string cuatrimestre, string letraClase, string materia,
+                     string turno, string dia, string horario, string aula, byte cupoMaximo)
         {
             this.codigo = codigo;
             this.cuatrimestre = cuatrimestre;
-            this.division = division;
-            nombre = $"{cuatrimestre}{division}";
-            this.materia = descripcion;
+            this.letraClase = letraClase;
+            division = $"{cuatrimestre}{letraClase}";
+            this.materia = materia;
             this.turno = turno;
             this.dia = dia;
             this.horario = horario;
             this.aula = aula;
             this.cupoMaximo = cupoMaximo;
-            this.cupoDisponible = cupoDisponible;
+            cupoDisponible = cupoMaximo;
         }
-
-        #endregion
-
+        
 
 
-        #region PROPIEDADES
         public string Codigo
         {
             get { return codigo; }
         }
 
-        public string Nombre
+        public string Materia
         {
-            get { return nombre; }
-        }
-
-        public string Cuatrimentre
-        {
-            get { return cuatrimestre; }
+            get { return materia; }
         }
 
         public string Division
@@ -151,10 +161,6 @@ namespace Logica_Sysacad
             get { return division; }
         }
 
-        public string Materia
-        {
-            get { return materia; }
-        }
 
         public string Turno
         {
@@ -176,16 +182,31 @@ namespace Logica_Sysacad
             get { return aula; }
         }
 
+        public byte CupoDisponible
+        {
+            get { return cupoDisponible; }
+        }
+
         public byte CupoMaximo
         {
             get { return cupoMaximo; }
         }
 
-        public byte CupoDisponible
+        public string Cuatrimentre
         {
-            get { return cupoDisponible; }
-            set { cupoDisponible = value; }
+            get { return cuatrimestre; }
         }
+
+        public string LetraClase
+        {
+            get { return letraClase; }
+        }
+
+        public string NombreMateriaDivision
+        {
+            get { return $"{materia} - {division}"; }
+        }
+
 
 
         public static string[]? CuatrimestresDisponibles
@@ -193,9 +214,9 @@ namespace Logica_Sysacad
             get { return cuatrimestresDisponibles; }
         }
 
-        public static string[]? DivisionesDisponibles
+        public static string[]? ClasesDisponibles
         {
-            get { return divisionesDisponibles; }
+            get { return clasesDisponibles; }
         }
 
         public static Dictionary<string, List<string>>? MateriasDisponibles
@@ -224,11 +245,7 @@ namespace Logica_Sysacad
         }
 
 
-        #endregion
 
-
-
-        #region METODOS
         private static void HardcodearCuartimestres()
         {
             cuatrimestresDisponibles = new string[4];
@@ -240,15 +257,15 @@ namespace Logica_Sysacad
 
         private static void HardcodearDivisiones()
         {
-            divisionesDisponibles = new string[8];
-            divisionesDisponibles[0] = "A";
-            divisionesDisponibles[1] = "B";
-            divisionesDisponibles[2] = "C";
-            divisionesDisponibles[3] = "D";
-            divisionesDisponibles[4] = "E";
-            divisionesDisponibles[5] = "F";
-            divisionesDisponibles[6] = "G";
-            divisionesDisponibles[7] = "H";
+            clasesDisponibles = new string[8];
+            clasesDisponibles[0] = "A";
+            clasesDisponibles[1] = "B";
+            clasesDisponibles[2] = "C";
+            clasesDisponibles[3] = "D";
+            clasesDisponibles[4] = "E";
+            clasesDisponibles[5] = "F";
+            clasesDisponibles[6] = "G";
+            clasesDisponibles[7] = "H";
         }
 
         private static void HardcodearMaterias()
@@ -261,10 +278,6 @@ namespace Logica_Sysacad
                 {"4°", new List<string> { LaboratorioIV, DisenioAdministracionBaseDatos, MetodologiaSistemas, Legislacion } }
             };
         }
-
-
-
-
 
         private static void HardcodearTurnos()
         {
@@ -288,9 +301,9 @@ namespace Logica_Sysacad
         {
             horariosDisponibles = new Dictionary<string, List<string>>
             {
-                {"Mañana", new List<string> { "08:00 - 10:00", "10:00 - 12:00", "08:00 - 12:00" } },
-                {"Tarde", new List<string> { "13:00 - 15:00", "15:00 - 17:00", "13:00 - 17:00" } },
-                {"Noche", new List<string> { "18:30 - 20:30", "20:30 - 22:30", "18:30 - 22:30" } }
+                {"Mañana", new List<string> { "08:00 - 12:00", "08:00 - 10:00", "10:00 - 12:00" } },
+                {"Tarde", new List<string> { "13:00 - 17:00", "13:00 - 15:00", "15:00 - 17:00" } },
+                {"Noche", new List<string> { "18:30 - 22:30", "18:30 - 20:30", "20:30 - 22:30"} }
             };
             //horarioPorTurno = new Dictionary<Turno, List<string>>
             //{
@@ -323,7 +336,7 @@ namespace Logica_Sysacad
             text.AppendLine()
                 .AppendLine($"Informacion ingresada del Curso:")
                 .AppendLine($"{"Código:",ESP_COLM_1}{codigo,ESP_COLM_2}")
-                .AppendLine($"{"Nombre:",ESP_COLM_1}{nombre,ESP_COLM_2}")
+                .AppendLine($"{"Nombre:",ESP_COLM_1}{materia,ESP_COLM_2}")
                 .AppendLine($"{"Descripción:",ESP_COLM_1}{materia,ESP_COLM_2}")
                 .AppendLine($"{"Turno:",ESP_COLM_1}{turno,ESP_COLM_2}")
                 .AppendLine($"{"Horario:",ESP_COLM_1}{horario,ESP_COLM_2}")
@@ -334,31 +347,61 @@ namespace Logica_Sysacad
             return text.ToString();
         }
 
+        //public void ModificarCursoExistente(string codigo, string cuatrimestre, string division, string descripcion,
+        //                                    string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
+        //{
+        //    this.codigo = codigo;
+        //    this.cuatrimestre = cuatrimestre;
+        //    this.division = division;
+        //    nombre = $"{cuatrimestre}{division}";
+        //    this.materia = descripcion;
+        //    this.turno = turno;
+        //    this.dia = dia;
+        //    this.horario = horario;
+        //    this.aula = aula;
+        //    this.cupoMaximo = cupoMaximo;
+        //    this.cupoDisponible = cupoDisponible;
+        //}
 
-
-
-        public void ModificarCursoExistente(string cuatrimestre, string division, string descripcion, string turno, string dia, string horario, string aula, byte cupoMaximo, byte cupoDisponible)
+        public void ModificarCursoExistente(string codigo, string cuatrimestre, string letraClase, string materia,
+                                            string turno, string dia, string horario, string aula, byte cupoMaximo)
         {
+            this.codigo = codigo;
             this.cuatrimestre = cuatrimestre;
-            this.division = division;
-            nombre = $"{cuatrimestre}{division}";
-            this.materia = descripcion;
+            this.materia = materia;
+            this.letraClase = letraClase;
+            division = $"{cuatrimestre}{letraClase}";
             this.turno = turno;
             this.dia = dia;
             this.horario = horario;
             this.aula = aula;
             this.cupoMaximo = cupoMaximo;
-            this.cupoDisponible = cupoDisponible;
+            if (cupoDisponible > cupoMaximo)
+            {
+                cupoDisponible = cupoMaximo;
+            }
         }
 
 
-        #endregion
+
+
+        public void ActualizarCupoDisponible(bool aumenta)
+        {
+            if (aumenta)
+            {
+                cupoDisponible++;
+            }
+            else
+            {
+                cupoDisponible--;
+            }
+        }
+
+
+
+
 
 
     }
-
-
-
-
 }
 

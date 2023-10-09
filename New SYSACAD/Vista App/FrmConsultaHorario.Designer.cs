@@ -70,7 +70,7 @@
             Controls.Add(lblHorariosSemanales);
             Controls.Add(dgvListaCursos);
             Name = "FrmConsultaHorario";
-            FormClosing += FrmConsultaHorario_FormClosing;
+            //FormClosing += FrmConsultaHorario_FormClosing;
             Load += FrmConsultaHorario_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListaCursos).EndInit();
             ((System.ComponentModel.ISupportInitialize)cursoBindingSource).EndInit();

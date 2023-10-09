@@ -33,12 +33,12 @@
             cbxDia = new ComboBox();
             cbxAula = new ComboBox();
             cbxCuatrimestre = new ComboBox();
-            cbxDivision = new ComboBox();
+            cbxLetraClase = new ComboBox();
             cbxMateria = new ComboBox();
             tbxCupoMaximo = new TextBox();
             cbxHorario = new ComboBox();
-            lblNombre = new Label();
-            lblDescripcion = new Label();
+            lblDivision = new Label();
+            lblMateria = new Label();
             lblCupoMaximo = new Label();
             lblTurno = new Label();
             lblDia = new Label();
@@ -47,7 +47,7 @@
             btnCancelar = new Button();
             lblCodigo = new Label();
             tbxCodigo = new TextBox();
-            label1 = new Label();
+            lblCaracteresCodigo = new Label();
             SuspendLayout();
             // 
             // btnConfirmar
@@ -96,14 +96,14 @@
             cbxCuatrimestre.TabIndex = 7;
             cbxCuatrimestre.SelectedIndexChanged += cbxCuatrimestre_SelectedIndexChanged;
             // 
-            // cbxDivision
+            // cbxLetraClase
             // 
-            cbxDivision.FormattingEnabled = true;
-            cbxDivision.Location = new Point(175, 41);
-            cbxDivision.Name = "cbxDivision";
-            cbxDivision.Size = new Size(54, 23);
-            cbxDivision.TabIndex = 8;
-            cbxDivision.SelectedIndexChanged += cbxDivision_SelectedIndexChanged;
+            cbxLetraClase.FormattingEnabled = true;
+            cbxLetraClase.Location = new Point(175, 41);
+            cbxLetraClase.Name = "cbxLetraClase";
+            cbxLetraClase.Size = new Size(54, 23);
+            cbxLetraClase.TabIndex = 8;
+            cbxLetraClase.SelectedIndexChanged += cbxLetraClase_SelectedIndexChanged;
             // 
             // cbxMateria
             // 
@@ -112,7 +112,7 @@
             cbxMateria.Name = "cbxMateria";
             cbxMateria.Size = new Size(121, 23);
             cbxMateria.TabIndex = 9;
-            cbxMateria.SelectedIndexChanged += cbxDescripcion_SelectedIndexChanged;
+            cbxMateria.SelectedIndexChanged += cbxMateria_SelectedIndexChanged;
             // 
             // tbxCupoMaximo
             // 
@@ -131,23 +131,23 @@
             cbxHorario.TabIndex = 11;
             cbxHorario.SelectedIndexChanged += cbxHorario_SelectedIndexChanged;
             // 
-            // lblNombre
+            // lblDivision
             // 
-            lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(12, 44);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(54, 15);
-            lblNombre.TabIndex = 12;
-            lblNombre.Text = "Nombre:";
+            lblDivision.AutoSize = true;
+            lblDivision.Location = new Point(12, 44);
+            lblDivision.Name = "lblDivision";
+            lblDivision.Size = new Size(52, 15);
+            lblDivision.TabIndex = 12;
+            lblDivision.Text = "División:";
             // 
-            // lblDescripcion
+            // lblMateria
             // 
-            lblDescripcion.AutoSize = true;
-            lblDescripcion.Location = new Point(12, 73);
-            lblDescripcion.Name = "lblDescripcion";
-            lblDescripcion.Size = new Size(72, 15);
-            lblDescripcion.TabIndex = 13;
-            lblDescripcion.Text = "Descripción:";
+            lblMateria.AutoSize = true;
+            lblMateria.Location = new Point(12, 73);
+            lblMateria.Name = "lblMateria";
+            lblMateria.Size = new Size(50, 15);
+            lblMateria.TabIndex = 13;
+            lblMateria.Text = "Materia:";
             // 
             // lblCupoMaximo
             // 
@@ -221,22 +221,22 @@
             tbxCodigo.Size = new Size(57, 23);
             tbxCodigo.TabIndex = 21;
             // 
-            // label1
+            // lblCaracteresCodigo
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.ButtonShadow;
-            label1.Location = new Point(171, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(121, 15);
-            label1.TabIndex = 22;
-            label1.Text = "*Máximo 3 caractéres";
+            lblCaracteresCodigo.AutoSize = true;
+            lblCaracteresCodigo.ForeColor = SystemColors.ButtonShadow;
+            lblCaracteresCodigo.Location = new Point(171, 15);
+            lblCaracteresCodigo.Name = "lblCaracteresCodigo";
+            lblCaracteresCodigo.Size = new Size(74, 15);
+            lblCaracteresCodigo.TabIndex = 22;
+            lblCaracteresCodigo.Text = "*3 caractéres";
             // 
             // FrmAltaCurso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(334, 341);
-            Controls.Add(label1);
+            Controls.Add(lblCaracteresCodigo);
             Controls.Add(tbxCodigo);
             Controls.Add(lblCodigo);
             Controls.Add(btnCancelar);
@@ -245,12 +245,12 @@
             Controls.Add(lblDia);
             Controls.Add(lblTurno);
             Controls.Add(lblCupoMaximo);
-            Controls.Add(lblDescripcion);
-            Controls.Add(lblNombre);
+            Controls.Add(lblMateria);
+            Controls.Add(lblDivision);
             Controls.Add(cbxHorario);
             Controls.Add(tbxCupoMaximo);
             Controls.Add(cbxMateria);
-            Controls.Add(cbxDivision);
+            Controls.Add(cbxLetraClase);
             Controls.Add(cbxCuatrimestre);
             Controls.Add(cbxAula);
             Controls.Add(cbxDia);
@@ -270,12 +270,12 @@
         private ComboBox cbxDia;
         private ComboBox cbxAula;
         private ComboBox cbxCuatrimestre;
-        private ComboBox cbxDivision;
+        private ComboBox cbxLetraClase;
         private ComboBox cbxMateria;
         private TextBox tbxCupoMaximo;
         private ComboBox cbxHorario;
-        private Label lblNombre;
-        private Label lblDescripcion;
+        private Label lblDivision;
+        private Label lblMateria;
         private Label lblCupoMaximo;
         private Label lblTurno;
         private Label lblDia;
@@ -284,6 +284,6 @@
         private Button btnCancelar;
         private Label lblCodigo;
         private TextBox tbxCodigo;
-        private Label label1;
+        private Label lblCaracteresCodigo;
     }
 }
